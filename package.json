@@ -17,6 +17,7 @@
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",
+    "firebase": "^10.12.2",
     "next": "15.0.0-canary.28",
     "papaparse": "^5.4.1",
     "plotly.js": "^2.33.0",

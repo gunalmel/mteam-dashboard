@@ -1,7 +1,11 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import Plot from 'react-plotly.js';
+import React, {useEffect, useState} from 'react';
+// see https://github.com/plotly/react-plotly.js/issues/272 for why we are using dynamic import for react-plotly to be built by nextjs
+import dynamic from 'next/dynamic';
 import Papa from 'papaparse';
+import VideoPlayer from "@/app/ui/dashboard/VideoPlayer";
+
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false })
 
 function timeToSeconds(timeStr: string) {
     const parts = timeStr.split(':');
@@ -24,7 +28,8 @@ const icons = {
 const Explanation = () => (
     <div className={'pl-28'}>
         <div className="mb-2">
-            <hr className="border-t-2 border-green-600 w-6 inline-block my-1" /> : Compression Interval
+            <hr className="border-t-2 border-green-600 w-6 inline-block my-1"/>
+            : Compression Interval
         </div>
         <div className="grid grid-cols-3 gap-2">
             <div className="flex items-center">
@@ -71,13 +76,24 @@ const Page = () => {
         let beginCPR: string;
         let stopCPR;
         const annotations: string[] = [];
-        const traceCPR: { x: number[]; y: number[]; mode: string; type: string; text: string; hovertext: string[]; hoverinfo: string; textposition: string; marker: { size: number; }; line: { color: string; }; }[] = [];
+        const traceCPR: {
+            x: number[];
+            y: number[];
+            mode: string;
+            type: string;
+            text: string;
+            hovertext: string[];
+            hoverinfo: string;
+            textposition: string;
+            marker: { size: number; };
+            line: { color: string; };
+        }[] = [];
 
         Papa.parse('https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv', {
             download: true,
             header: true,
 
-            step: function(row) {
+            step: function (row) {
                 // @ts-ignore
                 const timestamp = row.data['Time Stamp[Hr:Min:Sec]'];
                 // @ts-ignore
@@ -98,7 +114,7 @@ const Page = () => {
                         hovertext: [`${beginCPR}`, `${stopCPR}`],
                         hoverinfo: 'text',
                         textposition: 'top center',
-                        marker: { size: 12 },
+                        marker: {size: 12},
                         line: {
                             color: 'rgb(0, 150, 0)'
                         }
@@ -116,7 +132,7 @@ const Page = () => {
                     annotations.push(annotation);
                 }
             },
-            complete: function() {
+            complete: function () {
                 // @ts-ignore
                 const iconText = subActions.map(subAction => icons[Object.keys(icons).find(k => subAction.includes(k))] || "");
 
@@ -131,13 +147,13 @@ const Page = () => {
                     hovertext: annotations,
                     hoverinfo: 'text',
                     textposition: 'top center',
-                    marker: { size: 12 }
+                    marker: {size: 12}
                 };
 
                 const layoutConfig = {
                     title: 'Clinical Review Timeline',
-                    xaxis: { title: 'Time (seconds)', showgrid: false },
-                    yaxis: { visible: false, range: [0, 2] },
+                    xaxis: {title: 'Time (seconds)', showgrid: false},
+                    yaxis: {visible: false, range: [0, 2]},
                     showlegend: false,
                     shapes: [
                         {
@@ -150,7 +166,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#EECDCA',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         },
                         {
                             type: 'rect',
@@ -162,7 +178,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#FCF6F2',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         },
                         {
                             type: 'rect',
@@ -174,7 +190,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#FEF9ED',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         },
                         {
                             type: 'rect',
@@ -186,7 +202,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#F3F7EE',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         },
                         {
                             type: 'rect',
@@ -198,7 +214,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#F1F5FA',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         },
                         {
                             type: 'rect',
@@ -210,7 +226,7 @@ const Page = () => {
                             y1: 1,
                             fillcolor: '#F0EBF5',
                             layer: 'below',
-                            line: { width: 0 }
+                            line: {width: 0}
                         }
                     ],
                     annotations: [
@@ -292,21 +308,8 @@ const Page = () => {
     }, []);
 
     return (
-        // <div className="min-h-screen flex items-center justify-center p-4">
-        //     <div className="flex flex-col items-center">
-        //         <div className="bg-gray-200 p-4 mb-4">Hello</div>
-        //         <div className="bg-white p-4" style={{ width: '100%', height: '600px' }}>
-        //             <Plot
-        //                 data={data}
-        //                 layout={layout}
-        //                 style={{ width: '100%', height: '100%' }}
-        //                 useResizeHandler={true}
-        //             />
-        //         </div>
-        //     </div>
-        // </div>
-        //
         <div className="flex flex-col justify-evenly">
+            <VideoPlayer/>
             <Explanation/>
             <div className="bg-white p-4" style={{width: '100%', height: '600px'}}>
                 <Plot
@@ -317,20 +320,7 @@ const Page = () => {
                 />
             </div>
         </div>
-        // <div className={'grid grid-flow-row auto-rows-max grid-cols-1'}>
-        //     <div>
-        //         <Plot
-        //             data={data}
-        //             layout={layout}
-        //             style={{width: '100%', height: '600px'}}
-        //         />
-        //     </div>
-        //     <div>
-        //         <Explanation/>
-        //     </div>
-        // </div>
-    )
-        ;
+    );
 };
 
 export default Page;
