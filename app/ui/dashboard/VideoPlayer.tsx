@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { storage, ref, getDownloadURL } from '@/app/lib/firebase';
+import React, { useEffect, useState, useRef, forwardRef } from 'react';
+import { storage, ref as firebaseRef, getDownloadURL } from '@/app/lib/firebase';
 import 'tailwindcss/tailwind.css';
 
 const fireBaseVideoUrl = 'gs://mteam-dashboard.appspot.com/Data_Sample2/video/video.mp4';
 
-const VideoPlayer: React.FC = () => {
+const VideoPlayer: React.FC = forwardRef<HTMLVideoElement>((props, ref) => {
     const [videoUrl, setVideoUrl] = useState<string>('');
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const localVideoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
         // Replace 'your-video-file.mp4' with your actual file path in Firebase storage
-        const videoRef = ref(storage, fireBaseVideoUrl);
+        const videoRef = firebaseRef(storage, fireBaseVideoUrl);
 
         getDownloadURL(videoRef).then((url) => {
             setVideoUrl(url);
@@ -20,8 +20,9 @@ const VideoPlayer: React.FC = () => {
     }, []);
 
     const seekToTime = (time: number) => {
-        if (videoRef.current) {
-            videoRef.current.currentTime = time;
+        const videoElement = (ref as React.RefObject<HTMLVideoElement>).current || localVideoRef.current;
+        if (videoElement) {
+            videoElement.currentTime = time;
         }
     };
 
@@ -37,10 +38,18 @@ const VideoPlayer: React.FC = () => {
             <div className="w-full max-w-2xl bg-gray-800 rounded-md overflow-hidden mb-4">
                 {videoUrl && (
                     <video
-                        ref={videoRef}
+                        ref={(el) => {
+                            localVideoRef.current = el;
+                            if (typeof ref === 'function') {
+                                ref(el);
+                            } else if (ref) {
+                                (ref as React.MutableRefObject<HTMLVideoElement | null>).current = el;
+                            }
+                        }}
                         src={videoUrl}
                         controls
                         className="w-full"
+                        {...props}
                     />
                 )}
             </div>
@@ -57,6 +66,6 @@ const VideoPlayer: React.FC = () => {
             </div>
         </div>
     );
-};
+});
 
 export default VideoPlayer;

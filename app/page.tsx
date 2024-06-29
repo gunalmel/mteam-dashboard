@@ -1,12 +1,12 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 // see https://github.com/plotly/react-plotly.js/issues/272 for why we are using dynamic import for react-plotly to be built by nextjs
 import dynamic from 'next/dynamic';
 import Papa from 'papaparse';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
-import {Annotations, Data, Layout, Shape} from 'plotly.js';
+import { Annotations, Data, Layout, Shape } from 'plotly.js';
 
-const Plot = dynamic(() => import('react-plotly.js'), { ssr: false })
+const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 function timeToSeconds(timeStr: string) {
     const parts = timeStr.split(':');
@@ -26,7 +26,7 @@ const icons = {
     "Lung Sounds": "🩺"
 };
 
-function getIcon(subAction: string){
+function getIcon(subAction: string) {
     const iconNames = Object.keys(icons) as Array<keyof typeof icons>;
     const iconName = iconNames[iconNames.findIndex(k => subAction.includes(k))];
     return icons[iconName] || '';
@@ -35,7 +35,7 @@ function getIcon(subAction: string){
 const Explanation = () => (
     <div className={'pl-28'}>
         <div className="mb-2">
-            <hr className="border-t-2 border-green-600 w-6 inline-block my-1"/>
+            <hr className="border-t-2 border-green-600 w-6 inline-block my-1" />
             : Compression Interval
         </div>
         <div className="grid grid-cols-3 gap-2">
@@ -74,26 +74,26 @@ const phaseColors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c
 
 const cprStartSubActionNames = ['Begin CPR', 'Enter CPR'];
 const cprStopSubActionNames = 'Stop CPR';
-const csvColHeaders ={
+const csvColHeaders = {
     action: 'Action/Vital Name',
     subAction: 'SubAction Name',
     timestamp: 'Time Stamp[Hr:Min:Sec]'
 };
 const subActionExclusions = ['Begin CPR', 'Enter CPR', 'Stop CPR'];
-function shouldPlotAction(action: string, subAction: string){
+function shouldPlotAction(action: string, subAction: string) {
     return action && subAction && !subActionExclusions.includes(subAction) && action.includes('(action)') && !action.includes('User Introduction');
 }
-function doesCPRStart(subAction: string){
+function doesCPRStart(subAction: string) {
     return cprStartSubActionNames.includes(subAction);
 }
-function doesCPRStop(subAction: string){
+function doesCPRStop(subAction: string) {
     return cprStopSubActionNames === subAction;
 }
-function isTransitionBoundary(action: string){
+function isTransitionBoundary(action: string) {
     return action && action.includes('(action)');
 }
 
-function createActionsScatterData(timeInSeconds: Array<number>, iconText: Array<string>, annotations: Array<string> ) : Partial<Data>{
+function createActionsScatterData(timeInSeconds: Array<number>, iconText: Array<string>, annotations: Array<string>): Partial<Data> {
     return {
         x: timeInSeconds,
         y: new Array(timeInSeconds.length).fill(1),
@@ -103,11 +103,11 @@ function createActionsScatterData(timeInSeconds: Array<number>, iconText: Array<
         hovertext: annotations,
         hoverinfo: 'text',
         textposition: 'top center',
-        marker: {size: 12}
+        marker: { size: 12 }
     };
 }
 
-function createCompressionLine(seconds: Array<number>, hoverText: Array<string>) : Partial<Data> {
+function createCompressionLine(seconds: Array<number>, hoverText: Array<string>): Partial<Data> {
     return {
         x: seconds,
         y: [0.98, 0.98],
@@ -117,7 +117,7 @@ function createCompressionLine(seconds: Array<number>, hoverText: Array<string>)
         hovertext: hoverText,
         hoverinfo: 'text',
         textposition: 'top center',
-        marker: {size: 12},
+        marker: { size: 12 },
         line: {
             color: 'rgb(0, 150, 0)'
         }
@@ -136,15 +136,15 @@ function createTransition(phaseName: string, start: number, end: number, fillCol
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',
-            name: phaseName
+        name: phaseName
     }
 }
 
-function createTransitionAnnotation(text: string, start: number, fontColor: string) : Partial<Annotations> {
+function createTransitionAnnotation(text: string, start: number, fontColor: string): Partial<Annotations> {
     return {
         xref: 'x', //'paper',
         yref: 'paper',
-        x: start+2,
+        x: start + 2,
         y: 0.8,
         xanchor: 'center',
         yanchor: 'middle',
@@ -161,14 +161,16 @@ function createTransitionAnnotation(text: string, start: number, fontColor: stri
 const Page = () => {
     const [data, setData] = useState<Array<Partial<Data>>>([]);
     const [layout, setLayout] = useState({});
+    const [hoveredTime, setHoveredTime] = useState<number | null>(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
-        const phaseMap:{[key:string]:{start: number, end:number}} = {};
+        const phaseMap: { [key: string]: { start: number, end: number } } = {};
         const timestampsInSeconds: number[] = [];
         const actions = [];
-        const actionIcons : Array<string> = [];
-        let compressionLine: {seconds: Array<number>, hoverText: Array<string>} ={
-            seconds:[],
+        const actionIcons: Array<string> = [];
+        let compressionLine: { seconds: Array<number>, hoverText: Array<string> } = {
+            seconds: [],
             hoverText: []
         };
         const actionAnnotations: string[] = [];
@@ -178,10 +180,10 @@ const Page = () => {
         Papa.parse('https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv', {
             download: true,
             header: true,
-            step: function (row : Papa.ParseStepResult<{[key: string]: string}> ) {
-                const {[csvColHeaders.action]:action,
-                       [csvColHeaders.subAction]:subAction,
-                       [csvColHeaders.timestamp]:timestamp} = row.data;
+            step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
+                const { [csvColHeaders.action]: action,
+                    [csvColHeaders.subAction]: subAction,
+                    [csvColHeaders.timestamp]: timestamp } = row.data;
                 const timestampInSeconds = timeToSeconds(timestamp);
 
                 if (doesCPRStart(subAction)) {
@@ -192,13 +194,13 @@ const Page = () => {
                     compressionLine.seconds.push(timestampInSeconds);
                     compressionLine.hoverText.push(timestamp);
                     compressionLines.push(createCompressionLine(compressionLine.seconds, compressionLine.hoverText));
-                    compressionLine.seconds=[];
-                    compressionLine.hoverText=[];
+                    compressionLine.seconds = [];
+                    compressionLine.hoverText = [];
                 }
 
-                if(isTransitionBoundary(action)){
-                    if(!phaseMap[action]){
-                        phaseMap[action] = {start: timestampInSeconds, end: timestampInSeconds};
+                if (isTransitionBoundary(action)) {
+                    if (!phaseMap[action]) {
+                        phaseMap[action] = { start: timestampInSeconds, end: timestampInSeconds };
                     } else {
                         phaseMap[action].end = timestampInSeconds;
                     }
@@ -214,20 +216,26 @@ const Page = () => {
             complete: function () {
                 const actionsScatterData = createActionsScatterData(timestampsInSeconds, actionIcons, actionAnnotations);
 
-                const {transitionShapes,transitionAnnotations} = Object.keys(phaseMap).reduce<{transitionShapes:Array<Partial<Shape>>,transitionAnnotations:Array<Partial<Annotations>>}>((accumulator, action, index) => {
+                const { transitionShapes, transitionAnnotations } = Object.keys(phaseMap).reduce<{ transitionShapes: Array<Partial<Shape>>, transitionAnnotations: Array<Partial<Annotations>> }>((accumulator, action, index) => {
                     accumulator.transitionShapes.push(createTransition(action, phaseMap[action].start, phaseMap[action].end, phaseColors[index % phaseColors.length] + '33'));
                     accumulator.transitionAnnotations.push(createTransitionAnnotation(action, phaseMap[action].start, phaseColors[index % phaseColors.length]));
                     return accumulator;
-                },{transitionShapes:[], transitionAnnotations:[]});
+                }, { transitionShapes: [], transitionAnnotations: [] });
 
                 const layoutConfig: Partial<Layout> = {
                     title: 'Clinical Review Timeline',
-                    xaxis: {title: 'Time (seconds)', showgrid: false},
-                    yaxis: {visible: false, range: [0, 2]},
+                    xaxis: { title: 'Time (seconds)', showgrid: false },
+                    yaxis: { visible: false, range: [0, 2] },
                     showlegend: false,
                     shapes: transitionShapes,
                     annotations: transitionAnnotations,
-                    autosize: true
+                    displayModeBar: true,
+                    displayLogo: false,
+                    responsive: true,
+                    autosize: true,
+                    modebar: {
+                        orientation: 'v',
+                    },
                 };
 
                 setData([actionsScatterData, ...compressionLines]);
@@ -237,15 +245,38 @@ const Page = () => {
 
     }, []);
 
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === 'g' && hoveredTime !== null && videoRef.current) {
+                videoRef.current.currentTime = hoveredTime;
+                videoRef.current.play();
+            }
+        };
+
+        window.addEventListener('keypress', handleKeyPress);
+        return () => {
+            window.removeEventListener('keypress', handleKeyPress);
+        };
+    }, [hoveredTime]);
+
+    const handlePlotHover = (event) => {
+        if (event.points.length > 0) {
+            const point = event.points[0];
+            const timeInSeconds = point.x;
+            setHoveredTime(timeInSeconds);
+        }
+    };
+
     return (
         <div className="flex flex-col justify-evenly">
-            <VideoPlayer/>
-            <Explanation/>
-            <div className="bg-white p-4" style={{width: '100%', height: '600px'}}>
+            <VideoPlayer ref={videoRef} />
+            <Explanation />
+            <div className="bg-white p-4" style={{ width: '100%', height: '600px' }}>
                 <Plot
                     data={data}
                     layout={layout}
-                    style={{width: '100%', height: '100%'}}
+                    onHover={handlePlotHover}
+                    style={{ width: '100%', height: '100%' }}
                     useResizeHandler={true}// Ensure the plot adjusts size when container changes
                 />
             </div>
@@ -254,4 +285,3 @@ const Page = () => {
 };
 
 export default Page;
-
