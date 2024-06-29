@@ -4,7 +4,7 @@ import 'tailwindcss/tailwind.css';
 
 const fireBaseVideoUrl = 'gs://mteam-dashboard.appspot.com/Data_Sample2/video/video.mp4';
 
-const VideoPlayer: React.FC = forwardRef<HTMLVideoElement>((props, ref) => {
+const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>((props, ref) => {
     const [videoUrl, setVideoUrl] = useState<string>('');
     const localVideoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -67,5 +67,7 @@ const VideoPlayer: React.FC = forwardRef<HTMLVideoElement>((props, ref) => {
         </div>
     );
 });
+
+VideoPlayer.displayName = 'VideoPlayer';
 
 export default VideoPlayer;

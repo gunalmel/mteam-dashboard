@@ -246,7 +246,7 @@ const Page = () => {
     }, []);
 
     useEffect(() => {
-        const handleKeyPress = (event) => {
+        const handleKeyPress = (event: KeyboardEvent) => {
             if (event.key === 'g' && hoveredTime !== null && videoRef.current) {
                 videoRef.current.currentTime = hoveredTime;
                 videoRef.current.play();
@@ -259,7 +259,7 @@ const Page = () => {
         };
     }, [hoveredTime]);
 
-    const handlePlotHover = (event) => {
+    const handlePlotHover = (event: any) => {
         if (event.points.length > 0) {
             const point = event.points[0];
             const timeInSeconds = point.x;
