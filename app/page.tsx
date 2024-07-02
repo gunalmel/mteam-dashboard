@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Papa from 'papaparse';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
-import { Annotations, Data, Layout, Shape } from 'plotly.js';
+import {Annotations, Data, Layout, PlotMouseEvent, Shape} from 'plotly.js';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
@@ -229,9 +229,6 @@ const Page = () => {
                     showlegend: false,
                     shapes: transitionShapes,
                     annotations: transitionAnnotations,
-                    displayModeBar: true,
-                    displayLogo: false,
-                    responsive: true,
                     autosize: true,
                     modebar: {
                         orientation: 'v',
@@ -259,10 +256,10 @@ const Page = () => {
         };
     }, [hoveredTime]);
 
-    const handlePlotHover = (event: any) => {
+    const handlePlotHover = (event: PlotMouseEvent) => {
         if (event.points.length > 0) {
             const point = event.points[0];
-            const timeInSeconds = point.x;
+            const timeInSeconds = Number(point.x);
             setHoveredTime(timeInSeconds);
         }
     };
@@ -275,6 +272,7 @@ const Page = () => {
                 <Plot
                     data={data}
                     layout={layout}
+                    config={{displayModeBar: true, responsive: true, displaylogo: false}}
                     onHover={handlePlotHover}
                     style={{ width: '100%', height: '100%' }}
                     useResizeHandler={true}// Ensure the plot adjusts size when container changes
