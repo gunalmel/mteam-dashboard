@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Papa from 'papaparse';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
-import {Annotations, Data, Layout, PlotMouseEvent, Shape} from 'plotly.js';
+import { Annotations, Data, Layout, PlotMouseEvent, Shape } from 'plotly.js';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
@@ -177,7 +177,8 @@ const Page = () => {
         const compressionLines: Array<Partial<Data>> = [];
 
         //TODO: 06-28-2024 - Mel Gunal: We'd better make a hook to use Papa.parse to set the state of the graph.
-        Papa.parse('https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv', {
+        // Papa.parse('https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv', {
+        Papa.parse('/action_data/timeline-multiplayer-test.csv', {
             download: true,
             header: true,
             step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
@@ -272,7 +273,7 @@ const Page = () => {
                 <Plot
                     data={data}
                     layout={layout}
-                    config={{displayModeBar: true, responsive: true, displaylogo: false}}
+                    config={{ displayModeBar: true, responsive: true, displaylogo: false }}
                     onHover={handlePlotHover}
                     style={{ width: '100%', height: '100%' }}
                     useResizeHandler={true}// Ensure the plot adjusts size when container changes

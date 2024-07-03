@@ -1,0 +1,973 @@
+Time Stamp[Hr:Min:Sec],Action/Vital Name,SubAction Time[Min:Sec],SubAction Name,Score,Old Value,New Value,Username,Speech Command
+0:0:0,HR_Waveform(vital),,,,CR_NSR,CR_VTach
+0:0:0,PR_Waveform(vital),,,,O2_NW,O2_PP
+0:0:0,RR_Waveform(vital),,,,CO2_Norm,CO2_CA
+0:0:0,HR(vital),,,,178,192
+0:0:0,RR(vital),,,,100,12
+0:0:0,PR(vital),,,,80,0
+0:0:0,BP(vital),,,,180,0
+0:0:0,ETCO2(vital),,,,40,18
+0:0:0,Temperature(vital),,,,97.8,98
+0:0:0,V-Tach 2D(action),0:0,Order EKG,100,,,umich4
+0:0:1,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:2,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:8,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:8,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:10,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:14,V-Tach 2D(action),0:13,Insert Bag Mask,100,,,umich1
+0:0:14,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:16,V-Tach 2D(action),0:16,Pulse Check,100,,,umich2
+0:0:16,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:17,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:19,V-Tach 2D(action),0:18,Perform Bag Mask Pump,100,,,umich4
+0:0:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:20,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:23,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:23,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:26,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:29,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:31,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:32,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:35,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:36,V-Tach 2D(action),0:36,Pulse Check,100,,,umich2
+0:0:38,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:38,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:40,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:44,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:46,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:47,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:49,V-Tach 2D(action),0:49,Order EKG,100,,,umich4
+0:0:50,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:53,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:53,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:56,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:0:57,V-Tach 2D(action),0:57,Order EKG,100,,,umich4
+0:0:59,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:1,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:2,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:5,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:8,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:11,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:14,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:16,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:17,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:17,V-Tach 2D(action),1:17,Measure Glucose Level,100,,,umich3
+0:1:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:20,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:23,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:25,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:29,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:30,V-Tach 2D(action),1:30,Order EKG,100,,,umich2
+0:1:31,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:32,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:35,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:38,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:40,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:43,V-Tach 2D(action),1:43,Select Epinephrine,100,,,umich3
+0:1:44,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:45,V-Tach 2D(action),1:45,Insert Syringe on Right Hand,100,,,umich3
+0:1:46,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:47,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:50,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:1:51,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:1:51,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:1:51,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:1:51,HR(vital),,,,192,192
+0:1:51,RR(vital),,,,12,12
+0:1:51,PR(vital),,,,--,0
+0:1:51,BP(vital),,,,--,0
+0:1:51,ETCO2(vital),,,,18,18
+0:1:51,Temperature(vital),,,,98,98
+0:2:0,V-Tach 2D(action),2:0,Defib (UNsynchronized Shock) 100J,100,,,umich3
+0:2:2,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:17,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:27,V-Tach 2D(action),2:27,SYNCHRONIZED Shock 100J,100,,,umich3
+0:2:28,V-Tach 2D(action),,,,,,umich3
+0:2:28,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:2:28,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:28,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:2:28,HR(vital),,,,191,205
+0:2:28,RR(vital),,,,11,12
+0:2:28,PR(vital),,,,--,0
+0:2:28,BP(vital),,,,--,0
+0:2:28,ETCO2(vital),,,,17,12
+0:2:28,Temperature(vital),,,,97,98
+0:2:32,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:38,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:2:38,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:38,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:2:38,HR(vital),,,,191,100
+0:2:38,RR(vital),,,,11,0
+0:2:38,PR(vital),,,,--,0
+0:2:38,BP(vital),,,,--,0
+0:2:38,ETCO2(vital),,,,17,18
+0:2:38,Temperature(vital),,,,97,98
+0:2:47,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:2:51,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:2:51,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:51,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:2:51,HR(vital),,,,205,100
+0:2:51,RR(vital),,,,12,12
+0:2:51,PR(vital),,,,--,0
+0:2:51,BP(vital),,,,--,0
+0:2:51,ETCO2(vital),,,,12,18
+0:2:51,Temperature(vital),,,,98,98
+0:2:51,V-Tach 2A.1(action),0:22,Begin CPR,100,,,umich3
+0:2:52,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:2:52,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:52,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:2:52,HR(vital),,,,186,205
+0:2:52,RR(vital),,,,11,12
+0:2:52,PR(vital),,,,0,0
+0:2:52,BP(vital),,,,0,0
+0:2:52,ETCO2(vital),,,,12,12
+0:2:52,Temperature(vital),,,,97,98
+0:2:52,V-Tach 2A.1(action),0:24,Stop CPR,100,,,umich3
+0:2:56,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:2:56,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:56,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:2:56,HR(vital),,,,193,100
+0:2:56,RR(vital),,,,11,12
+0:2:56,PR(vital),,,,0,0
+0:2:56,BP(vital),,,,0,0
+0:2:56,ETCO2(vital),,,,12,18
+0:2:56,Temperature(vital),,,,97,98
+0:2:56,V-Tach 2A.1(action),0:28,Enter CPR,100,,,umich3
+0:2:57,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:2:57,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:57,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:2:57,HR(vital),,,,192,192
+0:2:57,RR(vital),,,,12,12
+0:2:57,PR(vital),,,,--,0
+0:2:57,BP(vital),,,,--,0
+0:2:57,ETCO2(vital),,,,18,18
+0:2:57,Temperature(vital),,,,98,98
+0:2:57,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:2:57,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:2:57,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:2:57,HR(vital),,,,99,192
+0:2:57,RR(vital),,,,--,12
+0:2:57,PR(vital),,,,--,0
+0:2:57,BP(vital),,,,--,0
+0:2:57,ETCO2(vital),,,,17,18
+0:2:57,Temperature(vital),,,,97,98
+0:3:4,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:3:4,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:4,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:3:4,HR(vital),,,,120,205
+0:3:4,RR(vital),,,,11,12
+0:3:4,PR(vital),,,,0,0
+0:3:4,BP(vital),,,,0,0
+0:3:4,ETCO2(vital),,,,16,12
+0:3:4,Temperature(vital),,,,97,98
+0:3:4,V-Tach 2A.1(action),0:35,Stop CPR,100,,,umich3
+0:3:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:3:7,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:3:7,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:7,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:3:7,HR(vital),,,,143,100
+0:3:7,RR(vital),,,,11,12
+0:3:7,PR(vital),,,,0,0
+0:3:7,BP(vital),,,,0,0
+0:3:7,ETCO2(vital),,,,15,18
+0:3:7,Temperature(vital),,,,97,98
+0:3:7,V-Tach 2A.1(action),0:38,Enter CPR,100,,,umich1
+0:3:13,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:3:13,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:13,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:3:13,HR(vital),,,,114,205
+0:3:13,RR(vital),,,,11,12
+0:3:13,PR(vital),,,,0,0
+0:3:13,BP(vital),,,,0,0
+0:3:13,ETCO2(vital),,,,17,12
+0:3:13,Temperature(vital),,,,97,98
+0:3:13,V-Tach 2A.1(action),0:45,Stop CPR,100,,,umich1
+0:3:14,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:3:14,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:14,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:3:14,HR(vital),,,,123,100
+0:3:14,RR(vital),,,,11,12
+0:3:14,PR(vital),,,,0,0
+0:3:14,BP(vital),,,,0,0
+0:3:14,ETCO2(vital),,,,16,18
+0:3:14,Temperature(vital),,,,97,98
+0:3:14,V-Tach 2A.1(action),0:46,Enter CPR,100,,,umich1
+0:3:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:3:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:3:38,V-Tach 2A.1(action),1:10,Perform Bag Mask Pump,100,,,umich3
+0:3:38,V-Tach 2A.1(action),1:10,Perform Bag Mask Pump,100,,,umich3
+0:3:38,V-Tach 2A.1(action),1:10,Perform Bag Mask Pump,100,,,umich3
+0:3:38,V-Tach 2A.1(action),1:10,Perform Bag Mask Pump,100,,,umich3
+0:3:42,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:3:42,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:42,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:3:42,HR(vital),,,,191,192
+0:3:42,RR(vital),,,,11,12
+0:3:42,PR(vital),,,,--,0
+0:3:42,BP(vital),,,,--,0
+0:3:42,ETCO2(vital),,,,17,18
+0:3:42,Temperature(vital),,,,97,98
+0:3:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:3:58,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:3:58,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:58,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:3:58,HR(vital),,,,100,205
+0:3:58,RR(vital),,,,12,12
+0:3:58,PR(vital),,,,--,0
+0:3:58,BP(vital),,,,--,0
+0:3:58,ETCO2(vital),,,,18,12
+0:3:58,Temperature(vital),,,,98,98
+0:3:58,V-Tach 2A.1(action),1:29,Stop CPR,100,,,umich1
+0:3:58,V-Tach 2A.1(action),1:30,Perform Bag Mask Pump,100,,,umich3
+0:3:58,V-Tach 2A.1(action),1:30,Perform Bag Mask Pump,100,,,umich3
+0:3:58,V-Tach 2A.1(action),1:30,Perform Bag Mask Pump,100,,,umich3
+0:3:58,V-Tach 2A.1(action),1:30,Perform Bag Mask Pump,100,,,umich3
+0:3:59,V-Tach 2A.1(action),1:30,Pulse Check,100,,,umich2
+0:3:59,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:3:59,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:3:59,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:3:59,HR(vital),,,,192,100
+0:3:59,RR(vital),,,,12,0
+0:3:59,PR(vital),,,,--,0
+0:3:59,BP(vital),,,,--,0
+0:3:59,ETCO2(vital),,,,18,18
+0:3:59,Temperature(vital),,,,98,98
+0:4:1,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:4:1,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:4:1,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:4:1,HR(vital),,,,176,192
+0:4:1,RR(vital),,,,9,12
+0:4:1,PR(vital),,,,0,0
+0:4:1,BP(vital),,,,0,0
+0:4:1,ETCO2(vital),,,,17,18
+0:4:1,Temperature(vital),,,,97,98
+0:4:3,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:4:3,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:4:3,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:4:3,HR(vital),,,,152,100
+0:4:3,RR(vital),,,,12,12
+0:4:3,PR(vital),,,,0,0
+0:4:3,BP(vital),,,,0,0
+0:4:3,ETCO2(vital),,,,14,18
+0:4:3,Temperature(vital),,,,98,98
+0:4:3,V-Tach 2A.1(action),1:34,Enter CPR,100,,,umich1
+0:4:3,V-Tach 2A.1(action),1:35,Pulse Check,100,,,umich3
+0:4:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:4:12,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:4:12,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:4:12,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:4:12,HR(vital),,,,104,205
+0:4:12,RR(vital),,,,12,12
+0:4:12,PR(vital),,,,0,0
+0:4:12,BP(vital),,,,0,0
+0:4:12,ETCO2(vital),,,,17,12
+0:4:12,Temperature(vital),,,,98,98
+0:4:12,V-Tach 2A.1(action),1:43,Stop CPR,100,,,umich1
+0:4:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:4:20,V-Tach 2A.1(action),1:52,Pulse Check,100,,,umich2
+0:4:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:4:38,V-Tach 2A.1(action),2:9,SYNCHRONIZED Shock 200J,100,,,umich3
+0:4:38,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:4:38,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:4:38,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:4:38,HR(vital),,,,192,100
+0:4:38,RR(vital),,,,12,0
+0:4:38,PR(vital),,,,--,0
+0:4:38,BP(vital),,,,--,0
+0:4:38,ETCO2(vital),,,,18,18
+0:4:38,Temperature(vital),,,,98,98
+0:4:38,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:4:38,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:4:38,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:4:38,HR(vital),,,,192,192
+0:4:38,RR(vital),,,,12,12
+0:4:38,PR(vital),,,,0,0
+0:4:38,BP(vital),,,,0,0
+0:4:38,ETCO2(vital),,,,18,18
+0:4:38,Temperature(vital),,,,98,98
+0:4:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:5:1,V-Tach 2A.1(action),2:32,SYNCHRONIZED Shock 200J,100,,,umich3
+0:5:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:5:13,V-Tach 2A.1(action),2:44,Pulse Check,100,,,umich2
+0:5:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:5:19,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:5:19,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:19,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:5:19,HR(vital),,,,205,100
+0:5:19,RR(vital),,,,12,12
+0:5:19,PR(vital),,,,--,0
+0:5:19,BP(vital),,,,--,0
+0:5:19,ETCO2(vital),,,,12,18
+0:5:19,Temperature(vital),,,,98,98
+0:5:19,V-Tach 2A.1(action),2:51,Enter CPR,100,,,umich1
+0:5:26,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:5:26,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:26,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:5:26,HR(vital),,,,137,205
+0:5:26,RR(vital),,,,12,12
+0:5:26,PR(vital),,,,0,0
+0:5:26,BP(vital),,,,0,0
+0:5:26,ETCO2(vital),,,,15,12
+0:5:26,Temperature(vital),,,,98,98
+0:5:26,V-Tach 2A.1(action),2:57,Stop CPR,100,,,umich1
+0:5:30,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:5:30,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:30,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:5:30,HR(vital),,,,165,100
+0:5:30,RR(vital),,,,12,12
+0:5:30,PR(vital),,,,0,0
+0:5:30,BP(vital),,,,0,0
+0:5:30,ETCO2(vital),,,,14,18
+0:5:30,Temperature(vital),,,,98,98
+0:5:30,V-Tach 2A.1(action),3:1,Enter CPR,100,,,umich1
+0:5:33,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:5:33,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:33,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:5:33,HR(vital),,,,191,192
+0:5:33,RR(vital),,,,11,12
+0:5:33,PR(vital),,,,--,0
+0:5:33,BP(vital),,,,--,0
+0:5:33,ETCO2(vital),,,,17,18
+0:5:33,Temperature(vital),,,,97,98
+0:5:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:5:42,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:5:42,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:42,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:5:42,HR(vital),,,,99,205
+0:5:42,RR(vital),,,,11,12
+0:5:42,PR(vital),,,,--,0
+0:5:42,BP(vital),,,,--,0
+0:5:42,ETCO2(vital),,,,17,12
+0:5:42,Temperature(vital),,,,97,98
+0:5:42,V-Tach 2A.1(action),3:14,Stop CPR,100,,,umich1
+0:5:43,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:5:43,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:43,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:5:43,HR(vital),,,,110,100
+0:5:43,RR(vital),,,,12,12
+0:5:43,PR(vital),,,,0,0
+0:5:43,BP(vital),,,,0,0
+0:5:43,ETCO2(vital),,,,18,18
+0:5:43,Temperature(vital),,,,98,98
+0:5:43,V-Tach 2A.1(action),3:15,Enter CPR,100,,,umich1
+0:5:43,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:5:43,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:43,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:5:43,HR(vital),,,,110,205
+0:5:43,RR(vital),,,,12,12
+0:5:43,PR(vital),,,,0,0
+0:5:43,BP(vital),,,,0,0
+0:5:43,ETCO2(vital),,,,18,12
+0:5:43,Temperature(vital),,,,98,98
+0:5:43,V-Tach 2A.1(action),3:15,Stop CPR,100,,,umich1
+0:5:44,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:5:44,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:44,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:5:44,HR(vital),,,,119,100
+0:5:44,RR(vital),,,,12,12
+0:5:44,PR(vital),,,,0,0
+0:5:44,BP(vital),,,,0,0
+0:5:44,ETCO2(vital),,,,17,18
+0:5:44,Temperature(vital),,,,98,98
+0:5:44,V-Tach 2A.1(action),3:16,Enter CPR,100,,,umich1
+0:5:48,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:5:48,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:48,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:5:48,HR(vital),,,,112,205
+0:5:48,RR(vital),,,,12,12
+0:5:48,PR(vital),,,,0,0
+0:5:48,BP(vital),,,,0,0
+0:5:48,ETCO2(vital),,,,17,12
+0:5:48,Temperature(vital),,,,98,98
+0:5:48,V-Tach 2A.1(action),3:19,Stop CPR,100,,,umich1
+0:5:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:5:50,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:5:50,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:5:50,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:5:50,HR(vital),,,,130,100
+0:5:50,RR(vital),,,,12,12
+0:5:50,PR(vital),,,,0,0
+0:5:50,BP(vital),,,,0,0
+0:5:50,ETCO2(vital),,,,16,18
+0:5:50,Temperature(vital),,,,98,98
+0:5:50,V-Tach 2A.1(action),3:21,Enter CPR,100,,,umich1
+0:6:2,V-Tach 2A.1(action),3:33,Select Epinephrine,100,,,umich3
+0:6:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:6:4,V-Tach 2A.1(action),3:36,Insert Syringe on Right Hand,100,,,umich3
+0:6:13,V-Tach 2A.1(action),3:45,Perform Bag Mask Pump,100,,,umich1
+0:6:13,V-Tach 2A.1(action),3:45,Pulse Check,100,,,umich2
+0:6:14,V-Tach 2A.1(action),3:46,Perform Bag Mask Pump,100,,,umich3
+0:6:14,V-Tach 2A.1(action),3:46,Perform Bag Mask Pump,100,,,umich3
+0:6:14,V-Tach 2A.1(action),3:46,Perform Bag Mask Pump,100,,,umich3
+0:6:14,V-Tach 2A.1(action),3:46,Perform Bag Mask Pump,100,,,umich3
+0:6:15,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:6:15,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:6:15,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:6:15,HR(vital),,,,99,205
+0:6:15,RR(vital),,,,11,12
+0:6:15,PR(vital),,,,--,0
+0:6:15,BP(vital),,,,--,0
+0:6:15,ETCO2(vital),,,,17,12
+0:6:15,Temperature(vital),,,,97,98
+0:6:15,V-Tach 2A.1(action),3:47,Stop CPR,100,,,umich1
+0:6:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:6:22,V-Tach 2A.1(action),3:53,Pulse Check,100,,,umich2
+0:6:24,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:6:24,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:6:24,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:6:24,HR(vital),,,,195,100
+0:6:24,RR(vital),,,,12,12
+0:6:24,PR(vital),,,,0,0
+0:6:24,BP(vital),,,,0,0
+0:6:24,ETCO2(vital),,,,12,18
+0:6:24,Temperature(vital),,,,98,98
+0:6:24,V-Tach 2A.1(action),3:56,Enter CPR,100,,,umich1
+0:6:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:6:40,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:6:40,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:6:40,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:6:40,HR(vital),,,,99,205
+0:6:40,RR(vital),,,,11,12
+0:6:40,PR(vital),,,,--,0
+0:6:40,BP(vital),,,,--,0
+0:6:40,ETCO2(vital),,,,17,12
+0:6:40,Temperature(vital),,,,97,98
+0:6:40,V-Tach 2A.1(action),4:11,Stop CPR,100,,,umich1
+0:6:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:7:1,V-Tach 2A.1(action),4:33,Defib (UNsynchronized Shock) 200J,100,,,umich3
+0:7:2,V-Tach 2A.1(action),,,,,,umich3
+0:7:2,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:7:2,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:2,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:7:2,HR(vital),,,,205,210
+0:7:2,RR(vital),,,,12,12
+0:7:2,PR(vital),,,,--,0
+0:7:2,BP(vital),,,,--,0
+0:7:2,ETCO2(vital),,,,12,14
+0:7:2,Temperature(vital),,,,98,98
+0:7:4,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:4,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:4,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:4,HR(vital),,,,191,100
+0:7:4,RR(vital),,,,11,0
+0:7:4,PR(vital),,,,--,0
+0:7:4,BP(vital),,,,--,0
+0:7:4,ETCO2(vital),,,,17,18
+0:7:4,Temperature(vital),,,,97,98
+0:7:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:7:8,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:8,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:8,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:8,HR(vital),,,,157,192
+0:7:8,RR(vital),,,,7,12
+0:7:8,PR(vital),,,,0,0
+0:7:8,BP(vital),,,,0,0
+0:7:8,ETCO2(vital),,,,18,18
+0:7:8,Temperature(vital),,,,98,98
+0:7:8,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:8,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:8,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:8,HR(vital),,,,159,100
+0:7:8,RR(vital),,,,7,0
+0:7:8,PR(vital),,,,0,0
+0:7:8,BP(vital),,,,0,0
+0:7:8,ETCO2(vital),,,,18,18
+0:7:8,Temperature(vital),,,,98,98
+0:7:8,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:8,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:8,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:8,HR(vital),,,,159,192
+0:7:8,RR(vital),,,,7,12
+0:7:8,PR(vital),,,,0,0
+0:7:8,BP(vital),,,,0,0
+0:7:8,ETCO2(vital),,,,18,18
+0:7:8,Temperature(vital),,,,98,98
+0:7:9,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:9,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:9,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:9,HR(vital),,,,161,100
+0:7:9,RR(vital),,,,7,0
+0:7:9,PR(vital),,,,0,0
+0:7:9,BP(vital),,,,0,0
+0:7:9,ETCO2(vital),,,,18,18
+0:7:9,Temperature(vital),,,,98,98
+0:7:9,V-Tach 2B.1(action),0:6,Pulse Check,100,,,umich2
+0:7:11,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:11,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:11,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:11,HR(vital),,,,150,192
+0:7:11,RR(vital),,,,6,12
+0:7:11,PR(vital),,,,0,0
+0:7:11,BP(vital),,,,0,0
+0:7:11,ETCO2(vital),,,,18,18
+0:7:11,Temperature(vital),,,,98,98
+0:7:11,V-Tach 2B.1(action),0:8,Pulse Check,100,,,umich3
+0:7:11,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:11,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:11,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:11,HR(vital),,,,153,100
+0:7:11,RR(vital),,,,6,0
+0:7:11,PR(vital),,,,0,0
+0:7:11,BP(vital),,,,0,0
+0:7:11,ETCO2(vital),,,,18,18
+0:7:11,Temperature(vital),,,,98,98
+0:7:12,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:12,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:12,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:12,HR(vital),,,,209,100
+0:7:12,RR(vital),,,,11,12
+0:7:12,PR(vital),,,,0,0
+0:7:12,BP(vital),,,,0,0
+0:7:12,ETCO2(vital),,,,13,18
+0:7:12,Temperature(vital),,,,97,98
+0:7:12,V-Tach 2B.1(action),0:9,Enter CPR,100,,,umich1
+0:7:12,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:12,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:12,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:12,HR(vital),,,,148,192
+0:7:12,RR(vital),,,,6,12
+0:7:12,PR(vital),,,,0,0
+0:7:12,BP(vital),,,,0,0
+0:7:12,ETCO2(vital),,,,18,18
+0:7:12,Temperature(vital),,,,98,98
+0:7:13,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:13,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:13,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:13,HR(vital),,,,152,100
+0:7:13,RR(vital),,,,6,0
+0:7:13,PR(vital),,,,0,0
+0:7:13,BP(vital),,,,0,0
+0:7:13,ETCO2(vital),,,,18,18
+0:7:13,Temperature(vital),,,,98,98
+0:7:16,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:16,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:16,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:16,HR(vital),,,,137,192
+0:7:16,RR(vital),,,,4,12
+0:7:16,PR(vital),,,,0,0
+0:7:16,BP(vital),,,,0,0
+0:7:16,ETCO2(vital),,,,18,18
+0:7:16,Temperature(vital),,,,98,98
+0:7:16,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:16,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:16,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:16,HR(vital),,,,141,100
+0:7:16,RR(vital),,,,5,0
+0:7:16,PR(vital),,,,0,0
+0:7:16,BP(vital),,,,0,0
+0:7:16,ETCO2(vital),,,,18,18
+0:7:16,Temperature(vital),,,,98,98
+0:7:18,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:18,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:18,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:18,HR(vital),,,,133,192
+0:7:18,RR(vital),,,,4,12
+0:7:18,PR(vital),,,,0,0
+0:7:18,BP(vital),,,,0,0
+0:7:18,ETCO2(vital),,,,18,18
+0:7:18,Temperature(vital),,,,98,98
+0:7:19,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:19,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:19,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:19,HR(vital),,,,137,100
+0:7:19,RR(vital),,,,4,0
+0:7:19,PR(vital),,,,0,0
+0:7:19,BP(vital),,,,0,0
+0:7:19,ETCO2(vital),,,,18,18
+0:7:19,Temperature(vital),,,,98,98
+0:7:19,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:19,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:19,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:19,HR(vital),,,,136,192
+0:7:19,RR(vital),,,,4,12
+0:7:19,PR(vital),,,,0,0
+0:7:19,BP(vital),,,,0,0
+0:7:19,ETCO2(vital),,,,18,18
+0:7:19,Temperature(vital),,,,98,98
+0:7:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:7:23,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:23,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:23,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:23,HR(vital),,,,160,100
+0:7:23,RR(vital),,,,7,0
+0:7:23,PR(vital),,,,0,0
+0:7:23,BP(vital),,,,0,0
+0:7:23,ETCO2(vital),,,,18,18
+0:7:23,Temperature(vital),,,,98,98
+0:7:24,HR_Waveform(vital),,,,CR_SinLike,CR_SinLike
+0:7:24,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:24,RR_Waveform(vital),,,,CO2_CPR,CO2_CPR
+0:7:24,HR(vital),,,,157,100
+0:7:24,RR(vital),,,,7,0
+0:7:24,PR(vital),,,,0,0
+0:7:24,BP(vital),,,,0,0
+0:7:24,ETCO2(vital),,,,18,18
+0:7:24,Temperature(vital),,,,98,98
+0:7:26,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:26,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:26,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:26,HR(vital),,,,145,192
+0:7:26,RR(vital),,,,5,12
+0:7:26,PR(vital),,,,0,0
+0:7:26,BP(vital),,,,0,0
+0:7:26,ETCO2(vital),,,,18,18
+0:7:26,Temperature(vital),,,,98,98
+0:7:26,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:26,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:26,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:26,HR(vital),,,,100,210
+0:7:26,RR(vital),,,,12,12
+0:7:26,PR(vital),,,,--,0
+0:7:26,BP(vital),,,,--,0
+0:7:26,ETCO2(vital),,,,18,14
+0:7:26,Temperature(vital),,,,98,98
+0:7:26,V-Tach 2B.1(action),0:23,Stop CPR,100,,,umich1
+0:7:26,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:26,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:26,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:26,HR(vital),,,,105,100
+0:7:26,RR(vital),,,,12,12
+0:7:26,PR(vital),,,,0,0
+0:7:26,BP(vital),,,,0,0
+0:7:26,ETCO2(vital),,,,17,18
+0:7:26,Temperature(vital),,,,98,98
+0:7:26,V-Tach 2B.1(action),0:23,Enter CPR,100,,,umich1
+0:7:27,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:27,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:27,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:27,HR(vital),,,,104,210
+0:7:27,RR(vital),,,,12,12
+0:7:27,PR(vital),,,,0,0
+0:7:27,BP(vital),,,,0,0
+0:7:27,ETCO2(vital),,,,17,14
+0:7:27,Temperature(vital),,,,98,98
+0:7:27,V-Tach 2B.1(action),0:24,Stop CPR,100,,,umich1
+0:7:29,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:7:29,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:29,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:7:29,HR(vital),,,,122,100
+0:7:29,RR(vital),,,,12,12
+0:7:29,PR(vital),,,,0,0
+0:7:29,BP(vital),,,,0,0
+0:7:29,ETCO2(vital),,,,17,18
+0:7:29,Temperature(vital),,,,98,98
+0:7:29,V-Tach 2B.1(action),0:26,Enter CPR,100,,,umich1
+0:7:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:7:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:7:59,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:7:59,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:7:59,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:7:59,HR(vital),,,,99,210
+0:7:59,RR(vital),,,,11,12
+0:7:59,PR(vital),,,,--,0
+0:7:59,BP(vital),,,,--,0
+0:7:59,ETCO2(vital),,,,17,14
+0:7:59,Temperature(vital),,,,97,98
+0:7:59,V-Tach 2B.1(action),0:56,Stop CPR,100,,,umich1
+0:8:2,V-Tach 2B.1(action),0:59,Pulse Check,100,,,umich2
+0:8:3,V-Tach 2B.1(action),1:0,Pulse Check,100,,,umich3
+0:8:4,HR_Waveform(vital),,,,CR_VTach,CR_SinLike
+0:8:4,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:4,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:8:4,HR(vital),,,,151,100
+0:8:4,RR(vital),,,,12,12
+0:8:4,PR(vital),,,,0,0
+0:8:4,BP(vital),,,,0,0
+0:8:4,ETCO2(vital),,,,16,18
+0:8:4,Temperature(vital),,,,98,98
+0:8:4,V-Tach 2B.1(action),1:1,Enter CPR,100,,,umich1
+0:8:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:8:12,HR_Waveform(vital),,,,CR_SinLike,CR_VTach
+0:8:12,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:12,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:8:12,HR(vital),,,,110,210
+0:8:12,RR(vital),,,,12,12
+0:8:12,PR(vital),,,,0,0
+0:8:12,BP(vital),,,,0,0
+0:8:12,ETCO2(vital),,,,17,14
+0:8:12,Temperature(vital),,,,98,98
+0:8:12,V-Tach 2B.1(action),1:9,Stop CPR,100,,,umich1
+0:8:14,V-Tach 2B.1(action),1:11,Defib (UNsynchronized Shock) 200J,100,,,umich3
+0:8:15,V-Tach 2B.1(action),,,,,,umich3
+0:8:15,HR_Waveform(vital),,,,CR_VTach,CR_Asystole
+0:8:15,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:15,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:8:15,HR(vital),,,,144,0
+0:8:15,RR(vital),,,,12,12
+0:8:15,PR(vital),,,,0,0
+0:8:15,BP(vital),,,,0,0
+0:8:15,ETCO2(vital),,,,16,10
+0:8:15,Temperature(vital),,,,98,98
+0:8:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:8:21,HR_Waveform(vital),,,,CR_Asystole,CR_SinLike
+0:8:21,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:21,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:8:21,HR(vital),,,,54,108
+0:8:21,RR(vital),,,,12,12
+0:8:21,PR(vital),,,,0,0
+0:8:21,BP(vital),,,,0,0
+0:8:21,ETCO2(vital),,,,12,22
+0:8:21,Temperature(vital),,,,98,98
+0:8:21,Asystole 1D No.1(action),0:6,Enter CPR,100,,,umich1
+0:8:23,HR_Waveform(vital),,,,CR_SinLike,CR_Asystole
+0:8:23,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:23,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:8:23,HR(vital),,,,62,0
+0:8:23,RR(vital),,,,12,12
+0:8:23,PR(vital),,,,0,0
+0:8:23,BP(vital),,,,0,0
+0:8:23,ETCO2(vital),,,,13,10
+0:8:23,Temperature(vital),,,,98,98
+0:8:23,Asystole 1D No.1(action),0:7,Stop CPR,100,,,umich1
+0:8:26,HR_Waveform(vital),,,,CR_Asystole,CR_SinLike
+0:8:26,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:26,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:8:26,HR(vital),,,,42,108
+0:8:26,RR(vital),,,,12,12
+0:8:26,PR(vital),,,,0,0
+0:8:26,BP(vital),,,,0,0
+0:8:26,ETCO2(vital),,,,12,22
+0:8:26,Temperature(vital),,,,98,98
+0:8:26,Asystole 1D No.1(action),0:10,Enter CPR,100,,,umich1
+0:8:32,Asystole 1D No.1(action),0:17,Select Epinephrine,100,,,umich3
+0:8:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:8:35,Asystole 1D No.1(action),0:19,Insert Syringe on Right Hand,100,,,umich4
+0:8:38,Asystole 1D No.1(action),,,,,,umich4
+0:8:38,HR_Waveform(vital),,,,CR_SinLike,CR_SinLike
+0:8:38,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:38,RR_Waveform(vital),,,,CO2_CPR,CO2_CPR
+0:8:38,HR(vital),,,,108,100
+0:8:38,RR(vital),,,,12,12
+0:8:38,PR(vital),,,,--,0
+0:8:38,BP(vital),,,,--,0
+0:8:38,ETCO2(vital),,,,22,18
+0:8:38,Temperature(vital),,,,98,98
+0:8:38,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:8:38,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:38,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:8:38,HR(vital),,,,106,0
+0:8:38,RR(vital),,,,11,12
+0:8:38,PR(vital),,,,0,0
+0:8:38,BP(vital),,,,0,0
+0:8:38,ETCO2(vital),,,,20,12
+0:8:38,Temperature(vital),,,,97,98
+0:8:38,V-Fib 4C.1 - AMIO(action),0:0,Stop CPR,100,,,umich1
+0:8:39,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:8:39,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:39,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:8:39,HR(vital),,,,99,100
+0:8:39,RR(vital),,,,11,12
+0:8:39,PR(vital),,,,0,0
+0:8:39,BP(vital),,,,0,0
+0:8:39,ETCO2(vital),,,,20,18
+0:8:39,Temperature(vital),,,,97,98
+0:8:39,V-Fib 4C.1 - AMIO(action),0:0,Enter CPR,100,,,umich1
+0:8:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:8:59,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:8:59,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:8:59,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:8:59,HR(vital),,,,100,0
+0:8:59,RR(vital),,,,12,12
+0:8:59,PR(vital),,,,--,0
+0:8:59,BP(vital),,,,--,0
+0:8:59,ETCO2(vital),,,,18,12
+0:8:59,Temperature(vital),,,,98,98
+0:8:59,V-Fib 4C.1 - AMIO(action),0:21,Stop CPR,100,,,umich1
+0:9:0,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:9:0,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:0,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:9:0,HR(vital),,,,92,100
+0:9:0,RR(vital),,,,12,12
+0:9:0,PR(vital),,,,0,0
+0:9:0,BP(vital),,,,0,0
+0:9:0,ETCO2(vital),,,,17,18
+0:9:0,Temperature(vital),,,,98,98
+0:9:0,V-Fib 4C.1 - AMIO(action),0:22,Enter CPR,100,,,umich1
+0:9:1,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:9:1,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:1,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:9:1,HR(vital),,,,93,0
+0:9:1,RR(vital),,,,12,12
+0:9:1,PR(vital),,,,0,0
+0:9:1,BP(vital),,,,0,0
+0:9:1,ETCO2(vital),,,,17,12
+0:9:1,Temperature(vital),,,,98,98
+0:9:1,V-Fib 4C.1 - AMIO(action),0:23,Stop CPR,100,,,umich1
+0:9:4,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:9:4,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:4,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:9:4,HR(vital),,,,69,100
+0:9:4,RR(vital),,,,12,12
+0:9:4,PR(vital),,,,0,0
+0:9:4,BP(vital),,,,0,0
+0:9:4,ETCO2(vital),,,,16,18
+0:9:4,Temperature(vital),,,,98,98
+0:9:4,V-Fib 4C.1 - AMIO(action),0:25,Enter CPR,100,,,umich1
+0:9:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:9:15,HR_Waveform(vital),,,,CR_VTach,CR_VTach
+0:9:15,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:15,RR_Waveform(vital),,,,CO2_CA,CO2_CA
+0:9:15,HR(vital),,,,192,192
+0:9:15,RR(vital),,,,12,12
+0:9:15,PR(vital),,,,--,0
+0:9:15,BP(vital),,,,--,0
+0:9:15,ETCO2(vital),,,,18,18
+0:9:15,Temperature(vital),,,,98,98
+0:9:15,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:9:15,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:15,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:9:15,HR(vital),,,,99,0
+0:9:15,RR(vital),,,,11,12
+0:9:15,PR(vital),,,,--,0
+0:9:15,BP(vital),,,,--,0
+0:9:15,ETCO2(vital),,,,17,12
+0:9:15,Temperature(vital),,,,97,98
+0:9:15,V-Fib 4C.1 - AMIO(action),0:37,Stop CPR,100,,,umich1
+0:9:16,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:9:16,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:16,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:9:16,HR(vital),,,,91,100
+0:9:16,RR(vital),,,,12,12
+0:9:16,PR(vital),,,,0,0
+0:9:16,BP(vital),,,,0,0
+0:9:16,ETCO2(vital),,,,18,18
+0:9:16,Temperature(vital),,,,98,98
+0:9:16,V-Fib 4C.1 - AMIO(action),0:38,Enter CPR,100,,,umich1
+0:9:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:9:24,V-Fib 4C.1 - AMIO(action),0:46,Order Intubation,100,,,umich4
+0:9:31,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:9:31,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:31,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:9:31,HR(vital),,,,99,0
+0:9:31,RR(vital),,,,11,12
+0:9:31,PR(vital),,,,--,0
+0:9:31,BP(vital),,,,--,0
+0:9:31,ETCO2(vital),,,,17,12
+0:9:31,Temperature(vital),,,,97,98
+0:9:31,V-Fib 4C.1 - AMIO(action),0:53,Stop CPR,100,,,umich1
+0:9:32,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:9:32,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:32,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:9:32,HR(vital),,,,90,100
+0:9:32,RR(vital),,,,12,12
+0:9:32,PR(vital),,,,0,0
+0:9:32,BP(vital),,,,0,0
+0:9:32,ETCO2(vital),,,,17,18
+0:9:32,Temperature(vital),,,,98,98
+0:9:32,V-Fib 4C.1 - AMIO(action),0:54,Enter CPR,100,,,umich1
+0:9:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:9:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:9:54,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:9:54,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:54,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:9:54,HR(vital),,,,100,0
+0:9:54,RR(vital),,,,12,12
+0:9:54,PR(vital),,,,--,0
+0:9:54,BP(vital),,,,--,0
+0:9:54,ETCO2(vital),,,,18,12
+0:9:54,Temperature(vital),,,,98,98
+0:9:54,V-Fib 4C.1 - AMIO(action),1:16,Stop CPR,100,,,umich1
+0:9:55,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:9:55,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:55,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:9:55,HR(vital),,,,89,100
+0:9:55,RR(vital),,,,11,12
+0:9:55,PR(vital),,,,0,0
+0:9:55,BP(vital),,,,0,0
+0:9:55,ETCO2(vital),,,,16,18
+0:9:55,Temperature(vital),,,,97,98
+0:9:55,V-Fib 4C.1 - AMIO(action),1:17,Enter CPR,100,,,umich1
+0:9:58,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:9:58,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:9:58,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:9:58,HR(vital),,,,92,0
+0:9:58,RR(vital),,,,11,12
+0:9:58,PR(vital),,,,0,0
+0:9:58,BP(vital),,,,0,0
+0:9:58,ETCO2(vital),,,,16,12
+0:9:58,Temperature(vital),,,,97,98
+0:9:58,V-Fib 4C.1 - AMIO(action),1:20,Stop CPR,100,,,umich1
+0:10:0,V-Fib 4C.1 - AMIO(action),1:21,Pulse Check,100,,,umich3
+0:10:4,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:10:4,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:10:4,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:10:4,HR(vital),,,,39,100
+0:10:4,RR(vital),,,,11,12
+0:10:4,PR(vital),,,,0,0
+0:10:4,BP(vital),,,,0,0
+0:10:4,ETCO2(vital),,,,14,18
+0:10:4,Temperature(vital),,,,97,98
+0:10:4,V-Fib 4C.1 - AMIO(action),1:25,Enter CPR,100,,,umich1
+0:10:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:10:9,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:10:9,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:10:9,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:10:9,HR(vital),,,,72,0
+0:10:9,RR(vital),,,,11,12
+0:10:9,PR(vital),,,,0,0
+0:10:9,BP(vital),,,,0,0
+0:10:9,ETCO2(vital),,,,16,12
+0:10:9,Temperature(vital),,,,97,98
+0:10:9,V-Fib 4C.1 - AMIO(action),1:31,Stop CPR,100,,,umich1
+0:10:11,HR_Waveform(vital),,,,CR_VFib,CR_SinLike
+0:10:11,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:10:11,RR_Waveform(vital),,,,CO2_CA,CO2_CPR
+0:10:11,HR(vital),,,,60,100
+0:10:11,RR(vital),,,,11,12
+0:10:11,PR(vital),,,,0,0
+0:10:11,BP(vital),,,,0,0
+0:10:11,ETCO2(vital),,,,15,18
+0:10:11,Temperature(vital),,,,97,98
+0:10:11,V-Fib 4C.1 - AMIO(action),1:33,Enter CPR,100,,,umich1
+0:10:14,HR_Waveform(vital),,,,CR_SinLike,CR_VFib
+0:10:14,PR_Waveform(vital),,,,O2_PP,O2_PP
+0:10:14,RR_Waveform(vital),,,,CO2_CPR,CO2_CA
+0:10:14,HR(vital),,,,71,0
+0:10:14,RR(vital),,,,11,12
+0:10:14,PR(vital),,,,0,0
+0:10:14,BP(vital),,,,0,0
+0:10:14,ETCO2(vital),,,,16,12
+0:10:14,Temperature(vital),,,,97,98
+0:10:14,V-Fib 4C.1 - AMIO(action),1:36,Stop CPR,100,,,umich1
+0:10:18,V-Fib 4C.1 - AMIO(action),1:39,Defib (UNsynchronized Shock) 200J,100,,,umich3
+0:10:19,V-Fib 4C.1 - AMIO(action),,,,,,umich3
+0:10:19,HR_Waveform(vital),,,,CR_VFib,CR_NSR
+0:10:19,PR_Waveform(vital),,,,O2_PP,O2_NW
+0:10:19,RR_Waveform(vital),,,,CO2_CA,CO2_Norm
+0:10:19,HR(vital),,,,37,124
+0:10:19,RR(vital),,,,11,12
+0:10:19,PR(vital),,,,0,98
+0:10:19,BP(vital),,,,0,0
+0:10:19,ETCO2(vital),,,,14,36
+0:10:19,Temperature(vital),,,,97,98
+0:10:19,Systolic(vital),,,,179,166
+0:10:19,Diastolic(vital),,,,179,96
+0:10:19,SDTogether(vital),,,,179,119
+0:10:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:10:25,ROSC 5B - Stemi(action),0:6,Pulse Check,100,,,umich2
+0:10:27,ROSC 5B - Stemi(action),0:8,Pulse Check,100,,,umich3
+0:10:34,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:10:49,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:10:49,ROSC 5B - Stemi(action),0:30,Order Chest X-ray,100,,,umich3
+0:10:52,ROSC 5B - Stemi(action),0:33,Order EKG,100,,,umich3
+0:11:4,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:11:16,ROSC 5B - Stemi(action),0:56,Order Cooling,100,,,umich3
+0:11:19,umich2(speech),,,,,,umich2,"NOMATCH: Speech could not be recognized." 
+0:11:23,ROSC 5B - Stemi(action),,,,,,umich3
+
+Questionnare Results
+Description,Rating,Rating Scale
+"How effectively did your team work together to complete tasks?",4,0 - 7
+"How effectively did your team communicate?",5,0 - 7
+"How effective was tha team leader?",4,0 - 7
