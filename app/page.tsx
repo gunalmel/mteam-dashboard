@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
-// see https://github.com/plotly/react-plotly.js/issues/272 for why we are using dynamic import for react-plotly to be built by nextjs
+// see https://github.com/plotly/react-plotly.js/issues/272 for why we are using dynamic import for react-plotly to be built by Next.js
 import dynamic from 'next/dynamic';
 import Papa from 'papaparse';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
@@ -8,11 +8,10 @@ import {Annotations, Data, Layout, PlotMouseEvent, Shape} from 'plotly.js';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
-function timeToSeconds(timeStr: string) {
-    const parts = timeStr.split(':');
-    return parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2]);
+function timeStampToDateString(v: string) {
+    const parts = v.split(':');
+    return `2017-01-01 ${parts[0]?.length<2?'0'+parts[0]:parts[0]}:${parts[1]?.length<2?'0'+parts[1]:parts[1]}:${parts[2]?.length<2?'0'+parts[2]:parts[2]}`;
 }
-
 const icons = {
     "Pulse Check": "💓",
     "Select Epinephrine": "💉",
@@ -93,10 +92,10 @@ function isTransitionBoundary(action: string) {
     return action && action.includes('(action)');
 }
 
-function createActionsScatterData(timeInSeconds: Array<number>, iconText: Array<string>, annotations: Array<string>): Partial<Data> {
+function createActionsScatterData(timeStampsInDateString: Array<string>, iconText: Array<string>, annotations: Array<string>): Partial<Data> {
     return {
-        x: timeInSeconds,
-        y: new Array(timeInSeconds.length).fill(1),
+        x: timeStampsInDateString,
+        y: new Array(timeStampsInDateString.length).fill(1),
         mode: 'text',
         type: 'scatter',
         text: iconText,
@@ -107,9 +106,9 @@ function createActionsScatterData(timeInSeconds: Array<number>, iconText: Array<
     };
 }
 
-function createCompressionLine(seconds: Array<number>, hoverText: Array<string>): Partial<Data> {
+function createCompressionLine(timeStampInDateString: Array<string>, hoverText: Array<string>): Partial<Data> {
     return {
-        x: seconds,
+        x: timeStampInDateString,
         y: [0.98, 0.98],
         mode: 'lines',
         type: 'scatter',
@@ -124,7 +123,7 @@ function createCompressionLine(seconds: Array<number>, hoverText: Array<string>)
     };
 }
 
-function createTransition(phaseName: string, start: number, end: number, fillColor: string): Partial<Shape> {
+function createTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
     return {
         type: 'rect',
         xref: 'x',
@@ -140,13 +139,13 @@ function createTransition(phaseName: string, start: number, end: number, fillCol
     }
 }
 
-function createTransitionAnnotation(text: string, start: number, fontColor: string): Partial<Annotations> {
+function createTransitionAnnotation(text: string, start: string, fontColor: string): Partial<Annotations> {
     return {
         xref: 'x', //'paper',
         yref: 'paper',
-        x: start + 2,
+        x: start,
         y: 0.8,
-        xanchor: 'center',
+        xanchor: 'left',
         yanchor: 'middle',
         text: text.replace('(action)', ''),
         showarrow: false,
@@ -165,11 +164,11 @@ const Page = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
-        const phaseMap: { [key: string]: { start: number, end: number } } = {};
-        const timestampsInSeconds: number[] = [];
+        const phaseMap: { [key: string]: { start: string, end: string } } = {};
+        const timestampsInDateString: Array<string> = [];
         const actions = [];
         const actionIcons: Array<string> = [];
-        let compressionLine: { seconds: Array<number>, hoverText: Array<string> } = {
+        let compressionLine: { seconds: Array<string>, hoverText: Array<string> } = {
             seconds: [],
             hoverText: []
         };
@@ -184,14 +183,14 @@ const Page = () => {
                 const { [csvColHeaders.action]: action,
                     [csvColHeaders.subAction]: subAction,
                     [csvColHeaders.timestamp]: timestamp } = row.data;
-                const timestampInSeconds = timeToSeconds(timestamp);
+                const timeStampInDateString = timeStampToDateString(timestamp);
 
                 if (doesCPRStart(subAction)) {
-                    compressionLine.seconds.push(timestampInSeconds);
+                    compressionLine.seconds.push(timeStampInDateString);
                     compressionLine.hoverText.push(timestamp);
                 }
                 else if (doesCPRStop(subAction)) {
-                    compressionLine.seconds.push(timestampInSeconds);
+                    compressionLine.seconds.push(timeStampInDateString);
                     compressionLine.hoverText.push(timestamp);
                     compressionLines.push(createCompressionLine(compressionLine.seconds, compressionLine.hoverText));
                     compressionLine.seconds = [];
@@ -200,9 +199,9 @@ const Page = () => {
 
                 if (isTransitionBoundary(action)) {
                     if (!phaseMap[action]) {
-                        phaseMap[action] = { start: timestampInSeconds, end: timestampInSeconds };
+                        phaseMap[action] = { start: timeStampInDateString, end: timeStampInDateString };
                     } else {
-                        phaseMap[action].end = timestampInSeconds;
+                        phaseMap[action].end = timeStampInDateString;
                     }
                 }
 
@@ -210,11 +209,11 @@ const Page = () => {
                     actions.push(action);
                     actionAnnotations.push(`${timestamp}, ${subAction}`);
                     actionIcons.push(getIcon(subAction));
-                    timestampsInSeconds.push(timestampInSeconds);
+                    timestampsInDateString.push(timeStampInDateString);
                 }
             },
             complete: function () {
-                const actionsScatterData = createActionsScatterData(timestampsInSeconds, actionIcons, actionAnnotations);
+                const actionsScatterData = createActionsScatterData(timestampsInDateString, actionIcons, actionAnnotations);
 
                 const { transitionShapes, transitionAnnotations } = Object.keys(phaseMap).reduce<{ transitionShapes: Array<Partial<Shape>>, transitionAnnotations: Array<Partial<Annotations>> }>((accumulator, action, index) => {
                     accumulator.transitionShapes.push(createTransition(action, phaseMap[action].start, phaseMap[action].end, phaseColors[index % phaseColors.length] + '33'));
@@ -224,7 +223,7 @@ const Page = () => {
 
                 const layoutConfig: Partial<Layout> = {
                     title: 'Clinical Review Timeline',
-                    xaxis: { title: 'Time (seconds)', showgrid: false },
+                    xaxis: { title: 'Time (seconds)', showgrid: false, range:[0, timestampsInDateString[timestampsInDateString.length-1]+10], tickformat: '%H:%M:%S' },
                     yaxis: { visible: false, range: [0, 2] },
                     showlegend: false,
                     shapes: transitionShapes,
