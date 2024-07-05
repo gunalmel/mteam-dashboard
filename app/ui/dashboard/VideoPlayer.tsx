@@ -19,20 +19,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLV
         });
     }, []);
 
-    const seekToTime = (time: number) => {
-        const videoElement = (ref as React.RefObject<HTMLVideoElement>).current || localVideoRef.current;
-        if (videoElement) {
-            videoElement.currentTime = time;
-        }
-    };
-
-    const buttons = [
-        { label: "Start", time: 0 },
-        { label: "10s", time: 10 },
-        { label: "30s", time: 30 },
-        { label: "1m", time: 60 },
-    ];
-
     return (
         <div className="flex flex-col items-center p-4">
             <div className="w-full max-w-2xl bg-gray-800 rounded-md overflow-hidden mb-4">
@@ -52,17 +38,6 @@ const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLV
                         {...props}
                     />
                 )}
-            </div>
-            <div className="flex space-x-2">
-                {buttons.map((button, index) => (
-                    <button
-                        key={index}
-                        onClick={() => seekToTime(button.time)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
-                    >
-                        {button.label}
-                    </button>
-                ))}
             </div>
         </div>
     );

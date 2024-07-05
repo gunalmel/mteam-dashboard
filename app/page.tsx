@@ -92,6 +92,13 @@ function isTransitionBoundary(action: string) {
     return action && action.includes('(action)');
 }
 
+function timeStampStringToSeconds(timeStr: string) {
+    const parts = timeStr.split(/\s+/);
+    const timestampString = parts.length < 2?parts[0]:parts[1];
+    const timeParts = timestampString.split(':');
+    return parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+}
+
 function createActionsScatterData(timeStampsInDateString: Array<string>, iconText: Array<string>, annotations: Array<string>): Partial<Data> {
     return {
         x: timeStampsInDateString,
@@ -257,9 +264,7 @@ const Page = () => {
 
     const handlePlotHover = (event: PlotMouseEvent) => {
         if (event.points.length > 0) {
-            const point = event.points[0];
-            const timeInSeconds = Number(point.x);
-            setHoveredTime(timeInSeconds);
+            setHoveredTime(timeStampStringToSeconds(event.points[0]?.x as string));
         }
     };
 
