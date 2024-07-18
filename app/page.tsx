@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { Annotations, Data, Layout, PlotMouseEvent } from 'plotly.js';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
 import ActionsPlot from '@/components/plots/ActionsPlot';
