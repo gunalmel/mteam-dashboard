@@ -23,8 +23,11 @@ const processRow = (
     row: { [key: string]: string },
     phaseMap: { [key: string]: { start: string, end: string } },
     timestampsInDateString: string[],
+    yValues: number[],
     subActions: string[],
     actionAnnotations: string[],
+    actionYMap: { [key: string]: number },
+    nextY: { value: number },
     compressionLine: { seconds: string[], hoverText: string[] },
     compressionLines: Partial<Data>[]
 ) => {
@@ -51,15 +54,23 @@ const processRow = (
     }
 
     if (shouldPlotAction(action, subAction)) {
+        const baseAction = subAction.includes('Shock') ? 'Shock' : subAction;
+        if (!(baseAction in actionYMap)) {
+            actionYMap[baseAction] = nextY.value;
+            nextY.value += 0.5; // Increment by 0.5 for each different action item
+        }
+        const yValue = actionYMap[baseAction];
         subActions.push(subAction);
         actionAnnotations.push(`${timestamp}, ${subAction}`);
         timestampsInDateString.push(timeStampInDateString);
+        yValues.push(yValue);
     }
 };
 
 const generateLayout = (
     phaseMap: { [key: string]: { start: string, end: string } },
-    timestampsInDateString: string[]
+    timestampsInDateString: string[],
+    actionYMap: { [key: string]: number }
 ): Partial<Layout> => {
     const { transitionShapes, transitionAnnotations } = Object.keys(phaseMap).reduce<{
         transitionShapes: Partial<Shape>[],
@@ -82,7 +93,7 @@ const generateLayout = (
     return {
         title: 'Clinical Review Timeline',
         xaxis: { title: 'Time (seconds)', showgrid: false, range: [0, timestampsInDateString[timestampsInDateString.length - 1] + 10], tickformat: '%H:%M:%S' },
-        yaxis: { visible: false, range: [0, 2] },
+        yaxis: { visible: false, range: [0, Object.keys(actionYMap).length * 0.5 + 2] }, // Update the y-axis range
         showlegend: false,
         shapes: transitionShapes,
         annotations: transitionAnnotations,
@@ -100,8 +111,11 @@ export const useActionsData = () => {
     useEffect(() => {
         const phaseMap: { [key: string]: { start: string, end: string } } = {};
         const timestampsInDateString: string[] = [];
+        const yValues: number[] = [];
         const subActions: string[] = [];
         const actionAnnotations: string[] = [];
+        const actionYMap: { [key: string]: number } = {};
+        const nextY = { value: 2 }; // Start from 2 instead of 1
         let compressionLine: { seconds: string[], hoverText: string[] } = { seconds: [], hoverText: [] };
         const compressionLines: Partial<Data>[] = [];
 
@@ -109,11 +123,11 @@ export const useActionsData = () => {
             download: true,
             header: true,
             step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
-                processRow(row.data, phaseMap, timestampsInDateString, subActions, actionAnnotations, compressionLine, compressionLines);
+                processRow(row.data, phaseMap, timestampsInDateString, yValues, subActions, actionAnnotations, actionYMap, nextY, compressionLine, compressionLines);
             },
             complete: function () {
-                const actionsScatterData = createActionsScatterData(timestampsInDateString, subActions, actionAnnotations);
-                const layoutConfig = generateLayout(phaseMap, timestampsInDateString);
+                const actionsScatterData = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+                const layoutConfig = generateLayout(phaseMap, timestampsInDateString, actionYMap);
 
                 setActionsData([actionsScatterData, ...compressionLines]);
                 setActionsLayout(layoutConfig);

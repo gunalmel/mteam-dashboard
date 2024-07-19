@@ -19,11 +19,15 @@ export function getIcon(subAction: string): string {
     return iconName ? icons[iconName] : '';
 }
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, subActions: Array<string>, annotations: Array<string>): Partial<Data> {
+export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>): Partial<Data> {
+    // console.log(timeStampsInDateString);
+    // console.log(yValues);
+    // console.log(subActions);
+    // console.log(annotations);
     const iconText = subActions.map(subAction => getIcon(subAction));
     return {
         x: timeStampsInDateString,
-        y: new Array(timeStampsInDateString.length).fill(1),
+        y: yValues,
         mode: 'text',
         type: 'scatter',
         text: iconText,
