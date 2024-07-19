@@ -20,10 +20,6 @@ export function getIcon(subAction: string): string {
 }
 
 export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>): Partial<Data> {
-    // console.log(timeStampsInDateString);
-    // console.log(yValues);
-    // console.log(subActions);
-    // console.log(annotations);
     const iconText = subActions.map(subAction => getIcon(subAction));
     return {
         x: timeStampsInDateString,
@@ -34,7 +30,7 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
         hovertext: annotations,
         hoverinfo: 'text',
         textposition: 'top center',
-        marker: { size: 12 }
+        textfont: { size: 16 }
     };
 }
 
@@ -48,7 +44,7 @@ export function createCompressionLine(timeStampInDateString: Array<string>, hove
         hovertext: hoverText,
         hoverinfo: 'text',
         textposition: 'top center',
-        marker: { size: 12 },
+        textfont: { size: 16 },
         line: {
             color: 'rgb(0, 150, 0)'
         }

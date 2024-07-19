@@ -54,12 +54,11 @@ const processRow = (
     }
 
     if (shouldPlotAction(action, subAction)) {
-        const baseAction = subAction.includes('Shock') ? 'Shock' : subAction;
-        if (!(baseAction in actionYMap)) {
-            actionYMap[baseAction] = nextY.value;
+        if (!(subAction in actionYMap)) {
+            actionYMap[subAction] = nextY.value;
             nextY.value += 0.5; // Increment by 0.5 for each different action item
         }
-        const yValue = actionYMap[baseAction];
+        const yValue = actionYMap[subAction];
         subActions.push(subAction);
         actionAnnotations.push(`${timestamp}, ${subAction}`);
         timestampsInDateString.push(timeStampInDateString);
