@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useActionsData } from '@/hooks/useActionsData';
 import { timeStampToDateString } from '@/utils/timeUtils';
+import { Data } from 'plotly.js';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -13,7 +14,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
     const currentTimeFormatted = timeStampToDateString(new Date(currentTime * 1000).toISOString().substr(11, 8));
 
     // Define the current time marker
-    const currentTimeMarker = {
+    const currentTimeMarker: Partial<Data> = {
         type: "scatter",
         mode: "lines",
         x: [currentTimeFormatted, currentTimeFormatted],
@@ -22,7 +23,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
     };
 
     // Add the current time marker to the plot data
-    const plotData = [...actionsData, currentTimeMarker];
+    const plotData: Partial<Data>[] = [...actionsData, currentTimeMarker];
 
     useEffect(() => {
         console.log('ActionsPlot Current Video Time:', currentTimeFormatted);
@@ -30,7 +31,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
 
     return (
         <Plot
-            data={plotData}
+            data={plotData as Data[]}
             layout={actionsLayout}
             config={{ displayModeBar: true, responsive: true, displaylogo: false }}
             onHover={onHover}
