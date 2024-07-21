@@ -4,12 +4,15 @@ import 'tailwindcss/tailwind.css';
 
 const fireBaseVideoUrl = 'gs://mteam-dashboard.appspot.com/Data_Sample2/video/video.mp4';
 
-const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>((props, ref) => {
+interface VideoPlayerProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
+    setCurrentTime: (time: number) => void;
+}
+
+const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(({ setCurrentTime, ...props }, ref) => {
     const [videoUrl, setVideoUrl] = useState<string>('');
     const localVideoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
-        // Replace 'your-video-file.mp4' with your actual file path in Firebase storage
         const videoRef = firebaseRef(storage, fireBaseVideoUrl);
 
         getDownloadURL(videoRef).then((url) => {
@@ -18,6 +21,14 @@ const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLV
             console.error("Error fetching video URL: ", error);
         });
     }, []);
+
+    const handleTimeUpdate = () => {
+        if (localVideoRef.current) {
+            const currentTime = localVideoRef.current.currentTime;
+            setCurrentTime(currentTime);
+            console.log('Current Video Time:', currentTime);
+        }
+    };
 
     return (
         <div className="flex flex-col items-center p-4">
@@ -35,6 +46,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLV
                         src={videoUrl}
                         controls
                         className="w-full"
+                        onTimeUpdate={handleTimeUpdate}
                         {...props}
                     />
                 )}
