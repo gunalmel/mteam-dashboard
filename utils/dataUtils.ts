@@ -1,29 +1,21 @@
+import { icons } from '@/components/constants';
 import { Data, Shape, Annotations } from 'plotly.js';
 
-export const icons = {
-    "Pulse Check": "💓",
-    "Select Epinephrine": "💉",
-    "Select Amiodarone": "💉",
-    "Shock": "⚡",
-    "Order Cooling": "🌡️",
-    "Order EKG": "📈",
-    "Intubation": "💨",
-    "Order X-Ray": "☢️",
-    "Labs": "🧪",
-    "Lung Sounds": "🩺"
-};
-
 export function getIcon(subAction: string): string {
-    const iconNames = Object.keys(icons) as Array<keyof typeof icons>;
-    const iconName = iconNames.find(k => subAction.includes(k));
-    return iconName ? icons[iconName] : '';
+    return icons[subAction] || '';
 }
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>): Partial<Data> {
-    const iconText = subActions.map(subAction => getIcon(subAction));
+export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>, selectedMarkers: string[]): Partial<Data> {
+    const filteredSubActions = subActions.filter(subAction => selectedMarkers.includes(subAction));
+    const iconText = filteredSubActions.map(subAction => getIcon(subAction));
+    const filteredYValues = yValues.filter((_, index) => selectedMarkers.includes(subActions[index]));
+    const filteredTimeStamps = timeStampsInDateString.filter((_, index) => selectedMarkers.includes(subActions[index]));
+
+    console.log('Creating actions scatter data:', { filteredTimeStamps, filteredYValues, filteredSubActions });
+
     return {
-        x: timeStampsInDateString,
-        y: yValues,
+        x: filteredTimeStamps,
+        y: filteredYValues,
         mode: 'text',
         type: 'scatter',
         text: iconText,
@@ -87,6 +79,7 @@ export function createTransitionAnnotation(text: string, start: string, fontColo
 
 const subActionExclusions = ['Begin CPR', 'Enter CPR', 'Stop CPR'];
 export function shouldPlotAction(action: string, subAction: string) {
+    console.log('Checking if should plot action:', { action, subAction });
     return action && subAction && !subActionExclusions.includes(subAction) && action.includes('(action)') && !action.includes('User Introduction');
 }
 

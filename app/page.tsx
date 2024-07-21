@@ -1,17 +1,41 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
-// import dynamic from 'next/dynamic';
-import { Annotations, Data, Layout, PlotMouseEvent } from 'plotly.js';
+import { PlotMouseEvent } from 'plotly.js';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
 import ActionsPlot from '@/components/plots/ActionsPlot';
 import CognitiveLoadPlot from '@/components/plots/CognitivePlot';
 import Explanation from '@/components/Explanation';
 import { timeStampStringToSeconds } from '@/utils/timeUtils';
+import { explanationItems } from '@/components/constants';
 
 const Page = () => {
     const [hoveredTime, setHoveredTime] = useState<number | null>(null);
     const [currentCognitiveLoad, setCurrentCognitiveLoad] = useState<number | null>(null);
+    const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
     const videoRef = useRef<HTMLVideoElement | null>(null);
+
+    useEffect(() => {
+        console.log('Selected markers:', selectedMarkers);
+    }, [selectedMarkers]);
+
+    const handleSelectAll = (selectAll: boolean) => {
+        if (selectAll) {
+            setSelectedMarkers(explanationItems.flatMap(item => item.relatedMarkers));
+        } else {
+            setSelectedMarkers([]);
+        }
+    };
+
+    const handleToggleMarkers = (markers: string[]) => {
+        setSelectedMarkers((prevSelectedMarkers) => {
+            const allMarkersSelected = markers.every(marker => prevSelectedMarkers.includes(marker));
+            if (allMarkersSelected) {
+                return prevSelectedMarkers.filter(marker => !markers.includes(marker));
+            } else {
+                return [...new Set([...prevSelectedMarkers, ...markers])];
+            }
+        });
+    };
 
     const handlePlotHover = (event: PlotMouseEvent) => {
         if (event.points.length > 0) {
@@ -43,9 +67,13 @@ const Page = () => {
     return (
         <div className="flex flex-col justify-evenly">
             <VideoPlayer ref={videoRef} />
-            <Explanation />
+            <Explanation
+                selectedMarkers={selectedMarkers}
+                onSelectAll={handleSelectAll}
+                onToggleMarker={handleToggleMarkers}
+            />
             <div className="bg-white p-4" style={{ width: '100%', height: '600px' }}>
-                <ActionsPlot onHover={handlePlotHover} />
+                <ActionsPlot onHover={handlePlotHover} selectedMarkers={selectedMarkers} />
             </div>
             <div className="bg-white p-4 mt-4" style={{ width: '100%', height: '600px' }}>
                 <CognitiveLoadPlot />

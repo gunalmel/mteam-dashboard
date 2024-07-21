@@ -5,8 +5,8 @@ import { useActionsData } from '@/hooks/useActionsData';
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
-const ActionsPlot = ({ onHover }: { onHover: (event: any) => void }) => {
-    const { actionsData, actionsLayout } = useActionsData();
+const ActionsPlot = ({ onHover, selectedMarkers }: { onHover: (event: any) => void, selectedMarkers: string[] }) => {
+    const { actionsData, actionsLayout } = useActionsData(selectedMarkers);
 
     return (
         <Plot

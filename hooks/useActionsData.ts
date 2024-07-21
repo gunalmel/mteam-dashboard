@@ -29,7 +29,8 @@ const processRow = (
     actionYMap: { [key: string]: number },
     nextY: { value: number },
     compressionLine: { seconds: string[], hoverText: string[] },
-    compressionLines: Partial<Data>[]
+    compressionLines: Partial<Data>[],
+    selectedMarkers: string[]
 ) => {
     const { 'Action/Vital Name': action, 'SubAction Name': subAction, 'Time Stamp[Hr:Min:Sec]': timestamp } = row;
     const timeStampInDateString = timeStampToDateString(timestamp);
@@ -54,15 +55,18 @@ const processRow = (
     }
 
     if (shouldPlotAction(action, subAction)) {
-        if (!(subAction in actionYMap)) {
-            actionYMap[subAction] = nextY.value;
-            nextY.value += 0.5; // Increment by 0.5 for each different action item
+        console.log(action, subAction);
+        if (selectedMarkers.includes(subAction)) {
+            if (!(subAction in actionYMap)) {
+                actionYMap[subAction] = nextY.value;
+                nextY.value += 0.5; // Increment by 0.5 for each different action item
+            }
+            const yValue = actionYMap[subAction];
+            subActions.push(subAction);
+            actionAnnotations.push(`${timestamp}, ${subAction}`);
+            timestampsInDateString.push(timeStampInDateString);
+            yValues.push(yValue);
         }
-        const yValue = actionYMap[subAction];
-        subActions.push(subAction);
-        actionAnnotations.push(`${timestamp}, ${subAction}`);
-        timestampsInDateString.push(timeStampInDateString);
-        yValues.push(yValue);
     }
 };
 
@@ -103,7 +107,7 @@ const generateLayout = (
     };
 };
 
-export const useActionsData = () => {
+export const useActionsData = (selectedMarkers: string[]) => {
     const [actionsData, setActionsData] = useState<Array<Partial<Data>>>([]);
     const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({});
 
@@ -122,10 +126,11 @@ export const useActionsData = () => {
             download: true,
             header: true,
             step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
-                processRow(row.data, phaseMap, timestampsInDateString, yValues, subActions, actionAnnotations, actionYMap, nextY, compressionLine, compressionLines);
+                processRow(row.data, phaseMap, timestampsInDateString, yValues, subActions, actionAnnotations, actionYMap, nextY, compressionLine, compressionLines, selectedMarkers);
             },
             complete: function () {
-                const actionsScatterData = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+                console.log(subActions);
+                const actionsScatterData = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations, selectedMarkers);
                 const layoutConfig = generateLayout(phaseMap, timestampsInDateString, actionYMap);
 
                 setActionsData([actionsScatterData, ...compressionLines]);
@@ -133,7 +138,7 @@ export const useActionsData = () => {
             }
         });
 
-    }, []);
+    }, [selectedMarkers]);
 
     return { actionsData, actionsLayout };
 };
