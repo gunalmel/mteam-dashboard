@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useCognitiveLoadData } from '@/hooks/useCognitiveLoadData';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
-const CognitiveLoadPlot = () => {
+const CognitiveLoadPlot = ({ currentTime }: { currentTime: number }) => {
+    useEffect(() => {
+        console.log('CognitiveLoadPlot Current Video Time:', currentTime);
+    }, [currentTime]);
+
     const { cognitiveLoadData, cognitiveLoadLayout } = useCognitiveLoadData();
 
     return (

@@ -12,6 +12,7 @@ const Page = () => {
     const [hoveredTime, setHoveredTime] = useState<number | null>(null);
     const [currentCognitiveLoad, setCurrentCognitiveLoad] = useState<number | null>(null);
     const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
+    const [currentTime, setCurrentTime] = useState<number>(0);
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
@@ -66,17 +67,17 @@ const Page = () => {
 
     return (
         <div className="flex flex-col justify-evenly">
-            <VideoPlayer ref={videoRef} />
+            <VideoPlayer ref={videoRef} setCurrentTime={setCurrentTime} />
             <Explanation
                 selectedMarkers={selectedMarkers}
                 onSelectAll={handleSelectAll}
                 onToggleMarker={handleToggleMarkers}
             />
             <div className="bg-white p-4" style={{ width: '100%', height: '600px' }}>
-                <ActionsPlot onHover={handlePlotHover} selectedMarkers={selectedMarkers} />
+                <ActionsPlot onHover={handlePlotHover} selectedMarkers={selectedMarkers} currentTime={currentTime} />
             </div>
             <div className="bg-white p-4 mt-4" style={{ width: '100%', height: '600px' }}>
-                <CognitiveLoadPlot />
+                <CognitiveLoadPlot currentTime={currentTime} />
                 <div>
                     Current Cognitive Load: {currentCognitiveLoad !== null ? `${currentCognitiveLoad.toFixed(2)}%` : 'N/A'}
                 </div>
