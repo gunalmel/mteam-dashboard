@@ -7,7 +7,7 @@ const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 const CognitiveLoadPlot = ({ currentTime }: { currentTime: number }) => {
     useEffect(() => {
-        console.log('CognitiveLoadPlot Current Video Time:', currentTime);
+        // console.log('CognitiveLoadPlot Current Video Time:', currentTime);
     }, [currentTime]);
 
     const { cognitiveLoadData, cognitiveLoadLayout } = useCognitiveLoadData();

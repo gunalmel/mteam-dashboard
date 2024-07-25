@@ -73,10 +73,10 @@ const Page = () => {
                 onSelectAll={handleSelectAll}
                 onToggleMarker={handleToggleMarkers}
             />
-            <div className="bg-white p-4" style={{ width: '100%', height: '600px' }}>
+            <div className="bg-white p-4" style={{ width: '100%', height: '800px' }}>
                 <ActionsPlot onHover={handlePlotHover} selectedMarkers={selectedMarkers} currentTime={currentTime} />
             </div>
-            <div className="bg-white p-4 mt-4" style={{ width: '100%', height: '600px' }}>
+            <div className="bg-white p-4 mt-4" style={{ width: '100%', height: '800px' }}>
                 <CognitiveLoadPlot currentTime={currentTime} />
                 <div>
                     Current Cognitive Load: {currentCognitiveLoad !== null ? `${currentCognitiveLoad.toFixed(2)}%` : 'N/A'}

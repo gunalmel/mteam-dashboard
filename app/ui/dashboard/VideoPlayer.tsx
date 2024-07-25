@@ -26,7 +26,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(({ setCurrent
         if (localVideoRef.current) {
             const currentTime = localVideoRef.current.currentTime;
             setCurrentTime(currentTime);
-            console.log('Current Video Time:', currentTime);
+            // console.log('Current Video Time:', currentTime);
         }
     };
 

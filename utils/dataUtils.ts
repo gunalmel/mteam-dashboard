@@ -26,6 +26,22 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
     };
 }
 
+export function createRequiredActionTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
+    return {
+        type: 'rect',
+        xref: 'x',
+        yref: 'y',
+        x0: start,
+        x1: end,
+        y0: -1, // Position below the plot
+        y1: -2, // Adjusted height for the required actions box
+        fillcolor: fillColor,
+        line: { width: 0 },
+        layer: 'below',
+        name: phaseName
+    };
+}
+
 export function createCompressionLine(timeStampInDateString: Array<string>, hoverText: Array<string>): Partial<Data> {
     return {
         x: timeStampInDateString,
@@ -47,11 +63,11 @@ export function createTransition(phaseName: string, start: string, end: string, 
     return {
         type: 'rect',
         xref: 'x',
-        yref: 'paper',
+        yref: 'y',
         x0: start,
         x1: end,
         y0: 0,
-        y1: 1,
+        y1: 10,
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',
