@@ -23,7 +23,8 @@ export const parseCsvData = (
             processRow(row.data, phaseMap, timestampsInDateString, yValues, subActions, actionAnnotations, compressionLine, compressionLines, uniqueActions);
         },
         complete: function () {
-            const actionsScatterData = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+            var plotDataPoints = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+            const actionsScatterData = plotDataPoints.scatterData;
             const layoutConfig = generateLayout(phaseMap, timestampsInDateString);
             const requiredActionIcons = generateRequiredActionsData(uniqueActions, phaseMap);
 

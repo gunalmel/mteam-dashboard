@@ -55,7 +55,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
         }
 
         // Map selected markers to their corresponding icons
-        const selectedIcons = selectedMarkers.map(marker => icons[marker]);
+        const selectedIcons = selectedMarkers.map(marker => icons[marker].unicode);
 
         const filteredIndices = text.reduce<number[]>((acc, value, index) => {
             if (selectedIcons.includes(value)) {

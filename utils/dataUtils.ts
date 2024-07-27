@@ -49,7 +49,7 @@ export const processRow = (
 
 export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<string> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
     let requiredActionsData: Partial<Annotations>[] = [];
-    Object.keys(uniqueActions).forEach((phaseKey, index) => {
+    Object.keys(uniqueActions).forEach(phaseKey => {
         const phase = phaseMap[phaseKey];
         if (!phase) return;
 
@@ -68,7 +68,7 @@ export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<
                 xref: 'x',
                 yref: 'y',
                 showarrow: false,
-                text: icons[action] || '',
+                text: icons[action].unicode || '',
                 font: { size: 12 },
                 align: 'center',
                 ay: 0,
@@ -127,21 +127,50 @@ export const generateLayout = (
     };
 };
 
-export function getIcon(subAction: string): string {
-    return icons[subAction] || '';
+export function getIcon(subAction: string): {unicode: string, image: string} {
+    return icons[subAction] || {unicode: '', image: ''};
 }
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>): Partial<ScatterData> {
+export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>)
+    :{ scatterData: Partial<ScatterData>, images: Layout['images']} {
+ /*   const filteredSubActions = subActions.filter(subAction => selectedMarkers.includes(subAction));
+    const iconText = filteredSubActions.map(subAction => getIcon(subAction).unicode);
+    const filteredYValues = yValues.filter((_, index) => selectedMarkers.includes(subActions[index]));
+    const filteredTimeStamps = timeStampsInDateString.filter((_, index) => selectedMarkers.includes(subActions[index]));
+*/
+    const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length-1])-timeStampStringToSeconds(timeStampsInDateString[0]);
+
+    const images: Layout['images'] = subActions.map((subAction, index) => ({
+            source: getIcon(subAction).image,
+            xref: 'x',
+            yref: 'y',
+            x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
+            y: yValues[index], //filteredYValues[index],
+            sizex: range*100,
+            sizey: 0.373,//0.373,
+            xanchor: 'center',
+            yanchor: 'middle',
+            layer: 'above'
+        }
+    ));
+
     return {
+        scatterData: {
         x: timeStampsInDateString,
         y: yValues,
-        mode: 'text',
+        mode: 'markers',
         type: 'scatter',
-        text: subActions.map(subAction => getIcon(subAction)),
+        text: subActions.map(subAction => getIcon(subAction).unicode),
         hovertext: annotations,
         hoverinfo: 'text',
         textposition: 'top center',
-        textfont: { size: 16 }
+        textfont: { size: 16 },
+        marker: {
+            size: 1,
+            symbol: 'circle',
+            opacity: 0.5},
+    },
+    images
     };
 }
 
