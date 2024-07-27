@@ -17,13 +17,14 @@ export const explanationItems = [
 export const icons = explanationItems.reduce((acc, item) => {
     item.relatedMarkers.forEach(marker => {
         if(!acc[marker]){
-            acc[marker]={unicode:'', image:''};
+            acc[marker]={unicode:'', image:'', name: ''};
         }
         acc[marker].unicode = item.icon;
         acc[marker].image = item.url;
+        acc[marker].name = marker;
     });
     return acc;
-}, {} as { [key: string]: {unicode: string, image: string} });
+}, {} as { [key: string]: {unicode: string, image: string, name: string} });
 
 export const yValues = explanationItems.reduce((acc, item) => {
     item.relatedMarkers.forEach(marker => {

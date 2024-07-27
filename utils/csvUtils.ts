@@ -2,10 +2,11 @@ import Papa from 'papaparse';
 import { ScatterData, Layout, Shape, Annotations } from 'plotly.js';
 import { createActionsScatterData, createRequiredActionTransition, processRow, generateLayout, generateRequiredActionsData } from '@/utils/dataUtils';
 import { phaseColors } from '@/components/constants';
+import { LayoutWithNamedImage } from '@/types';
 
 export const parseCsvData = (
     url: string,
-    onComplete: (actionsScatterData: Partial<ScatterData>, layoutConfig: Partial<Layout>, requiredActionIcons: Partial<Annotations>[], requiredActionsShapes: Partial<Shape>[]) => void
+    onComplete: (actionsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, requiredActionIcons: Partial<Annotations>[], requiredActionsShapes: Partial<Shape>[]) => void
 ) => {
     const phaseMap: { [key: string]: { start: string, end: string } } = {};
     const timestampsInDateString: string[] = [];
@@ -13,7 +14,7 @@ export const parseCsvData = (
     const subActions: string[] = [];
     const actionAnnotations: string[] = [];
     let compressionLine: { seconds: string[], hoverText: string[] } = { seconds: [], hoverText: [] };
-    const compressionLines: Partial<ScatterData>[] = [];
+    const compressionLines: Array<Partial<ScatterData>> = [];
     const uniqueActions: { [key: string]: Set<string> } = {};
 
     Papa.parse(url, {
@@ -26,6 +27,7 @@ export const parseCsvData = (
             var plotDataPoints = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
             const actionsScatterData = plotDataPoints.scatterData;
             const layoutConfig = generateLayout(phaseMap, timestampsInDateString);
+            layoutConfig.images=plotDataPoints.images;
             const requiredActionIcons = generateRequiredActionsData(uniqueActions, phaseMap);
 
             const requiredActionsShapes = Object.keys(phaseMap).map((action, index) =>
@@ -37,7 +39,7 @@ export const parseCsvData = (
                 )
             );
 
-            onComplete(actionsScatterData, layoutConfig, requiredActionIcons, requiredActionsShapes);
+            onComplete(actionsScatterData, compressionLines, layoutConfig, requiredActionIcons, requiredActionsShapes);
         }
     });
 };

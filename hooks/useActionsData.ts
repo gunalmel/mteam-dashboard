@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { ScatterData, Layout, Shape, Annotations } from 'plotly.js';
+import {ScatterData, Layout, Shape, Annotations, Datum} from 'plotly.js';
 import { parseCsvData } from '@/utils/csvUtils';
-import { icons } from '@/components/constants';
+import {getIcon} from '@/utils/dataUtils';
+import { LayoutWithNamedImage } from '@/types';
 
 export const useActionsData = (selectedMarkers: string[]) => {
     const [actionsData, setActionsData] = useState<Array<Partial<ScatterData>>>([]);
@@ -10,7 +11,8 @@ export const useActionsData = (selectedMarkers: string[]) => {
     const [requiredActionsShapes, setRequiredActionsShapes] = useState<Partial<Shape>[]>([]);
     const parsedDataRef = useRef<{
         actionsScatterData: Partial<ScatterData>;
-        layoutConfig: Partial<Layout>;
+        compressionLines: Array<Partial<ScatterData>>;
+        layoutConfig: Partial<LayoutWithNamedImage>;
         requiredActionIcons: Partial<Annotations>[];
         requiredActionsShapes: Partial<Shape>[];
     } | null>(null);
@@ -18,9 +20,10 @@ export const useActionsData = (selectedMarkers: string[]) => {
     useEffect(() => {
         parseCsvData(
             'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
-            (actionsScatterData, layoutConfig, requiredActionIcons, requiredActionsShapes) => {
+            (actionsScatterData, compressionLines, layoutConfig, requiredActionIcons, requiredActionsShapes) => {
                 parsedDataRef.current = {
                     actionsScatterData,
+                    compressionLines,
                     layoutConfig,
                     requiredActionIcons,
                     requiredActionsShapes,
@@ -28,51 +31,52 @@ export const useActionsData = (selectedMarkers: string[]) => {
                 setActionsLayout(layoutConfig);
                 setRequiredActionsAnnotations(requiredActionIcons);
                 setRequiredActionsShapes(requiredActionsShapes);
-                updateActionsData(actionsScatterData, selectedMarkers);
+                updateActionsData(actionsScatterData, layoutConfig, compressionLines, selectedMarkers);
             }
         );
     }, []);
 
     useEffect(() => {
         if (parsedDataRef.current) {
-            updateActionsData(parsedDataRef.current.actionsScatterData, selectedMarkers);
+            updateActionsData(Object.assign({},parsedDataRef.current.actionsScatterData),
+                Object.assign({},parsedDataRef.current.layoutConfig),
+                parsedDataRef.current.compressionLines, selectedMarkers);
         }
     }, [selectedMarkers]);
 
-    const updateActionsData = (actionsScatterData: Partial<ScatterData>, selectedMarkers: string[]) => {
-        const filteredData = filterActionsData(actionsScatterData, selectedMarkers);
-        setActionsData([filteredData]);
+    const updateActionsData = (actionsScatterData: Partial<ScatterData>, layoutConfig: Partial<LayoutWithNamedImage>, compressionLines: Array<Partial<ScatterData>>, selectedMarkers: string[]) => {
+        const filteredData = filterActionsData(actionsScatterData, layoutConfig, selectedMarkers);
+        setActionsData([filteredData.scatterData, ...compressionLines]);
+        setActionsLayout(filteredData.layoutConfig);
     };
 
-    const filterActionsData = (actionsScatterData: Partial<ScatterData>, selectedMarkers: string[]): Partial<ScatterData> => {
-        const x = actionsScatterData.x as string[] | undefined;
-        const y = actionsScatterData.y as number[] | undefined;
-        const text = actionsScatterData.text as string[] | undefined;
-        const hovertext = actionsScatterData.hovertext as string[] | undefined;
+    const filterActionsData = (actionsScatterData: Partial<ScatterData>, layoutConfig: Partial<LayoutWithNamedImage>, selectedMarkers: string[]): {scatterData: Partial<ScatterData>, layoutConfig: Partial<Layout>} => {
+        const {x,y,text,ids,hovertext} = actionsScatterData;
 
-        if (!x || !y || !text || !hovertext) {
-            return {};
+        if (!x || !y) {
+            return {scatterData:{}, layoutConfig:{}};
         }
 
         // Map selected markers to their corresponding icons
-        const selectedIcons = selectedMarkers.map(marker => icons[marker].unicode);
+        const selectedIcons = selectedMarkers.map(marker => getIcon(marker).name);
 
-        const filteredIndices = text.reduce<number[]>((acc, value, index) => {
+        const filteredIndices = ids?.reduce<number[]>((acc, value, index) => {
             if (selectedIcons.includes(value)) {
                 acc.push(index);
             }
             return acc;
         }, []);
 
-        return {
-            x: filteredIndices.map(index => x[index]),
-            y: filteredIndices.map(index => y[index]),
-            text: filteredIndices.map(index => text[index]),
-            hovertext: filteredIndices.map(index => hovertext[index]),
-            mode: 'text',
-            type: 'scatter',
-            textposition: 'top center',
-            textfont: { size: 16 },
+        layoutConfig.images = layoutConfig.images?.filter(image=>image.name&&selectedIcons.includes(image.name));
+
+        return { scatterData:  {
+            ...actionsScatterData,
+            x: filteredIndices?.map(index => x[index]) as Array<Datum>,
+            y: filteredIndices?.map(index => y[index])as Array<Datum>,
+            text: text&&filteredIndices?.map(index => text[index]),
+            hovertext: hovertext&&filteredIndices?.map(index => hovertext[index])
+        },
+            layoutConfig
         };
     };
 

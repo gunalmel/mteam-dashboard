@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useActionsData } from '@/hooks/useActionsData';
 import { timeStampToDateString } from '@/utils/timeUtils';
-import { Data, Layout, Annotations } from 'plotly.js';
+import { Data, Layout } from 'plotly.js';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -27,7 +27,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
 
     const layout: Partial<Layout> = {
         ...actionsLayout,
-        annotations: [...(actionsLayout.annotations || []), ...requiredActionsAnnotations]
+       annotations: [...(actionsLayout.annotations || []), ...requiredActionsAnnotations]
     };
 
     useEffect(() => {

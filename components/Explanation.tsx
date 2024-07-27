@@ -1,17 +1,24 @@
 import React from 'react';
+import Image from 'next/image'
 import { explanationItems } from '@/components/constants';
 
 interface ExplanationItemProps {
-    icon: string;
+    iconUrl: string;
     text: string;
     isChecked: boolean;
     onToggle: () => void;
 }
 
-const ExplanationItem: React.FC<ExplanationItemProps> = ({ icon, text, isChecked, onToggle }) => (
+const ExplanationItem: React.FC<ExplanationItemProps> = ({ iconUrl, text, isChecked, onToggle }) => (
     <div className="flex items-center">
         <input type="checkbox" checked={isChecked} onChange={onToggle} className="mr-2" />
-        <span className="mr-1">{icon}</span> {text}
+
+        <span className="mr-1"><Image
+            src={iconUrl}
+            width={14}
+            height={14}
+            alt="Picture of the author"
+        /></span> {text}
     </div>
 );
 
@@ -41,7 +48,7 @@ const Explanation: React.FC<ExplanationProps> = ({ selectedMarkers, onSelectAll,
                 {explanationItems.map((item, index) => (
                     <ExplanationItem
                         key={index}
-                        icon={item.icon}
+                        iconUrl={item.url}
                         text={item.text}
                         isChecked={item.relatedMarkers.every(marker => selectedMarkers.includes(marker))}
                         onToggle={() => onToggleMarker(item.relatedMarkers)}
