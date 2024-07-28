@@ -2,11 +2,11 @@ import Papa from 'papaparse';
 import { ScatterData, Layout, Shape, Annotations } from 'plotly.js';
 import { createActionsScatterData, createRequiredActionTransition, processRow, generateLayout, generateRequiredActionsData } from '@/utils/dataUtils';
 import { phaseColors } from '@/components/constants';
-import { LayoutWithNamedImage } from '@/types';
+import { LayoutWithNamedImage, ImageWithName } from '@/types';
 
 export const parseCsvData = (
     url: string,
-    onComplete: (actionsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, requiredActionIcons: Partial<Annotations>[], requiredActionsShapes: Partial<Shape>[]) => void
+    onComplete: (actionsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, requiredActionImages: Partial<ImageWithName>[]) => void
 ) => {
     const phaseMap: { [key: string]: { start: string, end: string } } = {};
     const timestampsInDateString: string[] = [];
@@ -24,22 +24,18 @@ export const parseCsvData = (
             processRow(row.data, phaseMap, timestampsInDateString, yValues, subActions, actionAnnotations, compressionLine, compressionLines, uniqueActions);
         },
         complete: function () {
-            var plotDataPoints = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+            const plotDataPoints = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
             const actionsScatterData = plotDataPoints.scatterData;
             const layoutConfig = generateLayout(phaseMap, timestampsInDateString);
-            layoutConfig.images=plotDataPoints.images;
-            const requiredActionIcons = generateRequiredActionsData(uniqueActions, phaseMap);
+            const requiredActionImages = generateRequiredActionsData(uniqueActions, phaseMap);
 
-            const requiredActionsShapes = Object.keys(phaseMap).map((action, index) =>
-                createRequiredActionTransition(
-                    action,
-                    phaseMap[action].start,
-                    phaseMap[action].end,
-                    phaseColors[index % phaseColors.length] + '33'
-                )
-            );
+            layoutConfig.images = [
+                ...(layoutConfig.images || []),
+                ...plotDataPoints.images,
+                ...requiredActionImages
+            ];
 
-            onComplete(actionsScatterData, compressionLines, layoutConfig, requiredActionIcons, requiredActionsShapes);
+            onComplete(actionsScatterData, compressionLines, layoutConfig, requiredActionImages);
         }
     });
 };
