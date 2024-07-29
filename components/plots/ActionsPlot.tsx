@@ -8,7 +8,7 @@ import { Data, Layout } from 'plotly.js';
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (event: any) => void, selectedMarkers: string[], currentTime: number }) => {
-    const { actionsData, actionsLayout, requiredActionsAnnotations } = useActionsData(selectedMarkers);
+    const { actionsData, actionsLayout } = useActionsData(selectedMarkers);
 
     // Convert currentTime (in seconds) to the same format as the plot data
     const currentTimeFormatted = timeStampToDateString(new Date(currentTime * 1000).toISOString().substr(11, 8));
@@ -27,7 +27,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
 
     const layout: Partial<Layout> = {
         ...actionsLayout,
-       annotations: [...(actionsLayout.annotations || []), ...requiredActionsAnnotations]
+        shapes: [...(actionsLayout.shapes || [])]
     };
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { ScatterData, Layout, Shape, Annotations, Image } from 'plotly.js';
 import { timeStampToDateString, timeStampStringToSeconds } from '@/utils/timeUtils';
 import { yValues, icons, phaseColors } from '@/components/constants';
-import {ImageWithName, LayoutWithNamedImage} from '@/types';
+import { ImageWithName, LayoutWithNamedImage } from '@/types';
 
 export const processRow = (
     row: { [key: string]: string },
@@ -49,7 +49,7 @@ export const processRow = (
 };
 
 export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<string> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
-    let requiredActionsData: Partial<Annotations>[] = [];
+    let requiredActionsData: Partial<ImageWithName>[] = [];
     Object.keys(uniqueActions).forEach(phaseKey => {
         const phase = phaseMap[phaseKey];
         if (!phase) return;
@@ -64,16 +64,17 @@ export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<
             const actionTimeSeconds = phaseStartSeconds + (actionIndex + 1) * interval;
             const actionTime = timeStampToDateString(new Date(actionTimeSeconds * 1000).toISOString().substr(11, 8));
             requiredActionsData.push({
-                x: actionTime,
-                y: -1.5,
+                source: icons[action].image,
                 xref: 'x',
                 yref: 'y',
-                showarrow: false,
-                text: icons[action].unicode || '',
-                font: { size: 12 },
-                align: 'center',
-                ay: 0,
-                ax: 0
+                x: actionTime.replace(' ', 'T') + 'Z',
+                y: -1.5,
+                name: icons[action].name,
+                sizex: 58800,  // TODO: Set this dynamically
+                sizey: 0.373,  // TODO: Set this dynamically
+                xanchor: 'center',
+                yanchor: 'middle',
+                layer: 'above'
             });
         });
     });
@@ -128,47 +129,43 @@ export const generateLayout = (
     };
 };
 
-export function getIcon(subAction: string): {unicode: string, image: string, name: string} {
-    return icons[subAction] || {unicode: '', image: '', name: ''};
-}
-
 export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>)
-    :{ scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>>} {
-    const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length-1])-timeStampStringToSeconds(timeStampsInDateString[0]);
+    : { scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>> } {
+    const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length - 1]) - timeStampStringToSeconds(timeStampsInDateString[0]);
 
     const images: Array<Partial<ImageWithName>> = subActions.map((subAction, index) => ({
-            source: getIcon(subAction).image,
-            xref: 'x',
-            yref: 'y',
-            x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
-            y: yValues[index],
-            name: getIcon(subAction).name,
-            sizex: range*100,
-            sizey: 0.373,//0.373,
-            xanchor: 'center',
-            yanchor: 'middle',
-            layer: 'above'
-        }
-    ));
+        source: icons[subAction].image,
+        xref: 'x',
+        yref: 'y',
+        x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
+        y: yValues[index],
+        name: icons[subAction].name,
+        sizex: range * 100,
+        sizey: 0.373,//0.373,
+        xanchor: 'center',
+        yanchor: 'middle',
+        layer: 'above'
+    }));
 
     return {
         scatterData: {
-        x: timeStampsInDateString,
-        y: yValues,
-        mode: 'markers',
-        type: 'scatter',
-        ids: subActions.map(subAction => getIcon(subAction).name),
-        text: subActions.map(subAction => getIcon(subAction).unicode),
-        hovertext: annotations,
-        hoverinfo: 'text',
-        textposition: 'top center',
-        textfont: { size: 16 },
-        marker: {
-            size: 1,
-            symbol: 'circle',
-            opacity: 0.8},
-    },
-    images
+            x: timeStampsInDateString,
+            y: yValues,
+            mode: 'markers',
+            type: 'scatter',
+            ids: subActions.map(subAction => icons[subAction].name),
+            text: subActions.map(subAction => icons[subAction].unicode),
+            hovertext: annotations,
+            hoverinfo: 'text',
+            textposition: 'top center',
+            textfont: { size: 16 },
+            marker: {
+                size: 1,
+                symbol: 'circle',
+                opacity: 0.8
+            },
+        },
+        images
     };
 }
 
