@@ -7,27 +7,28 @@ import { LayoutWithNamedImage, ImageWithName } from '@/types';
 export const useActionsData = (selectedMarkers: string[]) => {
     const [actionsData, setActionsData] = useState<Array<Partial<ScatterData>>>([]);
     const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({});
-    const [requiredActionImages, setRequiredActionImages] = useState<Partial<ImageWithName>[]>([]);
+    const [phaseErrorImages, setPhaseErrorImages] = useState<Partial<ImageWithName>[]>([]);
     const parsedDataRef = useRef<{
         actionsScatterData: Partial<ScatterData>;
         compressionLines: Array<Partial<ScatterData>>;
         layoutConfig: Partial<LayoutWithNamedImage>;
-        requiredActionImages: Partial<ImageWithName>[];
+        phaseErrorImages: Partial<ImageWithName>[];
     } | null>(null);
 
     useEffect(() => {
         parseCsvData(
-            'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
-            (actionsScatterData, compressionLines, layoutConfig, requiredActionImages) => {
+            // 'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
+            'data/timeline-multiplayer-new-csv-1.csv',
+            (actionsScatterData, compressionLines, layoutConfig, phaseErrorImages) => {
                 parsedDataRef.current = {
                     actionsScatterData,
                     compressionLines,
                     layoutConfig,
-                    requiredActionImages
+                    phaseErrorImages
                 };
                 setActionsLayout(layoutConfig);
-                setRequiredActionImages(requiredActionImages);
-                updateActionsData(actionsScatterData, layoutConfig, compressionLines, selectedMarkers);
+                setPhaseErrorImages(phaseErrorImages);
+                updateActionsData(actionsScatterData, layoutConfig, compressionLines, selectedMarkers, phaseErrorImages);
             }
         );
     }, []);
@@ -38,7 +39,8 @@ export const useActionsData = (selectedMarkers: string[]) => {
                 Object.assign({}, parsedDataRef.current.actionsScatterData),
                 Object.assign({}, parsedDataRef.current.layoutConfig),
                 parsedDataRef.current.compressionLines,
-                selectedMarkers
+                selectedMarkers,
+                phaseErrorImages
             );
         }
     }, [selectedMarkers]);
@@ -47,11 +49,19 @@ export const useActionsData = (selectedMarkers: string[]) => {
         actionsScatterData: Partial<ScatterData>,
         layoutConfig: Partial<LayoutWithNamedImage>,
         compressionLines: Array<Partial<ScatterData>>,
-        selectedMarkers: string[]
+        selectedMarkers: string[],
+        phaseErrorImages: Partial<ImageWithName>[]
     ) => {
+
         const filteredData = filterActionsData(actionsScatterData, layoutConfig, selectedMarkers);
+
+        const updatedImages = [
+            ...(filteredData.layoutConfig.images || []), 
+            ...phaseErrorImages
+        ];
+
         setActionsData([filteredData.scatterData, ...compressionLines]);
-        setActionsLayout({ ...filteredData.layoutConfig, images: [...filteredData.layoutConfig.images!, ...requiredActionImages] });
+        setActionsLayout({ ...filteredData.layoutConfig, images: updatedImages });
     };
 
     const filterActionsData = (

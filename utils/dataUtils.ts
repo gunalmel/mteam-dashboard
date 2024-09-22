@@ -1,6 +1,6 @@
-import { ScatterData, Layout, Shape, Annotations, Image } from 'plotly.js';
+import { ScatterData, Shape, Annotations } from 'plotly.js';
 import { timeStampToDateString, timeStampStringToSeconds } from '@/utils/timeUtils';
-import { yValues, icons, phaseColors } from '@/components/constants';
+import { yValues, phaseColors, getIcon } from '@/components/constants';
 import { ImageWithName, LayoutWithNamedImage } from '@/types';
 
 export const processRow = (
@@ -12,9 +12,10 @@ export const processRow = (
     actionAnnotations: string[],
     compressionLine: { seconds: string[], hoverText: string[] },
     compressionLines: Partial<ScatterData>[],
-    uniqueActions: { [key: string]: Set<string> }
+    phaseErrors: { [key: string]: Array<{ [key: string]: string }> }
 ) => {
-    const { 'Action/Vital Name': action, 'SubAction Name': subAction, 'Time Stamp[Hr:Min:Sec]': timestamp } = row;
+    const { 'Action/Vital Name': action, 'SubAction Name': subAction, 'Time Stamp[Hr:Min:Sec]': timestamp, 
+        'Score': score, 'Old Value': oldValue, 'New Value': newValue, 'Username': phaseName} = row;
     const timeStampInDateString = timeStampToDateString(timestamp);
 
     if (doesCPRStart(subAction)) {
@@ -41,37 +42,55 @@ export const processRow = (
         actionAnnotations.push(`${timestamp}, ${subAction}`);
         timestampsInDateString.push(timeStampInDateString);
         yValuesList.push(yValues[subAction]);
-        if (!uniqueActions[action]) {
-            uniqueActions[action] = new Set();
+    }
+
+    // Check for phase errors using oldValue
+    if (isPhaseError(oldValue)) {
+        const errorDetails = {
+            'Action/Vital Name': action,
+            'SubAction Name': subAction,
+            'Time Stamp[Hr:Min:Sec]': timestamp,
+            'Score': score,
+            'Old Value': oldValue,
+            'New Value': newValue,
+        };
+
+        if (!phaseErrors[phaseName]) {
+            phaseErrors[phaseName] = []; // Initialize as an array
         }
-        uniqueActions[action].add(subAction);
+
+        phaseErrors[phaseName].push(errorDetails);
     }
 };
 
-export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<string> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
-    let requiredActionsData: Partial<ImageWithName>[] = [];
-    Object.keys(uniqueActions).forEach(phaseKey => {
-        const phase = phaseMap[phaseKey];
+export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array<{ [key: string]: string }> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
+    let errorImagesData: Partial<ImageWithName>[] = [];
+
+    Object.keys(phaseErrors).forEach(action => {
+        const errors = phaseErrors[action];
+        const phase = phaseMap[action]; // Assuming action maps directly to phase in phaseMap
         if (!phase) return;
 
-        const actions = Array.from(uniqueActions[phaseKey]);
+        // Calculate phase timing
         const phaseStartSeconds = timeStampStringToSeconds(phase.start);
         const phaseEndSeconds = timeStampStringToSeconds(phase.end);
         const phaseDuration = phaseEndSeconds - phaseStartSeconds;
-        const interval = phaseDuration / (actions.length + 1);
+        const interval = phaseDuration / (errors.length + 1); // Space out errors evenly
 
-        actions.forEach((action, actionIndex) => {
-            const actionTimeSeconds = phaseStartSeconds + (actionIndex + 1) * interval;
-            const actionTime = timeStampToDateString(new Date(actionTimeSeconds * 1000).toISOString().substr(11, 8));
-            requiredActionsData.push({
-                source: icons[action].image,
+        errors.forEach((error, index) => {
+            const errorTimeSeconds = phaseStartSeconds + (index + 1) * interval; // Calculate the time for each error
+            const errorTime = timeStampToDateString(new Date(errorTimeSeconds * 1000).toISOString().substr(11, 8));
+            const icon = getIcon(error['Action/Vital Name']);
+
+            errorImagesData.push({
+                source: icon.image,
                 xref: 'x',
                 yref: 'y',
-                x: actionTime.replace(' ', 'T') + 'Z',
-                y: -1.5,
-                name: icons[action].name,
-                sizex: 58800,  // TODO: Set this dynamically
-                sizey: 0.373,  // TODO: Set this dynamically
+                x: errorTime.replace(' ', 'T') + 'Z',
+                y: -2, // Adjust the Y position as needed
+                name: `${error['Action/Vital Name']}: ${error['Old Value']}`, // Customize the name as desired
+                sizex: 58800,  // Set dynamically if needed
+                sizey: 0.373,   // Set dynamically if needed
                 xanchor: 'center',
                 yanchor: 'middle',
                 layer: 'above'
@@ -79,7 +98,7 @@ export const generateRequiredActionsData = (uniqueActions: { [key: string]: Set<
         });
     });
 
-    return requiredActionsData;
+    return errorImagesData;
 };
 
 export const generateLayout = (
@@ -97,7 +116,7 @@ export const generateLayout = (
             phaseColors[index % phaseColors.length] + '33'
         ));
 
-        accumulator.transitionShapes.push(createRequiredActionTransition(
+        accumulator.transitionShapes.push(createPhaseErrorTransition(
             action,
             phaseMap[action].start,
             phaseMap[action].end,
@@ -118,7 +137,7 @@ export const generateLayout = (
     return {
         title: 'Clinical Review Timeline',
         xaxis: { title: 'Time (seconds)', showgrid: false, range: [0, timestampsInDateString[timestampsInDateString.length - 1] + 10], tickformat: '%H:%M:%S' },
-        yaxis: { visible: false, range: [-2, maxYValue + 2] },
+        yaxis: { visible: false, range: [-4, maxYValue + 2] },
         showlegend: false,
         shapes: transitionShapes,
         annotations: transitionAnnotations,
@@ -133,19 +152,22 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
     : { scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>> } {
     const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length - 1]) - timeStampStringToSeconds(timeStampsInDateString[0]);
 
-    const images: Array<Partial<ImageWithName>> = subActions.map((subAction, index) => ({
-        source: icons[subAction].image,
-        xref: 'x',
-        yref: 'y',
-        x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
-        y: yValues[index],
-        name: icons[subAction].name,
-        sizex: range * 100,
-        sizey: 0.373,//0.373,
-        xanchor: 'center',
-        yanchor: 'middle',
-        layer: 'above'
-    }));
+    const images: Array<Partial<ImageWithName>> = subActions.map((subAction, index) => {
+        const icon = getIcon(subAction);
+        return {
+            source: icon.image,
+            xref: 'x',
+            yref: 'y',
+            x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
+            y: yValues[index],
+            name: icon.name,
+            sizex: range * 100,
+            sizey: 0.373,
+            xanchor: 'center',
+            yanchor: 'middle',
+            layer: 'above'
+        };
+    });
 
     return {
         scatterData: {
@@ -153,8 +175,8 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
             y: yValues,
             mode: 'markers',
             type: 'scatter',
-            ids: subActions.map(subAction => icons[subAction].name),
-            text: subActions.map(subAction => icons[subAction].unicode),
+            ids: subActions.map(subAction => getIcon(subAction).name),
+            text: subActions.map(subAction => getIcon(subAction).unicode),
             hovertext: annotations,
             hoverinfo: 'text',
             textposition: 'top center',
@@ -169,7 +191,7 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
     };
 }
 
-export function createRequiredActionTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
+export function createPhaseErrorTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
     return {
         type: 'rect',
         xref: 'x',
@@ -177,7 +199,7 @@ export function createRequiredActionTransition(phaseName: string, start: string,
         x0: start,
         x1: end,
         y0: -1, // Position below the plot
-        y1: -2, // Adjusted height for the required actions box
+        y1: -4, // Adjusted height for the phase errors box - must be equal or smaller than layout y range (see generateLayout)
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',
@@ -210,7 +232,7 @@ export function createTransition(phaseName: string, start: string, end: string, 
         x0: start,
         x1: end,
         y0: 0,
-        y1: 10,
+        y1: 12,
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',
@@ -254,3 +276,9 @@ export function doesCPRStop(subAction: string) {
 export function isTransitionBoundary(action: string) {
     return action && action.includes('(action)');
 }
+
+// Function to determine if there is a phase error
+export function isPhaseError(oldValue: string) {
+    return oldValue === "Error-Triggered"
+}
+

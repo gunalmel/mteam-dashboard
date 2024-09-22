@@ -18,7 +18,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
         type: "scatter",
         mode: "lines",
         x: [currentTimeFormatted, currentTimeFormatted],
-        y: [0, 10], // Adjust y range as needed
+        y: [0, 12], // Adjust y range as needed - must be equal or greater than y1 value in createTransition boundary
         line: { color: "red", width: 2 }
     };
 
