@@ -16,7 +16,7 @@ const Page = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
-        console.log('Selected markers:', selectedMarkers);
+        // console.log('Selected markers:', selectedMarkers);
     }, [selectedMarkers]);
 
     const handleSelectAll = (selectAll: boolean) => {

@@ -10,6 +10,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
     const [phaseErrorImages, setPhaseErrorImages] = useState<Partial<ImageWithName>[]>([]);
     const parsedDataRef = useRef<{
         actionsScatterData: Partial<ScatterData>;
+        errorsScatterData: Partial<ScatterData>;
         compressionLines: Array<Partial<ScatterData>>;
         layoutConfig: Partial<LayoutWithNamedImage>;
         phaseErrorImages: Partial<ImageWithName>[];
@@ -19,16 +20,17 @@ export const useActionsData = (selectedMarkers: string[]) => {
         parseCsvData(
             // 'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
             'data/timeline-multiplayer-new-csv-1.csv',
-            (actionsScatterData, compressionLines, layoutConfig, phaseErrorImages) => {
+            (actionsScatterData, errorsScatterData, compressionLines, layoutConfig, phaseErrorImages) => {
                 parsedDataRef.current = {
                     actionsScatterData,
+                    errorsScatterData,
                     compressionLines,
                     layoutConfig,
                     phaseErrorImages
                 };
                 setActionsLayout(layoutConfig);
                 setPhaseErrorImages(phaseErrorImages);
-                updateActionsData(actionsScatterData, layoutConfig, compressionLines, selectedMarkers, phaseErrorImages);
+                updateActionsData(actionsScatterData, errorsScatterData, layoutConfig, compressionLines, selectedMarkers, phaseErrorImages);
             }
         );
     }, []);
@@ -37,6 +39,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
         if (parsedDataRef.current) {
             updateActionsData(
                 Object.assign({}, parsedDataRef.current.actionsScatterData),
+                Object.assign({}, parsedDataRef.current.errorsScatterData),
                 Object.assign({}, parsedDataRef.current.layoutConfig),
                 parsedDataRef.current.compressionLines,
                 selectedMarkers,
@@ -47,25 +50,30 @@ export const useActionsData = (selectedMarkers: string[]) => {
 
     const updateActionsData = (
         actionsScatterData: Partial<ScatterData>,
+        errorsScatterData: Partial<ScatterData>,
         layoutConfig: Partial<LayoutWithNamedImage>,
         compressionLines: Array<Partial<ScatterData>>,
         selectedMarkers: string[],
         phaseErrorImages: Partial<ImageWithName>[]
     ) => {
 
-        const filteredData = filterActionsData(actionsScatterData, layoutConfig, selectedMarkers);
+        console.log("ActionsScatterData");
+        console.log(actionsScatterData);
+
+        const filteredData = filterActionsData(actionsScatterData, errorsScatterData, layoutConfig, selectedMarkers);
 
         const updatedImages = [
             ...(filteredData.layoutConfig.images || []), 
             ...phaseErrorImages
         ];
 
-        setActionsData([filteredData.scatterData, ...compressionLines]);
+        setActionsData([filteredData.scatterData, errorsScatterData, ...compressionLines]);
         setActionsLayout({ ...filteredData.layoutConfig, images: updatedImages });
     };
 
     const filterActionsData = (
         actionsScatterData: Partial<ScatterData>,
+        errorsScatterData: Partial<ScatterData>,
         layoutConfig: Partial<LayoutWithNamedImage>,
         selectedMarkers: string[]
     ): { scatterData: Partial<ScatterData>; layoutConfig: Partial<Layout> } => {
@@ -89,7 +97,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
 
         return {
             scatterData: {
-                ...actionsScatterData,
+                ...actionsScatterData, ...errorsScatterData,
                 x: filteredIndices?.map((index) => x[index]) as Array<Datum>,
                 y: filteredIndices?.map((index) => y[index]) as Array<Datum>,
                 text: text && filteredIndices?.map((index) => text[index]),

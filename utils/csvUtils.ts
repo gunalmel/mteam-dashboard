@@ -1,11 +1,11 @@
 import Papa from 'papaparse';
 import { ScatterData } from 'plotly.js';
-import { createActionsScatterData, processRow, generateLayout, generatePhaseErrorImagesData } from '@/utils/dataUtils';
+import { createActionsScatterData, createStageErrorsScatterData, processRow, generateLayout, generatePhaseErrorImagesData } from '@/utils/dataUtils';
 import { LayoutWithNamedImage, ImageWithName } from '@/types';
 
 export const parseCsvData = (
     url: string,
-    onComplete: (actionsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, phaseErrorImages: Partial<ImageWithName>[]) => void
+    onComplete: (actionsScatterData: Partial<ScatterData>, errorsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, phaseErrorImages: Partial<ImageWithName>[]) => void
 ) => {
     const phaseMap: { [key: string]: { start: string, end: string } } = {};
     const timestampsInDateString: string[] = [];
@@ -25,21 +25,28 @@ export const parseCsvData = (
         complete: function () {
             updatePhaseMap(phaseMap); // Update phaseMap to set end of each phase
 
-            const plotDataPoints = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
-            const actionsScatterData = plotDataPoints.scatterData;
+            const actionsData = createActionsScatterData(timestampsInDateString, yValues, subActions, actionAnnotations);
+            const actionsScatterData = actionsData.scatterData;
             const layoutConfig = generateLayout(phaseMap, timestampsInDateString);
             const phaseErrorImages = generatePhaseErrorImagesData(phaseErrors, phaseMap);
+            
+            // working on this one now.
+            const errorsData = createStageErrorsScatterData(phaseErrorImages);
+            const errorsScatterData = errorsData.scatterData;
 
-            // console.log("phaseErrorImages");
-            // console.log(phaseErrorImages);
+            console.log("errorsData");
+            console.log(errorsData);
+
+            console.log("actionsData");
+            console.log(actionsData);
 
             layoutConfig.images = [
                 ...(layoutConfig.images || []),
-                ...plotDataPoints.images,
+                ...actionsData.images,
                 ...phaseErrorImages
             ];
 
-            onComplete(actionsScatterData, compressionLines, layoutConfig, phaseErrorImages);
+            onComplete(actionsScatterData, errorsScatterData, compressionLines, layoutConfig, phaseErrorImages);
         }
     });
 };

@@ -31,7 +31,7 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
     };
 
     useEffect(() => {
-        console.log('ActionsPlot Current Video Time:', currentTimeFormatted);
+        // console.log('ActionsPlot Current Video Time:', currentTimeFormatted);
     }, [currentTimeFormatted]);
 
     return (

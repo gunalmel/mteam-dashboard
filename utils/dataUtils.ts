@@ -68,7 +68,7 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
 
     Object.keys(phaseErrors).forEach(action => {
         const errors = phaseErrors[action];
-        const phase = phaseMap[action]; // Assuming action maps directly to phase in phaseMap
+        const phase = phaseMap[action];
         if (!phase) return;
 
         // Calculate phase timing
@@ -87,8 +87,8 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
                 xref: 'x',
                 yref: 'y',
                 x: errorTime.replace(' ', 'T') + 'Z',
-                y: -2, // Adjust the Y position as needed
-                name: `${error['Action/Vital Name']}: ${error['Old Value']}`, // Customize the name as desired
+                y: -1.5, // Adjust the Y position as needed
+                name: `${error['Action/Vital Name']}: ${error['Old Value']}`,
                 sizex: 58800,  // Set dynamically if needed
                 sizey: 0.373,   // Set dynamically if needed
                 xanchor: 'center',
@@ -137,7 +137,7 @@ export const generateLayout = (
     return {
         title: 'Clinical Review Timeline',
         xaxis: { title: 'Time (seconds)', showgrid: false, range: [0, timestampsInDateString[timestampsInDateString.length - 1] + 10], tickformat: '%H:%M:%S' },
-        yaxis: { visible: false, range: [-4, maxYValue + 2] },
+        yaxis: { visible: false, range: [-2, maxYValue + 2] },
         showlegend: false,
         shapes: transitionShapes,
         annotations: transitionAnnotations,
@@ -191,6 +191,48 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
     };
 }
 
+export function createStageErrorsScatterData(phaseErrorImages: Partial<ImageWithName>[]): { scatterData: Partial<ScatterData>; images: Array<Partial<ImageWithName>> } {
+    const errorImages: Array<Partial<ImageWithName>> = phaseErrorImages.map(errorImage => ({
+        source: errorImage.source,
+        xref: errorImage.xref,
+        yref: errorImage.yref,
+        x: errorImage.x,
+        y: errorImage.y,
+        name: errorImage.name,
+        sizex: errorImage.sizex,
+        sizey: errorImage.sizey,
+        xanchor: errorImage.xanchor,
+        yanchor: errorImage.yanchor,
+        layer: errorImage.layer
+    }));
+
+    return {
+        scatterData: {
+            // Filter out undefined values
+            x: errorImages.map(image => image.x).filter((val): val is string => val !== undefined),
+            y: errorImages.map(image => image.y).filter((val): val is number => val !== undefined),
+            mode: 'markers',
+            type: 'scatter',
+            ids: errorImages.map(image => image.name).filter((val): val is string => val !== undefined),
+            text: errorImages.map(image => image.name).filter((val): val is string => val !== undefined), // Filter for text
+            textposition: 'top center',
+            textfont: { size: 16 },
+            hovertext: errorImages.map(image => image.name).filter((val): val is string => val !== undefined), // Filter for text,
+            hoverinfo: 'text',
+            hoverlabel: {
+                bgcolor: '#003366', // Dark Blue
+                font: { color: '#FFFF99' } // Light Yellow
+            },
+            marker: {
+                size: 1,
+                symbol: 'circle',
+                opacity: 0.8
+            }
+        },
+        images: errorImages
+    };
+}
+
 export function createPhaseErrorTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
     return {
         type: 'rect',
@@ -199,7 +241,7 @@ export function createPhaseErrorTransition(phaseName: string, start: string, end
         x0: start,
         x1: end,
         y0: -1, // Position below the plot
-        y1: -4, // Adjusted height for the phase errors box - must be equal or smaller than layout y range (see generateLayout)
+        y1: -2, // Adjusted height for the phase errors box - must be equal or smaller than layout y range (see generateLayout)
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',
