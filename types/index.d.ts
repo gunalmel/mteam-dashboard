@@ -7,3 +7,9 @@ export type ImageWithName = Image & {
 export type LayoutWithNamedImage = Omit<Layout, 'images'> & {
     images: Array<Partial<ImageWithName>>;
 };
+
+export interface ErrorAction {
+    triggered: boolean;
+    name: string;
+    time: number;
+}

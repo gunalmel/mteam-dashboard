@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ScatterData, Layout, Shape, Datum } from 'plotly.js';
+import { ScatterData, Layout, Datum } from 'plotly.js';
 import { parseCsvData } from '@/utils/csvUtils';
 import { icons } from '@/components/constants';
 import { LayoutWithNamedImage, ImageWithName } from '@/types';
@@ -63,7 +63,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
         const filteredData = filterActionsData(actionsScatterData, errorsScatterData, layoutConfig, selectedMarkers);
 
         const updatedImages = [
-            ...(filteredData.layoutConfig.images || []), 
+            ...(filteredData.layoutConfig.images || []),
             ...phaseErrorImages
         ];
 
@@ -77,7 +77,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
         layoutConfig: Partial<LayoutWithNamedImage>,
         selectedMarkers: string[]
     ): { scatterData: Partial<ScatterData>; layoutConfig: Partial<Layout> } => {
-        const { x, y, text, ids, hovertext } = actionsScatterData;
+        const { x, y, text, customdata, hovertext } = actionsScatterData;
 
         if (!x || !y) {
             return { scatterData: {}, layoutConfig: {} };
@@ -86,8 +86,8 @@ export const useActionsData = (selectedMarkers: string[]) => {
         // Map selected markers to their corresponding icons
         const selectedIcons = selectedMarkers.map((marker) => icons[marker].name);
 
-        const filteredIndices = ids?.reduce<number[]>((acc, value, index) => {
-            if (selectedIcons.includes(value)) {
+        const filteredIndices = customdata?.reduce<number[]>((acc, value, index) => {
+            if (selectedIcons.includes(value as string)) {
                 acc.push(index);
             }
             return acc;
@@ -97,7 +97,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
 
         return {
             scatterData: {
-                ...actionsScatterData, ...errorsScatterData,
+                ...actionsScatterData,
                 x: filteredIndices?.map((index) => x[index]) as Array<Datum>,
                 y: filteredIndices?.map((index) => y[index]) as Array<Datum>,
                 text: text && filteredIndices?.map((index) => text[index]),

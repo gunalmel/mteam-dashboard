@@ -1,12 +1,17 @@
-import { ScatterData, Shape, Annotations } from 'plotly.js';
-import { timeStampToDateString, timeStampStringToSeconds } from '@/utils/timeUtils';
-import { yValues, phaseColors, getIcon } from '@/components/constants';
-import { ImageWithName, LayoutWithNamedImage } from '@/types';
+import {Annotations, ScatterData, Shape} from 'plotly.js';
+import {timeStampStringToSeconds, timeStampToDateString} from '@/utils/timeUtils';
+import {getIcon, phaseColors, yValues} from '@/components/constants';
+import {ErrorAction, ImageWithName, LayoutWithNamedImage} from '@/types';
+import {Simulate} from "react-dom/test-utils";
 
+const actionRegex = /\(\d+\)([^(]+)\(action\)/;
+let currentAction='';
 export const processRow = (
     row: { [key: string]: string },
+    error: ErrorAction,
     phaseMap: { [key: string]: { start: string, end: string } },
     timestampsInDateString: string[],
+    actionColors: string[],
     yValuesList: number[],
     subActions: string[],
     actionAnnotations: string[],
@@ -14,8 +19,16 @@ export const processRow = (
     compressionLines: Partial<ScatterData>[],
     phaseErrors: { [key: string]: Array<{ [key: string]: string }> }
 ) => {
-    const { 'Action/Vital Name': action, 'SubAction Name': subAction, 'Time Stamp[Hr:Min:Sec]': timestamp, 
-        'Score': score, 'Old Value': oldValue, 'New Value': newValue, 'Username': phaseName} = row;
+    const { 'Time Stamp[Hr:Min:Sec]': timestamp,
+            'Action/Vital Name': action,
+            'SubAction Time[Min:Sec]': subActionTime,
+            'SubAction Name': subAction,
+            'Score': score,
+            'Old Value': oldValue,
+            'New Value': newValue,
+            'Username': phaseName,
+            'Speech Command': comment
+    } = row;
     const timeStampInDateString = timeStampToDateString(timestamp);
 
     if (doesCPRStart(subAction)) {
@@ -30,17 +43,28 @@ export const processRow = (
     }
 
     if (isTransitionBoundary(action)) {
+        currentAction=action;
         if (!phaseMap[action]) {
-            phaseMap[action] = { start: timeStampInDateString, end: timeStampInDateString };
-        } else {
+            phaseMap[action] = { start: timeStampInDateString, end: '0' };
+        } else if(!(subActionTime||subAction||score||oldValue||newValue)) {
             phaseMap[action].end = timeStampInDateString;
         }
     }
 
-    if (shouldPlotAction(action, subAction)) {
+    const transitionEnd = phaseMap[currentAction]?phaseMap[currentAction].end:'0';
+    const plotAction =  shouldPlotAction(action, subAction, timestamp, oldValue, timestampsInDateString[timestampsInDateString.length-1], transitionEnd, error);
+    if(plotAction.markAsError==='previous'){
+        actionColors[actionColors.length - 1] = 'red';
+    }
+    if (plotAction.shouldPlotAction&&(subActionTime||subAction||score||oldValue||newValue)) {
         subActions.push(subAction);
         actionAnnotations.push(`${timestamp}, ${subAction}`);
         timestampsInDateString.push(timeStampInDateString);
+        if(plotAction.markAsError==='current'){
+            actionColors.push('red');
+        }else{
+            actionColors.push('green');
+        }
         yValuesList.push(yValues[subAction]);
     }
 
@@ -53,6 +77,7 @@ export const processRow = (
             'Score': score,
             'Old Value': oldValue,
             'New Value': newValue,
+            'Speech Command': comment
         };
 
         if (!phaseErrors[phaseName]) {
@@ -88,7 +113,7 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
                 yref: 'y',
                 x: errorTime.replace(' ', 'T') + 'Z',
                 y: -1.5, // Adjust the Y position as needed
-                name: `${error['Action/Vital Name']}: ${error['Old Value']}`,
+                name: `${error['Action/Vital Name']}${error['Speech Command']?' - '+error['Speech Command']:''}`,
                 sizex: 58800,  // Set dynamically if needed
                 sizey: 0.373,   // Set dynamically if needed
                 xanchor: 'center',
@@ -148,7 +173,7 @@ export const generateLayout = (
     };
 };
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, yValues: Array<number>, subActions: Array<string>, annotations: Array<string>)
+export function createActionsScatterData(timeStampsInDateString: Array<string>, actionColors: string[], yValues: Array<number>, subActions: Array<string>, annotations: Array<string>)
     : { scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>> } {
     const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length - 1]) - timeStampStringToSeconds(timeStampsInDateString[0]);
 
@@ -173,19 +198,19 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
         scatterData: {
             x: timeStampsInDateString,
             y: yValues,
-            mode: 'markers',
+            mode: 'text+markers',
             type: 'scatter',
-            ids: subActions.map(subAction => getIcon(subAction).name),
+            customdata: subActions.map(subAction => getIcon(subAction).name),
             text: subActions.map(subAction => getIcon(subAction).unicode),
             hovertext: annotations,
             hoverinfo: 'text',
-            textposition: 'top center',
+            textposition: "bottom center",
             textfont: { size: 16 },
             marker: {
-                size: 1,
-                symbol: 'circle',
-                opacity: 0.8
-            },
+                size: 18,
+                symbol: 'square',
+                color: actionColors
+            }
         },
         images
     };
@@ -213,7 +238,7 @@ export function createStageErrorsScatterData(phaseErrorImages: Partial<ImageWith
             y: errorImages.map(image => image.y).filter((val): val is number => val !== undefined),
             mode: 'markers',
             type: 'scatter',
-            ids: errorImages.map(image => image.name).filter((val): val is string => val !== undefined),
+            customdata: errorImages.map(image => image.name).filter((val): val is string => val !== undefined),
             text: errorImages.map(image => image.name).filter((val): val is string => val !== undefined), // Filter for text
             textposition: 'top center',
             textfont: { size: 16 },
@@ -224,9 +249,9 @@ export function createStageErrorsScatterData(phaseErrorImages: Partial<ImageWith
                 font: { color: '#FFFF99' } // Light Yellow
             },
             marker: {
-                size: 1,
-                symbol: 'circle',
-                opacity: 0.8
+                size: 18,
+                symbol: 'square',
+                color: errorImages.map(()=>'rgba(249, 105, 14, 0.8)')
             }
         },
         images: errorImages
@@ -300,9 +325,36 @@ export function createTransitionAnnotation(text: string, start: string, fontColo
     };
 }
 
-const subActionExclusions = ['Begin CPR', 'Enter CPR', 'Stop CPR'];
-export function shouldPlotAction(action: string, subAction: string) {
-    return action && subAction && !subActionExclusions.includes(subAction) && action.includes('(action)') && !action.includes('User Introduction');
+export function shouldPlotAction(action: string, subAction:string, timestampString:string, oldValue: string, previousActionTimestamp: string,
+                                 transitionEndTimestamp:string, error: ErrorAction) {
+    if(oldValue==='Error-Triggered' && timeStampStringToSeconds(transitionEndTimestamp)!==timeStampStringToSeconds(timestampString)) { //current row implies error
+        if(Math.abs(timeStampStringToSeconds(previousActionTimestamp) - timeStampStringToSeconds(timestampString))<2) { //previous row is an action whose timestamp matches error timestamp
+            //The previous line should be marked as an error
+            error.triggered = false;
+            error.name = '';
+            error.time = 0;
+            return {error, markAsError: 'previous', shouldPlotAction: false};
+        }else {// The next line should be marked as error if the next acton line will be an action
+            error.triggered = true;
+            error.name = action;
+            error.time = timeStampStringToSeconds(timestampString);
+            return {error, markAsError: undefined, shouldPlotAction: false};
+        }
+    }else if(actionRegex.test(action) && (subAction && !subAction.includes('CPR'))) {
+        if (error.triggered) { // prior to this action row an error row was seen
+            if (Math.abs(timeStampStringToSeconds(timestampString) - error.time) < 3) {//if the previously seen error row timestamp matches the current action row timestamp
+                //The current line should be marked as an error
+                error.triggered = false;
+                error.name = '';
+                error.time = 0;
+                return {error, markAsError: 'current', shouldPlotAction: true};
+            }
+        }
+        return {error, markAsError: undefined, shouldPlotAction: true};
+    }else {
+        //not an action row but error is triggered information should not be reset
+        return {error, markAsError: undefined, shouldPlotAction: false};
+    }
 }
 
 const cprStartSubActionNames = ['Begin CPR', 'Enter CPR'];
