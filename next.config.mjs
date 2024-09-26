@@ -2,9 +2,9 @@
 
 import TerserPlugin  from 'terser-webpack-plugin';
 const nextConfig = {
-  experimental: {
-    ppr: 'incremental',
-  },
+  // experimental: {
+  //   ppr: 'incremental',
+  // },
   // productionBrowserSourceMaps: true,
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
