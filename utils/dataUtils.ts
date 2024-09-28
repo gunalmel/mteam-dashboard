@@ -2,9 +2,12 @@ import {Annotations, ScatterData, Shape} from 'plotly.js';
 import {timeStampStringToSeconds, timeStampToDateString} from '@/utils/timeUtils';
 import {getIcon, phaseColors, yValues} from '@/components/constants';
 import {ErrorAction, ImageWithName, LayoutWithNamedImage} from '@/types';
-import {Simulate} from "react-dom/test-utils";
 
 const actionRegex = /\(\d+\)([^(]+)\(action\)/;
+function extractShockAmount(subAction:string) {
+    const shockMatch = subAction.match(/\d+J/);
+    return shockMatch ? shockMatch[0] : '';
+}
 let currentAction='';
 export const processRow = (
     row: { [key: string]: string },
@@ -201,11 +204,11 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
             mode: 'text+markers',
             type: 'scatter',
             customdata: subActions.map(subAction => getIcon(subAction).name),
-            text: subActions.map(subAction => getIcon(subAction).unicode),
+            text: subActions.map(subAction => extractShockAmount(subAction)),
             hovertext: annotations,
             hoverinfo: 'text',
             textposition: "bottom center",
-            textfont: { size: 16 },
+            textfont: { size: 8 },
             marker: {
                 size: 18,
                 symbol: 'square',
