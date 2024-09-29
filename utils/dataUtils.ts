@@ -103,20 +103,44 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
         const phaseStartSeconds = timeStampStringToSeconds(phase.start);
         const phaseEndSeconds = timeStampStringToSeconds(phase.end);
         const phaseDuration = phaseEndSeconds - phaseStartSeconds;
-        const interval = phaseDuration / (errors.length + 1); // Space out errors evenly
+
+        // Split errors into two lines
+        const errorCount = errors.length;
+        const firstLineCount = Math.ceil(errorCount / 2);
+        const secondLineCount = errorCount - firstLineCount;
+
+        // Calculate the interval for each image
+        const totalSpacingFirstLine = phaseDuration / (firstLineCount + 1); // Space evenly for first line
+        const totalSpacingSecondLine = phaseDuration / (secondLineCount + 1); // Space evenly for second line
+        
+        // Set initial y-coordinates
+        const yCoord1 = -1.5; // Y position for first line
+        const yCoord2 = -2.5; // Y position for second line
 
         errors.forEach((error, index) => {
-            const errorTimeSeconds = phaseStartSeconds + (index + 1) * interval; // Calculate the time for each error
-            const errorTime = timeStampToDateString(new Date(errorTimeSeconds * 1000).toISOString().substr(11, 8));
             const icon = getIcon(error['Action/Vital Name']);
+            
+            let yCoordinate;
+            let xPosition;
+
+            if (index < firstLineCount) {
+                // First line
+                yCoordinate = yCoord1;
+                xPosition = phaseStartSeconds + (index + 1) * totalSpacingFirstLine;
+            } else {
+                // Second line
+                yCoordinate = yCoord2;
+                const secondLineIndex = index - firstLineCount; // Index for second line
+                xPosition = phaseStartSeconds + (secondLineIndex + 1) * totalSpacingSecondLine; 
+            }
 
             errorImagesData.push({
                 source: icon.image,
                 xref: 'x',
                 yref: 'y',
-                x: errorTime.replace(' ', 'T') + 'Z',
-                y: -1.5, // Adjust the Y position as needed
-                name: `${error['Action/Vital Name']}${error['Speech Command']?' - '+error['Speech Command']:''}`,
+                x: timeStampToDateString(new Date(xPosition * 1000).toISOString().substr(11, 8)).replace(' ', 'T') + 'Z',
+                y: yCoordinate,
+                name: `${error['Action/Vital Name']}${error['Speech Command'] ? ' - ' + error['Speech Command'] : ''}`,
                 sizex: 58800,  // Set dynamically if needed
                 sizey: 0.373,   // Set dynamically if needed
                 xanchor: 'center',
@@ -128,6 +152,8 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
 
     return errorImagesData;
 };
+
+
 
 export const generateLayout = (
     phaseMap: { [key: string]: { start: string, end: string } },
@@ -165,7 +191,7 @@ export const generateLayout = (
     return {
         title: 'Clinical Review Timeline',
         xaxis: { title: 'Time (seconds)', showgrid: false, range: [0, timestampsInDateString[timestampsInDateString.length - 1] + 10], tickformat: '%H:%M:%S' },
-        yaxis: { visible: false, range: [-2, maxYValue + 2] },
+        yaxis: { visible: false, range: [-3, maxYValue + 2] },
         showlegend: false,
         shapes: transitionShapes,
         annotations: transitionAnnotations,
@@ -269,7 +295,7 @@ export function createPhaseErrorTransition(phaseName: string, start: string, end
         x0: start,
         x1: end,
         y0: -1, // Position below the plot
-        y1: -2, // Adjusted height for the phase errors box - must be equal or smaller than layout y range (see generateLayout)
+        y1: -4, // Adjusted height for the phase errors box - must be equal or smaller than layout y range (see generateLayout)
         fillcolor: fillColor,
         line: { width: 0 },
         layer: 'below',

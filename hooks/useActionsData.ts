@@ -19,7 +19,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
     useEffect(() => {
         parseCsvData(
             // 'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
-            'data/timeline-multiplayer-new-csv-1.csv',
+            'data/timeline-multiplayer-new-csv-3.csv',
             (actionsScatterData, errorsScatterData, compressionLines, layoutConfig, phaseErrorImages) => {
                 parsedDataRef.current = {
                     actionsScatterData,
