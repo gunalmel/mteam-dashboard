@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ScatterData, Layout, Shape, Datum } from 'plotly.js';
+import { ScatterData, Layout, Datum } from 'plotly.js';
 import { parseCsvData } from '@/utils/csvUtils';
 import { icons } from '@/components/constants';
 import { LayoutWithNamedImage, ImageWithName } from '@/types';
@@ -7,27 +7,30 @@ import { LayoutWithNamedImage, ImageWithName } from '@/types';
 export const useActionsData = (selectedMarkers: string[]) => {
     const [actionsData, setActionsData] = useState<Array<Partial<ScatterData>>>([]);
     const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({});
-    const [requiredActionImages, setRequiredActionImages] = useState<Partial<ImageWithName>[]>([]);
+    const [phaseErrorImages, setPhaseErrorImages] = useState<Partial<ImageWithName>[]>([]);
     const parsedDataRef = useRef<{
         actionsScatterData: Partial<ScatterData>;
+        errorsScatterData: Partial<ScatterData>;
         compressionLines: Array<Partial<ScatterData>>;
         layoutConfig: Partial<LayoutWithNamedImage>;
-        requiredActionImages: Partial<ImageWithName>[];
+        phaseErrorImages: Partial<ImageWithName>[];
     } | null>(null);
 
     useEffect(() => {
         parseCsvData(
-            'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
-            (actionsScatterData, compressionLines, layoutConfig, requiredActionImages) => {
+            // 'https://raw.githubusercontent.com/thedevagyasharma/mteam-dashboard/main/src/Data_sample2/timeline-multiplayer%20(32).csv',
+            'data/timeline-multiplayer-new-csv-3.csv',
+            (actionsScatterData, errorsScatterData, compressionLines, layoutConfig, phaseErrorImages) => {
                 parsedDataRef.current = {
                     actionsScatterData,
+                    errorsScatterData,
                     compressionLines,
                     layoutConfig,
-                    requiredActionImages
+                    phaseErrorImages
                 };
                 setActionsLayout(layoutConfig);
-                setRequiredActionImages(requiredActionImages);
-                updateActionsData(actionsScatterData, layoutConfig, compressionLines, selectedMarkers);
+                setPhaseErrorImages(phaseErrorImages);
+                updateActionsData(actionsScatterData, errorsScatterData, layoutConfig, compressionLines, selectedMarkers, phaseErrorImages);
             }
         );
     }, []);
@@ -36,30 +39,45 @@ export const useActionsData = (selectedMarkers: string[]) => {
         if (parsedDataRef.current) {
             updateActionsData(
                 Object.assign({}, parsedDataRef.current.actionsScatterData),
+                Object.assign({}, parsedDataRef.current.errorsScatterData),
                 Object.assign({}, parsedDataRef.current.layoutConfig),
                 parsedDataRef.current.compressionLines,
-                selectedMarkers
+                selectedMarkers,
+                phaseErrorImages
             );
         }
     }, [selectedMarkers]);
 
     const updateActionsData = (
         actionsScatterData: Partial<ScatterData>,
+        errorsScatterData: Partial<ScatterData>,
         layoutConfig: Partial<LayoutWithNamedImage>,
         compressionLines: Array<Partial<ScatterData>>,
-        selectedMarkers: string[]
+        selectedMarkers: string[],
+        phaseErrorImages: Partial<ImageWithName>[]
     ) => {
-        const filteredData = filterActionsData(actionsScatterData, layoutConfig, selectedMarkers);
-        setActionsData([filteredData.scatterData, ...compressionLines]);
-        setActionsLayout({ ...filteredData.layoutConfig, images: [...filteredData.layoutConfig.images!, ...requiredActionImages] });
+
+        console.log("ActionsScatterData");
+        console.log(actionsScatterData);
+
+        const filteredData = filterActionsData(actionsScatterData, errorsScatterData, layoutConfig, selectedMarkers);
+
+        const updatedImages = [
+            ...(filteredData.layoutConfig.images || []),
+            ...phaseErrorImages
+        ];
+
+        setActionsData([filteredData.scatterData, errorsScatterData, ...compressionLines]);
+        setActionsLayout({ ...filteredData.layoutConfig, images: updatedImages });
     };
 
     const filterActionsData = (
         actionsScatterData: Partial<ScatterData>,
+        errorsScatterData: Partial<ScatterData>,
         layoutConfig: Partial<LayoutWithNamedImage>,
         selectedMarkers: string[]
     ): { scatterData: Partial<ScatterData>; layoutConfig: Partial<Layout> } => {
-        const { x, y, text, ids, hovertext } = actionsScatterData;
+        const { x, y, text, customdata, hovertext } = actionsScatterData;
 
         if (!x || !y) {
             return { scatterData: {}, layoutConfig: {} };
@@ -68,8 +86,8 @@ export const useActionsData = (selectedMarkers: string[]) => {
         // Map selected markers to their corresponding icons
         const selectedIcons = selectedMarkers.map((marker) => icons[marker].name);
 
-        const filteredIndices = ids?.reduce<number[]>((acc, value, index) => {
-            if (selectedIcons.includes(value)) {
+        const filteredIndices = customdata?.reduce<number[]>((acc, value, index) => {
+            if (selectedIcons.includes(value as string)) {
                 acc.push(index);
             }
             return acc;
