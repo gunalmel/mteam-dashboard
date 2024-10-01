@@ -338,19 +338,24 @@ export function createTransition(phaseName: string, start: string, end: string, 
 
 export function createTransitionAnnotation(text: string, start: string, fontColor: string): Partial<Annotations> {
     return {
-        xref: 'x', //'paper',
+        xref: 'x',
         yref: 'paper',
         x: start,
-        y: 0.8,
+        y: 0.9,
         xanchor: 'left',
         yanchor: 'middle',
-        text: text.replace('(action)', ''),
+        text: text,
         showarrow: false,
-        textangle: '270',
         font: {
-            size: 9,
+            size: 16,
             color: fontColor,
+            family: 'Arial, sans-serif',
+            weight: 700,
         },
+        bgcolor: 'rgba(255, 255, 255, 0.8)',
+        bordercolor: fontColor, // same as text for uniformity
+        borderwidth: 1, 
+        borderpad: 3,
     };
 }
 

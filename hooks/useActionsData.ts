@@ -56,10 +56,6 @@ export const useActionsData = (selectedMarkers: string[]) => {
         selectedMarkers: string[],
         phaseErrorImages: Partial<ImageWithName>[]
     ) => {
-
-        console.log("ActionsScatterData");
-        console.log(actionsScatterData);
-
         const filteredData = filterActionsData(actionsScatterData, errorsScatterData, layoutConfig, selectedMarkers);
 
         const updatedImages = [
