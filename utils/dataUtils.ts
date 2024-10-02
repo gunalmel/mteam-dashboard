@@ -7,23 +7,22 @@ import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
 import CompressionLines from '@/utils/CompressionLines';
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 import ErrorActionTracker from '@/utils/ErrorActionTracker';
+import ActionScatterPlotData from "@/utils/ActionScatterPlotData";
+import ActionsScatterPlotPoint from "@/utils/ActionsScatterPlotPoint";
+import ActionError from "@/utils/ActionError";
 
-function extractShockAmount(subAction:string) {
-    const shockMatch = subAction?.match(/\d+J/);
+function extractShockAmount(actionName:string) {
+    const shockMatch = actionName?.match(/\d+J/);
     return shockMatch ? shockMatch[0] : '';
 }
 
 export const processRow = (
     row: { [key: string]: string },
+    scatterPlotData: ActionScatterPlotData,
     errorActionTracker: ErrorActionTracker,
-    stageMap: SequentialTimePeriods,
-    scatterPlotTimeStamps: Array<CsvDateTimeStamp>,
-    actionColors: string[],
-    yValuesList: number[],
-    subActions: string[],
-    actionAnnotations: string[],
+    stages: SequentialTimePeriods,
     compressionLines: CompressionLines,
-    stageErrors: { [key: string]: Array<{ [key: string]: string }> }
+    stageErrors: { [key: string]: Array<ActionError> }
 ) => {
     const parsedRow = new ActionsCsvRow(row);
 
@@ -34,75 +33,80 @@ export const processRow = (
     }
 
     if (parsedRow.isStageBoundary) {
-        stageMap.update(parsedRow.stageName, parsedRow.timeStamp);
+        stages.update(parsedRow.stageName, parsedRow.timeStamp);
     }
 
-    createScatterPoints(parsedRow, stageMap, errorActionTracker, actionColors,
-                      subActions, actionAnnotations, scatterPlotTimeStamps, yValuesList);
+    createScatterPoints(parsedRow, stages, errorActionTracker, scatterPlotData);
 
-
-    if (parsedRow.triggeredError && parsedRow.isAt(stageMap.get(parsedRow.stageName).end)) {
-        const errorDetails = {
-            'Action/Vital Name': parsedRow.actionOrVitalName,
-            'Time Stamp[Hr:Min:Sec]': parsedRow.timeStamp.timeStampString,
-            'Speech Command': parsedRow.errorExplanation
-            //'SubAction Time[Min:Sec]': subActionTime, //Warning|Error|Critical Error
-            // 'SubAction Name': parsedRow.subAction, //Action-Should-Be-Performed|Action-Should-Not-Be-Performed
-            // 'Score': score, //Action-Was-Performed|Action-Was-Not-Performed
-            // 'Old Value': parsedRow.oldValue, // Error-Triggered already used in parsedRow.triggeredError
-            // 'New Value': newValue, //umich1|NA
-        };
-
+    if (shouldRowRequireMissingActions(parsedRow, stages.get(parsedRow.stageName).end)) {
+        const error = new ActionError(parsedRow);
         if (!stageErrors[parsedRow.stageName]) {
             stageErrors[parsedRow.stageName] = []; // Initialize as an array
         }
-
-        stageErrors[parsedRow.stageName].push(errorDetails);
+        stageErrors[parsedRow.stageName].push(error);
     }
 };
 
-export function createScatterPoints(parsedRow: ActionsCsvRow,
-                                    stageMap: SequentialTimePeriods,
-                                    errorActionTracker: ErrorActionTracker,
-                                    actionColors: any[],
-                                    subActions: string[],
-                                    actionAnnotations: string[],
-                                    scatterPlotTimeStamps: CsvDateTimeStamp[],
-                                    yValuesList: number[]) {
+/*
+ * Identifies the row as a row that reports missing actions in a stage
+ */
+function shouldRowRequireMissingActions(row: ActionsCsvRow, stageTransitionBoundary: CsvDateTimeStamp) {
+    return row.triggeredError && row.isAt(stageTransitionBoundary);
+}
 
-    const previousActionTime = scatterPlotTimeStamps[scatterPlotTimeStamps.length-1];
+/**
+ * Identifies whether a row is considered a row triggering an error resulting in an action that was taken to be marked as error.
+ */
+function shouldRowMarkAnActionError(row: ActionsCsvRow, stageTransitionBoundary: CsvDateTimeStamp) {
+    return row.triggeredError && !row.isAt(stageTransitionBoundary);
+}
 
-    if(parsedRow.triggeredError && !parsedRow.isAt(stageMap.get(parsedRow.stageName).end)) { //current row implies error
-        if(parsedRow.canMarkError(previousActionTime)) { //previous row is an action whose timestamp matches error timestamp
-            //The previous line should be marked as an errorActionTracker
-            actionColors[actionColors.length - 1] = 'red';
-            errorActionTracker.reset();
-        }else {
-            // The next line should be marked as error if the next row will be an action
-            errorActionTracker.time = parsedRow.timeStamp;
-        }
-    }else if(parsedRow.isScatterPlotData) {
-        // prior to this action row an errorActionTracker row was seen
-        if (parsedRow.canMarkError(errorActionTracker.time)) {
-            //if the previously seen errorActionTracker row timestamp matches the current action row timestamp then the current line should be marked as an errorActionTracker
-            actionColors.push('red');
-            errorActionTracker.reset(); //error demarcation done, reset the errorActionTracker status for the upcoming rows
-        } else {
-            actionColors.push('green');
-        }
-        subActions.push(parsedRow.subAction);
-        actionAnnotations.push(`${parsedRow.timeStamp.timeStampString}, ${parsedRow.subAction}`);
-        scatterPlotTimeStamps.push(parsedRow.timeStamp);
-        yValuesList.push(yValues[parsedRow.subAction]);
+/**
+ * Handles marking the previous row as an error or tracking the next potential error.
+ */
+function handlePreviousRowError(row: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker) {
+    if (row.canMarkError(scatterPlotData.getPrevious().x)) {
+        scatterPlotData.markPreviousError();
+        errorActionTracker.reset();
+    } else {
+        errorActionTracker.track(row.timeStamp);
     }
 }
 
-export const generateStageErrorImagesData = (phaseErrors: { [key: string]: Array<{ [key: string]: string }> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
+/**
+ * Handles the actual processing of scatter plot data and marking rows as either correct or erroneous.
+ */
+function processScatterPlotDataRow(parsedRow:ActionsCsvRow, scatterPlotData:ActionScatterPlotData, errorActionTracker: ErrorActionTracker) {
+    const scatterPoint = new ActionsScatterPlotPoint(parsedRow);
+
+    if (parsedRow.canMarkError(errorActionTracker.time)) {
+        scatterPoint.markError();
+        errorActionTracker.reset();
+    } else {
+        scatterPoint.markCorrect();
+    }
+
+    scatterPlotData.add(scatterPoint);
+}
+
+// Main function to create scatter points with improved modularity
+export function createScatterPoints(parsedRow:ActionsCsvRow, stages: SequentialTimePeriods, errorActionTracker: ErrorActionTracker, scatterPlotData:ActionScatterPlotData) {
+    const stageTransitionBoundary = stages.get(parsedRow.stageName).end;
+
+    if (shouldRowMarkAnActionError(parsedRow, stageTransitionBoundary)) {
+        handlePreviousRowError(parsedRow, scatterPlotData, errorActionTracker);
+    } else if (parsedRow.isScatterPlotData) {
+        processScatterPlotDataRow(parsedRow, scatterPlotData, errorActionTracker);
+    }
+}
+
+export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array<ActionError> },
+                                             stageMap: { [key: string]: { start: string, end: string } }) => {
     let errorImagesData: Partial<ImageWithName>[] = [];
 
-    Object.keys(phaseErrors).forEach(action => {
-        const errors = phaseErrors[action];
-        const phase = phaseMap[action];
+    Object.keys(stageErrors).forEach(action => {
+        const errors = stageErrors[action];
+        const phase = stageMap[action];
         if (!phase) return;
 
         // Calculate phase timing
@@ -124,7 +128,7 @@ export const generateStageErrorImagesData = (phaseErrors: { [key: string]: Array
         const yCoord2 = -2.5; // Y position for second line
 
         errors.forEach((error, index) => {
-            const icon = getIcon(error['Action/Vital Name']);
+            const icon = getIcon(error.name);
 
             let yCoordinate;
             let xPosition;
@@ -144,9 +148,9 @@ export const generateStageErrorImagesData = (phaseErrors: { [key: string]: Array
                 source: icon.image,
                 xref: 'x',
                 yref: 'y',
-                x: parseTime(new Date(xPosition * 1000).toISOString().substr(11, 8)).dateTimeString,
+                x: parseTime(new Date(xPosition * 1000).toISOString().slice(11, 19)).dateTimeString,//parseTime(new Date(xPosition * 1000).toISOString().substr(11, 8)).dateTimeString,
                 y: yCoordinate,
-                name: `${error['Action/Vital Name']}${error['Speech Command'] ? ' - ' + error['Speech Command'] : ''}`,
+                name: error.annotation,
                 sizex: 58800,  // Set dynamically if needed
                 sizey: 0.373,   // Set dynamically if needed
                 xanchor: 'center',
@@ -206,12 +210,12 @@ export const generateLayout = (
     };
 };
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, actionColors: string[], yValues: Array<number>, subActions: Array<string>, annotations: Array<string>)
+export function createActionsScatterData(timeStampsInDateString: Array<string>, actionColors: string[], yValues: Array<number>, actionNames: Array<string>, annotations: Array<string>)
     : { scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>> } {
     const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length - 1]) - timeStampStringToSeconds(timeStampsInDateString[0]);
 
-    const images: Array<Partial<ImageWithName>> = subActions.map((subAction, index) => {
-        const icon = getIcon(subAction);
+    const images: Array<Partial<ImageWithName>> = actionNames.map((actionName, index) => {
+        const icon = getIcon(actionName);
         return {
             source: icon.image,
             xref: 'x',
@@ -233,8 +237,8 @@ export function createActionsScatterData(timeStampsInDateString: Array<string>, 
             y: yValues,
             mode: 'text+markers',
             type: 'scatter',
-            customdata: subActions.map(subAction => getIcon(subAction).name),
-            text: subActions.map(subAction => extractShockAmount(subAction)),
+            customdata: actionNames.map(actionName => getIcon(actionName).name),
+            text: actionNames.map(actionName => extractShockAmount(actionName)),
             hovertext: annotations,
             hoverinfo: 'text',
             textposition: "bottom center",

@@ -1,128 +1,170 @@
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 
 export default class ActionsCsvRow {
-    ///\(\d+\)([^(]+)\(action\)/; //this is lightweight action parser not ignoring the whitespace within parentheses and between beginning and end of the phase stage name
-    static readonly #actionRegex = /^\s*\(\s*\d+\s*\)\s*(.*?)\s*\(\s*[^)]*action\s*\)\s*$/i;
-    static readonly #cprPhrases ={
-        start: ['begin cpr', 'enter cpr'],
-        end: ['stop cpr', 'end cpr']
-    }
-    static readonly #errorRowDistanceToActionRowInSeconds = 3;
-    static readonly #phaseErrorPhrase = 'error-triggered';
+  ///\(\d+\)([^(]+)\(action\)/; //this is lightweight action parser not ignoring the whitespace within parentheses and between beginning and end of the phase stage name
+  static readonly #actionRegex =
+    /^\s*\(\s*\d+\s*\)\s*(.*?)\s*\(\s*[^)]*action\s*\)\s*$/i;
+  static readonly #cprPhrases = {
+    start: ['begin cpr', 'enter cpr'],
+    end: ['stop cpr', 'end cpr'],
+  };
+  static readonly #errorRowDistanceToActionRowInSeconds = 3;
+  static readonly #phaseErrorPhrase = 'error-triggered';
 
-    readonly #actionOrVitalName: string;
-    readonly #timeStamp: CsvDateTimeStamp;
-    readonly #newValue?: string;
-    readonly #oldValue: string;
-    readonly #score?: string;
-    readonly #errorExplanation: string;
-    readonly #subAction: string;
-    readonly #subActionTime?: string;
-    readonly #username: string;
-    readonly #isAction: boolean;
-    readonly #stageName: string;
-    readonly #stageBoundary: boolean;
-    readonly #triggeredError: boolean;
-    constructor(row: {[key:string]:string}) {
-        const {
-            'Time Stamp[Hr:Min:Sec]': timeStamp,
-            'Action/Vital Name': actionOrVitalName,
-            'SubAction Time[Min:Sec]': subActionTime,
-            'SubAction Name': subAction,
-            'Score': score,
-            'Old Value': oldValue,
-            'New Value': newValue,
-            'Username': username, //if the row reports the error at the end of the phase/stage this column shows phase/stage name otherwise username
-            'Speech Command': speechCommand //if the row reports the error at the end of the phase/stage this column shows error explanation otherwise speech command
-        } = row;
+  readonly #actionOrVitalName: string;
+  readonly #timeStamp: CsvDateTimeStamp;
+  readonly #newValue?: string;
+  readonly #oldValue: string;
+  readonly #score?: string;
+  readonly #subAction: string;
+  readonly #subActionTime?: string;
+  readonly #username: string;
+  readonly #isAction: boolean;
+  readonly #actionName: string;
+  readonly #actionAnnotation: string;
+  readonly #stageName: string;
+  readonly #stageBoundary: boolean;
+  readonly #triggeredError: boolean;
+  readonly #speechCommand: string;
 
-        this.#timeStamp = new CsvDateTimeStamp(timeStamp);
-        this.#actionOrVitalName = actionOrVitalName;
-        this.#subActionTime = subActionTime;
-        this.#subAction = subAction;
-        this.#score = score;
-        this.#oldValue = oldValue??'';
-        this.#newValue = newValue;
-        this.#username = username;
-        const parsedAction = this.#parseAction();
-        const parsedError = this.#parseError();
-        this.#triggeredError = parsedError.triggered;
-        this.#isAction = parsedAction.isAction;
-        this.#stageName = parsedError.triggered?parsedError.stageName:parsedAction.name;
-        this.#stageBoundary = this.#isTransitionBoundary();
-        this.#errorExplanation = parsedError.triggered?speechCommand:'';
-    }
+  constructor(row: { [key: string]: string }) {
+    const {
+      'Time Stamp[Hr:Min:Sec]': timeStamp,
+      'Action/Vital Name': actionOrVitalName,
+      'SubAction Time[Min:Sec]': subActionTime,
+      'SubAction Name': subAction,
+      Score: score,
+      'Old Value': oldValue,
+      'New Value': newValue,
+      Username: username, //if the row reports the error at the end of the phase/stage this column shows phase/stage name otherwise username
+      'Speech Command': speechCommand, //if the row reports the error at the end of the phase/stage this column shows error explanation otherwise speech command
+    } = row;
 
-    #parseAction(): {isAction: boolean, name: string} {
-        const actionMatch = ActionsCsvRow.#actionRegex.exec(this.#actionOrVitalName);
-        return {
-            isAction: actionMatch !== null,
-            name: actionMatch ? actionMatch[1] : ''
-        };
-    }
+    this.#timeStamp = new CsvDateTimeStamp(timeStamp);
+    this.#actionOrVitalName = actionOrVitalName;
+    this.#subActionTime = subActionTime;
+    this.#subAction = subAction;
+    this.#score = score;
+    this.#oldValue = oldValue ?? '';
+    this.#newValue = newValue;
+    this.#username = username;
+    this.#speechCommand = speechCommand;
+    const parsedAction = this.#parseAction();
+    const parsedError = this.#parseError();
+    this.#triggeredError = parsedError.triggered;
+    this.#isAction = parsedAction.isAction;
+    this.#actionName = this.#isAction ? this.#subAction : '';
+    this.#actionAnnotation = this.isScatterPlotData
+      ? `${this.#timeStamp.timeStampString}, ${this.#actionName}`
+      : '';
+    this.#stageName = parsedError.triggered
+      ? parsedError.stageName
+      : parsedAction.name;
+    this.#stageBoundary = this.#isTransitionBoundary();
+  }
 
-    /**
-     * If the row specifies stage/phase boundary then this is the stage/phase name
-     */
-    get actionOrVitalName() {
-        return this.#actionOrVitalName;
-    }
-    get subAction(){
-        return this.#subAction;
-    }
-    get timeStamp() {
-        return this.#timeStamp;
-    }
-    get stageName() {
-        return this.#stageName;
-    }
-    get errorExplanation(){
-        return this.#errorExplanation;
-    }
-    get isScatterPlotData() {
-        return this.#isAction&&(this.#subActionTime||this.#subAction||this.#score||this.#oldValue||this.#newValue);
-    }
-    get isStageBoundary() {
-        return this.#stageBoundary;
-    }
-    get triggeredError() {
-        return this.#triggeredError
-    }
+  /**
+   * If the row specifies stage/phase boundary then this is the stage/phase name, if error then the error name
+   */
+  get actionOrVitalName() {
+    return this.#actionOrVitalName;
+  }
 
-    isAt(timeStamp: CsvDateTimeStamp) {
-        return this.#timeStamp.seconds===timeStamp.seconds;
-    }
+  get actionName() {
+    return this.#actionName;
+  }
 
-    doesCPRStart() {
-        return this.#markCPRRow(this, 'start');
-    }
+  get actionAnnotation() {
+    return this.#actionAnnotation;
+  }
 
-    doesCPREnd() {
-        return this.#markCPRRow(this, 'end');
-    }
+  get timeStamp() {
+    return this.#timeStamp;
+  }
 
-    #isTransitionBoundary() {
-        return this.#isAction && !(this.#subActionTime||this.#subAction||this.#score||this.#oldValue||this.#newValue);
-    }
+  get stageName() {
+    return this.#stageName;
+  }
 
-    #markCPRRow(row: ActionsCsvRow, cprType: 'start' | 'end') {
-        return ActionsCsvRow.#cprPhrases[cprType].some((phrase) =>
-            row.#subAction?.toLowerCase().includes(phrase.toLowerCase()),
-        );
-    }
+  get speechCommand() {
+    return this.#speechCommand;
+  }
 
-    #parseError() {
-        const errorStatus = {triggered: this.#oldValue.trim().toLowerCase()===ActionsCsvRow.#phaseErrorPhrase, stageName:''};
-        if(errorStatus.triggered){
-            const match = ActionsCsvRow.#actionRegex.exec(this.#username);
-            errorStatus.stageName = match ? match[1] : ''
-        }
-        return errorStatus;
-    }
+  get isScatterPlotData() {
+    return (
+      this.#isAction &&
+      (this.#subActionTime ||
+        this.#subAction ||
+        this.#score ||
+        this.#oldValue ||
+        this.#newValue)
+    );
+  }
 
-    canMarkError(timeStamp: CsvDateTimeStamp) {
-        return Math.abs((timeStamp?.seconds??0) - this.#timeStamp.seconds)<ActionsCsvRow.#errorRowDistanceToActionRowInSeconds;
-    }
+  get isStageBoundary() {
+    return this.#stageBoundary;
+  }
+
+  get triggeredError() {
+    return this.#triggeredError;
+  }
+
+  isAt(timeStamp: CsvDateTimeStamp) {
+    return this.#timeStamp.seconds === timeStamp.seconds;
+  }
+
+  doesCPRStart() {
+    return this.#markCPRRow(this, 'start');
+  }
+
+  doesCPREnd() {
+    return this.#markCPRRow(this, 'end');
+  }
+
+  #isTransitionBoundary() {
+    return (
+      this.#isAction &&
+      !(
+        this.#subActionTime ||
+        this.#subAction ||
+        this.#score ||
+        this.#oldValue ||
+        this.#newValue
+      )
+    );
+  }
+
+  #markCPRRow(row: ActionsCsvRow, cprType: 'start' | 'end') {
+    return ActionsCsvRow.#cprPhrases[cprType].some((phrase) =>
+      row.#subAction?.toLowerCase().includes(phrase.toLowerCase()),
+    );
+  }
+
+  #actionMatch(actionString: string) {
+    const actionMatch = ActionsCsvRow.#actionRegex.exec(actionString);
+    return {
+      isAction: actionMatch !== null,
+      name: actionMatch ? actionMatch[1] : '',
+    };
+  }
+
+  #parseAction(): { isAction: boolean; name: string } {
+    return this.#actionMatch(this.#actionOrVitalName);
+  }
+
+  #parseError() {
+    const triggered =
+      this.#oldValue.trim().toLowerCase() === ActionsCsvRow.#phaseErrorPhrase;
+    const errorMatch = ActionsCsvRow.#actionRegex.exec(this.#username);
+    return { triggered, stageName: errorMatch ? errorMatch[1] : '' };
+  }
+
+  canMarkError(timeStamp: CsvDateTimeStamp) {
+    return (
+      timeStamp &&
+      timeStamp.seconds &&
+      Math.abs(timeStamp.seconds - this.#timeStamp.seconds) <
+        ActionsCsvRow.#errorRowDistanceToActionRowInSeconds
+    );
+  }
 }
-
-

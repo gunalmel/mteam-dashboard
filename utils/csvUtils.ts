@@ -3,42 +3,30 @@ import { ScatterData } from 'plotly.js';
 import {
     createActionsScatterData,
     createStageErrorsScatterData,
-    processRow,
     generateLayout,
     generateStageErrorImagesData
 } from '@/utils/dataUtils';
 import {LayoutWithNamedImage, ImageWithName} from '@/types';
-import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
-import CompressionLines from '@/utils/CompressionLines';
-import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
-import ErrorActionTracker from '@/utils/ErrorActionTracker';
+import ActionsScatterPlotCsvRowProcessor from "@/utils/ActionsScatterPlotCsvRowProcessor";
 
 export const parseCsvData = (
     url: string,
     onComplete: (actionsScatterData: Partial<ScatterData>, errorsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, phaseErrorImages: Partial<ImageWithName>[]) => void
 ) => {
-    const errorActionTracker: ErrorActionTracker = new ErrorActionTracker();
-    const stageMap: SequentialTimePeriods = new SequentialTimePeriods();//{ [key: string]: { start: string, end: string } } = {};
-    const scatterPlotTimeStamps: Array<CsvDateTimeStamp> = [];
-    const actionColors: string[] = [];
-    const yValues: number[] = [];
-    const subActions: string[] = [];
-    const actionAnnotations: string[] = [];
-    const compressionLines = new CompressionLines();
-    const stageErrors: { [key: string]: Array<{ [key: string]: string }> } = {};
-
+    const rowProcessor = new ActionsScatterPlotCsvRowProcessor();
     Papa.parse(url, {
         download: true,
         header: true,
-        step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
-            processRow(row.data, errorActionTracker, stageMap, scatterPlotTimeStamps, actionColors, yValues, subActions, actionAnnotations, compressionLines, stageErrors);
-        },
+        step: rowProcessor.process,
         complete: function () {
-            const scatterPlotTimeStampStrings = scatterPlotTimeStamps.map(t=>t.dateTimeString);
-            const actionsData = createActionsScatterData(scatterPlotTimeStampStrings, actionColors, yValues, subActions, actionAnnotations);
+            const {x, y, names, annotations, colors} = rowProcessor.scatterPlotData;
+            const scatterPlotTimeStampStrings = x.map(t=>t.dateTimeString);
+            const actionsData = createActionsScatterData(scatterPlotTimeStampStrings, colors, y, names, annotations);
             const actionsScatterData = actionsData.scatterData;
-            const layoutConfig = generateLayout(stageMap.getAll(), scatterPlotTimeStampStrings);
-            const stageErrorImages = generateStageErrorImagesData(stageErrors, stageMap.getAll());
+            const stageMap = rowProcessor.getStageMap();
+
+            const layoutConfig = generateLayout(stageMap, scatterPlotTimeStampStrings);
+            const stageErrorImages = generateStageErrorImagesData(rowProcessor.stageErrors, stageMap);
 
             // working on this one now.
             const errorsData = createStageErrorsScatterData(stageErrorImages);
@@ -53,7 +41,7 @@ export const parseCsvData = (
                 ...errorsData.images
             ];
 
-            onComplete(actionsScatterData, errorsScatterData, compressionLines.plotData, layoutConfig, errorsData.images);
+            onComplete(actionsScatterData, errorsScatterData, rowProcessor.compressionLines.plotData, layoutConfig, errorsData.images);
         }
     });
 };
