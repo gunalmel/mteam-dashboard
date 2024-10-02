@@ -1,7 +1,10 @@
 import {Annotations, ScatterData, Shape} from 'plotly.js';
 import {timeStampStringToSeconds, timeStampToDateString} from '@/utils/timeUtils';
 import {getIcon, phaseColors, yValues} from '@/components/constants';
-import {ErrorAction, ImageWithName, LayoutWithNamedImage} from '@/types';
+import {ActionsCSVDataRow, ErrorAction, ImageWithName, LayoutWithNamedImage} from '@/types';
+import ActionsCSVRow from "@/utils/ActionsCSVRow";
+import SequentialTimePeriods from "@/utils/SequentialTimePeriods";
+import CompressionLines from "@/utils/CompressionLines";
 
 const actionRegex = /\(\d+\)([^(]+)\(action\)/;
 function extractShockAmount(subAction:string) {
@@ -12,16 +15,19 @@ let currentAction='';
 export const processRow = (
     row: { [key: string]: string },
     error: ErrorAction,
-    phaseMap: { [key: string]: { start: string, end: string } },
+    stageMap: SequentialTimePeriods,
     timestampsInDateString: string[],
     actionColors: string[],
     yValuesList: number[],
     subActions: string[],
     actionAnnotations: string[],
-    compressionLine: { seconds: string[], hoverText: string[] },
-    compressionLines: Partial<ScatterData>[],
+    compressionLines: CompressionLines,
     phaseErrors: { [key: string]: Array<{ [key: string]: string }> }
 ) => {
+    const parsedRow = new ActionsCSVRow(
+      row as unknown as ActionsCSVDataRow,
+    );
+
     const { 'Time Stamp[Hr:Min:Sec]': timestamp,
             'Action/Vital Name': action,
             'SubAction Time[Min:Sec]': subActionTime,
@@ -34,32 +40,26 @@ export const processRow = (
     } = row;
     const timeStampInDateString = timeStampToDateString(timestamp);
 
-    if (doesCPRStart(subAction)) {
-        compressionLine.seconds.push(timeStampInDateString);
-        compressionLine.hoverText.push(timestamp);
-    } else if (doesCPRStop(subAction)) {
-        compressionLine.seconds.push(timeStampInDateString);
-        compressionLine.hoverText.push(timestamp);
-        compressionLines.push(createCompressionLine(compressionLine.seconds, compressionLine.hoverText));
-        compressionLine.seconds = [];
-        compressionLine.hoverText = [];
+    if (parsedRow.doesCPRStart()) {
+        compressionLines.addStart(timeStampInDateString, timestamp);
+    } else if (parsedRow.doesCPREnd()) {
+        compressionLines.updateEnd(timeStampInDateString, timestamp);
     }
 
-    if (isTransitionBoundary(action)) {
+    if (parsedRow.isStageBoundary) {
+        stageMap.update(action, timeStampInDateString);
+    }
+
+    if (parsedRow.isAction) {
         currentAction=action;
-        if (!phaseMap[action]) {
-            phaseMap[action] = { start: timeStampInDateString, end: '0' };
-        } else if(!(subActionTime||subAction||score||oldValue||newValue)) {
-            phaseMap[action].end = timeStampInDateString;
-        }
     }
+    const transitionEnd = stageMap.get(currentAction)?stageMap.get(currentAction)?.end??'0':'0';
 
-    const transitionEnd = phaseMap[currentAction]?phaseMap[currentAction].end:'0';
     const plotAction =  shouldPlotAction(action, subAction, timestamp, oldValue, timestampsInDateString[timestampsInDateString.length-1], transitionEnd, error);
     if(plotAction.markAsError==='previous'){
         actionColors[actionColors.length - 1] = 'red';
     }
-    if (plotAction.shouldPlotAction&&(subActionTime||subAction||score||oldValue||newValue)) {
+    if (plotAction.shouldPlotAction&&!parsedRow.isStageBoundary) {
         subActions.push(subAction);
         actionAnnotations.push(`${timestamp}, ${subAction}`);
         timestampsInDateString.push(timeStampInDateString);
@@ -72,7 +72,7 @@ export const processRow = (
     }
 
     // Check for phase errors using oldValue
-    if (isPhaseError(oldValue)) {
+    if (parsedRow.triggeredError) {
         const errorDetails = {
             'Action/Vital Name': action,
             'SubAction Name': subAction,
@@ -112,14 +112,14 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
         // Calculate the interval for each image
         const totalSpacingFirstLine = phaseDuration / (firstLineCount + 1); // Space evenly for first line
         const totalSpacingSecondLine = phaseDuration / (secondLineCount + 1); // Space evenly for second line
-        
+
         // Set initial y-coordinates
         const yCoord1 = -1.5; // Y position for first line
         const yCoord2 = -2.5; // Y position for second line
 
         errors.forEach((error, index) => {
             const icon = getIcon(error['Action/Vital Name']);
-            
+
             let yCoordinate;
             let xPosition;
 
@@ -131,7 +131,7 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
                 // Second line
                 yCoordinate = yCoord2;
                 const secondLineIndex = index - firstLineCount; // Index for second line
-                xPosition = phaseStartSeconds + (secondLineIndex + 1) * totalSpacingSecondLine; 
+                xPosition = phaseStartSeconds + (secondLineIndex + 1) * totalSpacingSecondLine;
             }
 
             errorImagesData.push({
@@ -300,23 +300,6 @@ export function createPhaseErrorTransition(phaseName: string, start: string, end
         line: { width: 0 },
         layer: 'below',
         name: phaseName
-    };
-}
-
-export function createCompressionLine(timeStampInDateString: Array<string>, hoverText: Array<string>): Partial<ScatterData> {
-    return {
-        x: timeStampInDateString,
-        y: [0.5, 0.5],
-        mode: 'lines',
-        type: 'scatter',
-        text: '',
-        hovertext: hoverText,
-        hoverinfo: 'text',
-        textposition: 'top center',
-        textfont: { size: 16 },
-        line: {
-            color: 'rgb(0, 150, 0)'
-        }
     };
 }
 

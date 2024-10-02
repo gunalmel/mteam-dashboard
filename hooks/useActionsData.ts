@@ -96,6 +96,11 @@ export const useActionsData = (selectedMarkers: string[]) => {
                 ...actionsScatterData,
                 x: filteredIndices?.map((index) => x[index]) as Array<Datum>,
                 y: filteredIndices?.map((index) => y[index]) as Array<Datum>,
+                marker: {
+                    size: 18,
+                    symbol: 'square',
+                    color: filteredIndices?.map((index) => (actionsScatterData.marker?.color as string[])[index]),
+                },
                 text: text && filteredIndices?.map((index) => text[index]),
                 hovertext: hovertext && filteredIndices?.map((index) => hovertext[index]),
             },
