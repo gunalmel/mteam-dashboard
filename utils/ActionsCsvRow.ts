@@ -1,4 +1,4 @@
-import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
+import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 
 export default class ActionsCsvRow {
     ///\(\d+\)([^(]+)\(action\)/; //this is lightweight action parser not ignoring the whitespace within parentheses and between beginning and end of the phase stage name
@@ -22,7 +22,7 @@ export default class ActionsCsvRow {
     readonly #isAction: boolean;
     readonly #stageName: string;
     readonly #stageBoundary: boolean;
-    readonly #triggersError: boolean;
+    readonly #triggeredError: boolean;
     constructor(row: {[key:string]:string}) {
         const {
             'Time Stamp[Hr:Min:Sec]': timeStamp,
@@ -46,7 +46,7 @@ export default class ActionsCsvRow {
         this.#username = username;
         const parsedAction = this.#parseAction();
         const parsedError = this.#parseError();
-        this.#triggersError = parsedError.triggered;
+        this.#triggeredError = parsedError.triggered;
         this.#isAction = parsedAction.isAction;
         this.#stageName = parsedError.triggered?parsedError.stageName:parsedAction.name;
         this.#stageBoundary = this.#isTransitionBoundary();
@@ -56,7 +56,7 @@ export default class ActionsCsvRow {
     #parseAction(): {isAction: boolean, name: string} {
         const actionMatch = ActionsCsvRow.#actionRegex.exec(this.#actionOrVitalName);
         return {
-            isAction: actionMatch !== null && !this.#subAction?.includes('CPR'),
+            isAction: actionMatch !== null,
             name: actionMatch ? actionMatch[1] : ''
         };
     }
@@ -79,17 +79,18 @@ export default class ActionsCsvRow {
     get errorExplanation(){
         return this.#errorExplanation;
     }
-    get oldValue(){
-        return this.#oldValue;
-    }
-    get isAction() {
-        return this.#isAction;
+    get isScatterPlotData() {
+        return this.#isAction&&(this.#subActionTime||this.#subAction||this.#score||this.#oldValue||this.#newValue);
     }
     get isStageBoundary() {
         return this.#stageBoundary;
     }
     get triggeredError() {
-        return this.#triggersError;
+        return this.#triggeredError
+    }
+
+    isAt(timeStamp: CsvDateTimeStamp) {
+        return this.#timeStamp.seconds===timeStamp.seconds;
     }
 
     doesCPRStart() {

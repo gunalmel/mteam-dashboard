@@ -1,4 +1,4 @@
-import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
+import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 
 /**
  * Helps to build up a list of named time periods one by one, sequentially. Each time a named period is updated:

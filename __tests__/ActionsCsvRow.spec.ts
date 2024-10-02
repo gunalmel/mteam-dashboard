@@ -1,4 +1,4 @@
-import ActionsCsvRow from "@/utils/ActionsCsvRow";
+import ActionsCsvRow from '@/utils/ActionsCsvRow';
 
 describe.skip("CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot", () => {
 
@@ -46,7 +46,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
         Username: '',
         'SubAction Name': ''
       });
-      expect(actual.isAction).toBe(expectedIsAction);
+      expect(actual.isScatterPlotData).toBe(expectedIsAction);
       expect(actual.stageName).toBe(expectedActionName);
     });
   });

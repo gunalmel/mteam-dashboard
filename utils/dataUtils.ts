@@ -2,22 +2,22 @@ import {Annotations, ScatterData, Shape} from 'plotly.js';
 import {parseTime, timeStampStringToSeconds} from '@/utils/timeUtils';
 import {getIcon, phaseColors, yValues} from '@/components/constants';
 import {ImageWithName, LayoutWithNamedImage} from '@/types';
-import ActionsCsvRow from "@/utils/ActionsCsvRow";
-import SequentialTimePeriods from "@/utils/SequentialTimePeriods";
-import CompressionLines from "@/utils/CompressionLines";
-import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
-import ErrorAction from "@/utils/ErrorAction";
+import ActionsCsvRow from '@/utils/ActionsCsvRow';
+import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
+import CompressionLines from '@/utils/CompressionLines';
+import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
+import ErrorActionTracker from '@/utils/ErrorActionTracker';
 
 function extractShockAmount(subAction:string) {
-    const shockMatch = subAction.match(/\d+J/);
+    const shockMatch = subAction?.match(/\d+J/);
     return shockMatch ? shockMatch[0] : '';
 }
 
 export const processRow = (
     row: { [key: string]: string },
-    error: ErrorAction,
+    errorActionTracker: ErrorActionTracker,
     stageMap: SequentialTimePeriods,
-    timeStamps: Array<CsvDateTimeStamp>,
+    scatterPlotTimeStamps: Array<CsvDateTimeStamp>,
     actionColors: string[],
     yValuesList: number[],
     subActions: string[],
@@ -37,11 +37,11 @@ export const processRow = (
         stageMap.update(parsedRow.stageName, parsedRow.timeStamp);
     }
 
-    markScatterPoints(parsedRow, stageMap, error, actionColors,
-                      subActions, actionAnnotations, timeStamps, yValuesList);
+    createScatterPoints(parsedRow, stageMap, errorActionTracker, actionColors,
+                      subActions, actionAnnotations, scatterPlotTimeStamps, yValuesList);
 
 
-    if (parsedRow.triggeredError) {
+    if (parsedRow.triggeredError && parsedRow.isAt(stageMap.get(parsedRow.stageName).end)) {
         const errorDetails = {
             'Action/Vital Name': parsedRow.actionOrVitalName,
             'Time Stamp[Hr:Min:Sec]': parsedRow.timeStamp.timeStampString,
@@ -61,41 +61,43 @@ export const processRow = (
     }
 };
 
-export function markScatterPoints(parsedRow: ActionsCsvRow,
-                                  stageMap: SequentialTimePeriods,
-                                  error: ErrorAction,
-                                  actionColors: any[],
-                                  subActions: string[], actionAnnotations: string[], timeStamps: CsvDateTimeStamp[], yValuesList: number[]) {
+export function createScatterPoints(parsedRow: ActionsCsvRow,
+                                    stageMap: SequentialTimePeriods,
+                                    errorActionTracker: ErrorActionTracker,
+                                    actionColors: any[],
+                                    subActions: string[],
+                                    actionAnnotations: string[],
+                                    scatterPlotTimeStamps: CsvDateTimeStamp[],
+                                    yValuesList: number[]) {
 
-    const previousActionTime = timeStamps[timeStamps.length-1];
-    const transitionBoundary = stageMap.get(parsedRow.stageName).end.seconds;
+    const previousActionTime = scatterPlotTimeStamps[scatterPlotTimeStamps.length-1];
 
-    if(parsedRow.triggeredError && transitionBoundary!==parsedRow.timeStamp.seconds) { //current row implies error
+    if(parsedRow.triggeredError && !parsedRow.isAt(stageMap.get(parsedRow.stageName).end)) { //current row implies error
         if(parsedRow.canMarkError(previousActionTime)) { //previous row is an action whose timestamp matches error timestamp
-            //The previous line should be marked as an error
+            //The previous line should be marked as an errorActionTracker
             actionColors[actionColors.length - 1] = 'red';
+            errorActionTracker.reset();
         }else {
             // The next line should be marked as error if the next row will be an action
-            error.triggered = true;
-            error.time = parsedRow.timeStamp;
+            errorActionTracker.time = parsedRow.timeStamp;
         }
-    }else if(parsedRow.isAction && !parsedRow.isStageBoundary) {
-        // prior to this action row an error row was seen
-        if (error.triggered && parsedRow.canMarkError(error.time)) {
-            //if the previously seen error row timestamp matches the current action row timestamp then the current line should be marked as an error
-            error.reset(); //error demarcation done, reset the error status for the upcoming rows
+    }else if(parsedRow.isScatterPlotData) {
+        // prior to this action row an errorActionTracker row was seen
+        if (parsedRow.canMarkError(errorActionTracker.time)) {
+            //if the previously seen errorActionTracker row timestamp matches the current action row timestamp then the current line should be marked as an errorActionTracker
             actionColors.push('red');
+            errorActionTracker.reset(); //error demarcation done, reset the errorActionTracker status for the upcoming rows
         } else {
             actionColors.push('green');
         }
         subActions.push(parsedRow.subAction);
         actionAnnotations.push(`${parsedRow.timeStamp.timeStampString}, ${parsedRow.subAction}`);
-        timeStamps.push(parsedRow.timeStamp);
+        scatterPlotTimeStamps.push(parsedRow.timeStamp);
         yValuesList.push(yValues[parsedRow.subAction]);
     }
 }
 
-export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array<{ [key: string]: string }> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
+export const generateStageErrorImagesData = (phaseErrors: { [key: string]: Array<{ [key: string]: string }> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
     let errorImagesData: Partial<ImageWithName>[] = [];
 
     Object.keys(phaseErrors).forEach(action => {

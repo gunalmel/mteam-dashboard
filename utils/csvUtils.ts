@@ -5,21 +5,21 @@ import {
     createStageErrorsScatterData,
     processRow,
     generateLayout,
-    generatePhaseErrorImagesData
+    generateStageErrorImagesData
 } from '@/utils/dataUtils';
 import {LayoutWithNamedImage, ImageWithName} from '@/types';
-import SequentialTimePeriods from "@/utils/SequentialTimePeriods";
-import CompressionLines from "@/utils/CompressionLines";
-import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
-import ErrorAction from "@/utils/ErrorAction";
+import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
+import CompressionLines from '@/utils/CompressionLines';
+import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
+import ErrorActionTracker from '@/utils/ErrorActionTracker';
 
 export const parseCsvData = (
     url: string,
     onComplete: (actionsScatterData: Partial<ScatterData>, errorsScatterData: Partial<ScatterData>, compressionLines: Array<Partial<ScatterData>>, layoutConfig: Partial<LayoutWithNamedImage>, phaseErrorImages: Partial<ImageWithName>[]) => void
 ) => {
-    const error: ErrorAction = new ErrorAction();
+    const errorActionTracker: ErrorActionTracker = new ErrorActionTracker();
     const stageMap: SequentialTimePeriods = new SequentialTimePeriods();//{ [key: string]: { start: string, end: string } } = {};
-    const timeStamps: Array<CsvDateTimeStamp> = [];
+    const scatterPlotTimeStamps: Array<CsvDateTimeStamp> = [];
     const actionColors: string[] = [];
     const yValues: number[] = [];
     const subActions: string[] = [];
@@ -31,17 +31,17 @@ export const parseCsvData = (
         download: true,
         header: true,
         step: function (row: Papa.ParseStepResult<{ [key: string]: string }>) {
-            processRow(row.data, error, stageMap, timeStamps, actionColors, yValues, subActions, actionAnnotations, compressionLines, stageErrors);
+            processRow(row.data, errorActionTracker, stageMap, scatterPlotTimeStamps, actionColors, yValues, subActions, actionAnnotations, compressionLines, stageErrors);
         },
         complete: function () {
-            const timeStampStrings = timeStamps.map(t=>t.dateTimeString);
-            const actionsData = createActionsScatterData(timeStampStrings, actionColors, yValues, subActions, actionAnnotations);
+            const scatterPlotTimeStampStrings = scatterPlotTimeStamps.map(t=>t.dateTimeString);
+            const actionsData = createActionsScatterData(scatterPlotTimeStampStrings, actionColors, yValues, subActions, actionAnnotations);
             const actionsScatterData = actionsData.scatterData;
-            const layoutConfig = generateLayout(stageMap.getAll(), timeStampStrings);
-            const phaseErrorImages = generatePhaseErrorImagesData(stageErrors, stageMap.getAll());
+            const layoutConfig = generateLayout(stageMap.getAll(), scatterPlotTimeStampStrings);
+            const stageErrorImages = generateStageErrorImagesData(stageErrors, stageMap.getAll());
 
             // working on this one now.
-            const errorsData = createStageErrorsScatterData(phaseErrorImages);
+            const errorsData = createStageErrorsScatterData(stageErrorImages);
             const errorsScatterData = errorsData.scatterData;
 
             console.log("actionsData");

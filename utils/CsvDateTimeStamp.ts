@@ -1,4 +1,4 @@
-import {getBeginningOfDayString, parseTime} from "@/utils/timeUtils";
+import {getBeginningOfDayString, parseTime} from '@/utils/timeUtils';
 
 export default class CsvDateTimeStamp {
     static readonly defaultTime ={
