@@ -1,12 +1,12 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
-import { PlotMouseEvent } from 'plotly.js';
+import React, {useEffect, useRef, useState} from 'react';
+import {PlotMouseEvent} from 'plotly.js';
 import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
 import ActionsPlot from '@/components/plots/ActionsPlot';
 import CognitiveLoadPlot from '@/components/plots/CognitivePlot';
 import Explanation from '@/components/Explanation';
-import { timeStampStringToSeconds } from '@/utils/timeUtils';
-import { explanationItems } from '@/components/constants';
+import {timeStampStringToSeconds} from '@/utils/timeUtils';
+import {explanationItems} from '@/components/constants';
 
 const Page = () => {
     const [hoveredTime, setHoveredTime] = useState<number | null>(null);

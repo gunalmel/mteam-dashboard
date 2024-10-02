@@ -1,4 +1,4 @@
-import ActionsCSVRow from "@/utils/ActionsCSVRow";
+import ActionsCsvRow from "@/utils/ActionsCsvRow";
 
 describe.skip("CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot", () => {
 
@@ -11,7 +11,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['(1)V-Tach 2D(action)','','','','d','',false],
       ['(1)V-Tach 2D(action)','','','','','e',false],
     ])("when the action phrase is '%s' Then isStageBoundary is: '%s'", (actionString, subActionTime, subAction, score, oldValue, newValue, expected) => {
-      const actual = new ActionsCSVRow({
+      const actual = new ActionsCsvRow({
         'Action/Vital Name': actionString,
         'New Value': newValue,
         'Old Value': oldValue,
@@ -34,8 +34,8 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['PR(vital)', false, ''],
       ['XY(action)', false, ''],
       ['', false, ''],
-    ])("when the action phrase is '%s' Then isAction is: '%s' ANd the actionName is: '%s'", (actionString, expectedIsAction, expectedActionName) => {
-      const actual = new ActionsCSVRow({
+    ])("when the action phrase is '%s' Then isAction is: '%s' And the stageName is: '%s'", (actionString, expectedIsAction, expectedActionName) => {
+      const actual = new ActionsCsvRow({
         'Action/Vital Name': actionString,
         'New Value': '',
         'Old Value': '',
@@ -47,7 +47,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
         'SubAction Name': ''
       });
       expect(actual.isAction).toBe(expectedIsAction);
-      expect(actual.actionName).toBe(expectedActionName);
+      expect(actual.stageName).toBe(expectedActionName);
     });
   });
 
@@ -58,7 +58,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['Begin Something', false],
       ['', false]
     ])("when the cpr related phrase is '%s' Then cpr starts is: '%s'", (subAction, expected) => {
-      const actual = new ActionsCSVRow({
+      const actual = new ActionsCsvRow({
         'Action/Vital Name': '',
         'Speech Command': '',
         'Time Stamp[Hr:Min:Sec]': '',
@@ -74,7 +74,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['End Something', false],
       ['', false]
     ])("when the cpr related phrase is '%s' Then cpr ends is: '%s'", (subAction, expected) => {
-      const actual = new ActionsCSVRow({
+      const actual = new ActionsCsvRow({
         'Action/Vital Name': '',
         'Speech Command': '',
         'Time Stamp[Hr:Min:Sec]': '',
@@ -92,10 +92,9 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['erRor-triggered',true],
       ['  erRor-triggered ',true],
       ['something',false],
-      ['',false],
-      [undefined,false]
+      ['',false]
     ])("when the old value phrase is '%s' Then triggeredError is: '%s'", (oldValue, expected) => {
-      const actual = new ActionsCSVRow({
+      const actual = new ActionsCsvRow({
         'Action/Vital Name': 'actionString',
         'New Value': 'newValue',
         'Old Value': oldValue,

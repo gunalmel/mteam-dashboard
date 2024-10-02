@@ -1,95 +1,99 @@
 import {Annotations, ScatterData, Shape} from 'plotly.js';
-import {timeStampStringToSeconds, timeStampToDateString} from '@/utils/timeUtils';
+import {parseTime, timeStampStringToSeconds} from '@/utils/timeUtils';
 import {getIcon, phaseColors, yValues} from '@/components/constants';
-import {ActionsCSVDataRow, ErrorAction, ImageWithName, LayoutWithNamedImage} from '@/types';
-import ActionsCSVRow from "@/utils/ActionsCSVRow";
+import {ImageWithName, LayoutWithNamedImage} from '@/types';
+import ActionsCsvRow from "@/utils/ActionsCsvRow";
 import SequentialTimePeriods from "@/utils/SequentialTimePeriods";
 import CompressionLines from "@/utils/CompressionLines";
+import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
+import ErrorAction from "@/utils/ErrorAction";
 
-const actionRegex = /\(\d+\)([^(]+)\(action\)/;
 function extractShockAmount(subAction:string) {
     const shockMatch = subAction.match(/\d+J/);
     return shockMatch ? shockMatch[0] : '';
 }
-let currentAction='';
+
 export const processRow = (
     row: { [key: string]: string },
     error: ErrorAction,
     stageMap: SequentialTimePeriods,
-    timestampsInDateString: string[],
+    timeStamps: Array<CsvDateTimeStamp>,
     actionColors: string[],
     yValuesList: number[],
     subActions: string[],
     actionAnnotations: string[],
     compressionLines: CompressionLines,
-    phaseErrors: { [key: string]: Array<{ [key: string]: string }> }
+    stageErrors: { [key: string]: Array<{ [key: string]: string }> }
 ) => {
-    const parsedRow = new ActionsCSVRow(
-      row as unknown as ActionsCSVDataRow,
-    );
-
-    const { 'Time Stamp[Hr:Min:Sec]': timestamp,
-            'Action/Vital Name': action,
-            'SubAction Time[Min:Sec]': subActionTime,
-            'SubAction Name': subAction,
-            'Score': score,
-            'Old Value': oldValue,
-            'New Value': newValue,
-            'Username': phaseName,
-            'Speech Command': comment
-    } = row;
-    const timeStampInDateString = timeStampToDateString(timestamp);
+    const parsedRow = new ActionsCsvRow(row);
 
     if (parsedRow.doesCPRStart()) {
-        compressionLines.addStart(timeStampInDateString, timestamp);
+        compressionLines.addStart(parsedRow.timeStamp.dateTimeString, parsedRow.timeStamp.timeStampString);
     } else if (parsedRow.doesCPREnd()) {
-        compressionLines.updateEnd(timeStampInDateString, timestamp);
+        compressionLines.updateEnd(parsedRow.timeStamp.dateTimeString, parsedRow.timeStamp.timeStampString);
     }
 
     if (parsedRow.isStageBoundary) {
-        stageMap.update(action, timeStampInDateString);
+        stageMap.update(parsedRow.stageName, parsedRow.timeStamp);
     }
 
-    if (parsedRow.isAction) {
-        currentAction=action;
-    }
-    const transitionEnd = stageMap.get(currentAction)?stageMap.get(currentAction)?.end??'0':'0';
+    markScatterPoints(parsedRow, stageMap, error, actionColors,
+                      subActions, actionAnnotations, timeStamps, yValuesList);
 
-    const plotAction =  shouldPlotAction(action, subAction, timestamp, oldValue, timestampsInDateString[timestampsInDateString.length-1], transitionEnd, error);
-    if(plotAction.markAsError==='previous'){
-        actionColors[actionColors.length - 1] = 'red';
-    }
-    if (plotAction.shouldPlotAction&&!parsedRow.isStageBoundary) {
-        subActions.push(subAction);
-        actionAnnotations.push(`${timestamp}, ${subAction}`);
-        timestampsInDateString.push(timeStampInDateString);
-        if(plotAction.markAsError==='current'){
-            actionColors.push('red');
-        }else{
-            actionColors.push('green');
-        }
-        yValuesList.push(yValues[subAction]);
-    }
 
-    // Check for phase errors using oldValue
     if (parsedRow.triggeredError) {
         const errorDetails = {
-            'Action/Vital Name': action,
-            'SubAction Name': subAction,
-            'Time Stamp[Hr:Min:Sec]': timestamp,
-            'Score': score,
-            'Old Value': oldValue,
-            'New Value': newValue,
-            'Speech Command': comment
+            'Action/Vital Name': parsedRow.actionOrVitalName,
+            'Time Stamp[Hr:Min:Sec]': parsedRow.timeStamp.timeStampString,
+            'Speech Command': parsedRow.errorExplanation
+            //'SubAction Time[Min:Sec]': subActionTime, //Warning|Error|Critical Error
+            // 'SubAction Name': parsedRow.subAction, //Action-Should-Be-Performed|Action-Should-Not-Be-Performed
+            // 'Score': score, //Action-Was-Performed|Action-Was-Not-Performed
+            // 'Old Value': parsedRow.oldValue, // Error-Triggered already used in parsedRow.triggeredError
+            // 'New Value': newValue, //umich1|NA
         };
 
-        if (!phaseErrors[phaseName]) {
-            phaseErrors[phaseName] = []; // Initialize as an array
+        if (!stageErrors[parsedRow.stageName]) {
+            stageErrors[parsedRow.stageName] = []; // Initialize as an array
         }
 
-        phaseErrors[phaseName].push(errorDetails);
+        stageErrors[parsedRow.stageName].push(errorDetails);
     }
 };
+
+export function markScatterPoints(parsedRow: ActionsCsvRow,
+                                  stageMap: SequentialTimePeriods,
+                                  error: ErrorAction,
+                                  actionColors: any[],
+                                  subActions: string[], actionAnnotations: string[], timeStamps: CsvDateTimeStamp[], yValuesList: number[]) {
+
+    const previousActionTime = timeStamps[timeStamps.length-1];
+    const transitionBoundary = stageMap.get(parsedRow.stageName).end.seconds;
+
+    if(parsedRow.triggeredError && transitionBoundary!==parsedRow.timeStamp.seconds) { //current row implies error
+        if(parsedRow.canMarkError(previousActionTime)) { //previous row is an action whose timestamp matches error timestamp
+            //The previous line should be marked as an error
+            actionColors[actionColors.length - 1] = 'red';
+        }else {
+            // The next line should be marked as error if the next row will be an action
+            error.triggered = true;
+            error.time = parsedRow.timeStamp;
+        }
+    }else if(parsedRow.isAction && !parsedRow.isStageBoundary) {
+        // prior to this action row an error row was seen
+        if (error.triggered && parsedRow.canMarkError(error.time)) {
+            //if the previously seen error row timestamp matches the current action row timestamp then the current line should be marked as an error
+            error.reset(); //error demarcation done, reset the error status for the upcoming rows
+            actionColors.push('red');
+        } else {
+            actionColors.push('green');
+        }
+        subActions.push(parsedRow.subAction);
+        actionAnnotations.push(`${parsedRow.timeStamp.timeStampString}, ${parsedRow.subAction}`);
+        timeStamps.push(parsedRow.timeStamp);
+        yValuesList.push(yValues[parsedRow.subAction]);
+    }
+}
 
 export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array<{ [key: string]: string }> }, phaseMap: { [key: string]: { start: string, end: string } }) => {
     let errorImagesData: Partial<ImageWithName>[] = [];
@@ -138,7 +142,7 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
                 source: icon.image,
                 xref: 'x',
                 yref: 'y',
-                x: timeStampToDateString(new Date(xPosition * 1000).toISOString().substr(11, 8)).replace(' ', 'T') + 'Z',
+                x: parseTime(new Date(xPosition * 1000).toISOString().substr(11, 8)).dateTimeString,
                 y: yCoordinate,
                 name: `${error['Action/Vital Name']}${error['Speech Command'] ? ' - ' + error['Speech Command'] : ''}`,
                 sizex: 58800,  // Set dynamically if needed
@@ -152,8 +156,6 @@ export const generatePhaseErrorImagesData = (phaseErrors: { [key: string]: Array
 
     return errorImagesData;
 };
-
-
 
 export const generateLayout = (
     phaseMap: { [key: string]: { start: string, end: string } },
@@ -337,59 +339,7 @@ export function createTransitionAnnotation(text: string, start: string, fontColo
         },
         bgcolor: 'rgba(255, 255, 255, 0.8)',
         bordercolor: fontColor, // same as text for uniformity
-        borderwidth: 1, 
+        borderwidth: 1,
         borderpad: 3,
     };
 }
-
-export function shouldPlotAction(action: string, subAction:string, timestampString:string, oldValue: string, previousActionTimestamp: string,
-                                 transitionEndTimestamp:string, error: ErrorAction) {
-    if(oldValue==='Error-Triggered' && timeStampStringToSeconds(transitionEndTimestamp)!==timeStampStringToSeconds(timestampString)) { //current row implies error
-        if(Math.abs(timeStampStringToSeconds(previousActionTimestamp) - timeStampStringToSeconds(timestampString))<2) { //previous row is an action whose timestamp matches error timestamp
-            //The previous line should be marked as an error
-            error.triggered = false;
-            error.name = '';
-            error.time = 0;
-            return {error, markAsError: 'previous', shouldPlotAction: false};
-        }else {// The next line should be marked as error if the next acton line will be an action
-            error.triggered = true;
-            error.name = action;
-            error.time = timeStampStringToSeconds(timestampString);
-            return {error, markAsError: undefined, shouldPlotAction: false};
-        }
-    }else if(actionRegex.test(action) && (subAction && !subAction.includes('CPR'))) {
-        if (error.triggered) { // prior to this action row an error row was seen
-            if (Math.abs(timeStampStringToSeconds(timestampString) - error.time) < 3) {//if the previously seen error row timestamp matches the current action row timestamp
-                //The current line should be marked as an error
-                error.triggered = false;
-                error.name = '';
-                error.time = 0;
-                return {error, markAsError: 'current', shouldPlotAction: true};
-            }
-        }
-        return {error, markAsError: undefined, shouldPlotAction: true};
-    }else {
-        //not an action row but error is triggered information should not be reset
-        return {error, markAsError: undefined, shouldPlotAction: false};
-    }
-}
-
-const cprStartSubActionNames = ['Begin CPR', 'Enter CPR'];
-export function doesCPRStart(subAction: string) {
-    return cprStartSubActionNames.includes(subAction);
-}
-
-const cprStopSubActionNames = 'Stop CPR';
-export function doesCPRStop(subAction: string) {
-    return cprStopSubActionNames === subAction;
-}
-
-export function isTransitionBoundary(action: string) {
-    return action && action.includes('(action)');
-}
-
-// Function to determine if there is a phase error
-export function isPhaseError(oldValue: string) {
-    return oldValue === "Error-Triggered"
-}
-
