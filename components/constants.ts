@@ -60,7 +60,7 @@ export const yValues = explanationItems.reduce((acc, item) => {
     return acc;
 }, {} as { [key: string]: number });
 
-export const phaseColors = [
+export const stageColors = [
     '#1f77b4', '#d62728', '#2ca02c', '#8c564b',
     '#9467bd', '#ff7f0e', '#e377c2', '#7f7f7f',
     '#bcbd22', '#17becf'

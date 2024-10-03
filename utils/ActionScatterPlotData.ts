@@ -1,5 +1,7 @@
 import ActionsScatterPlotPoint from '@/utils/ActionsScatterPlotPoint';
-import {ScatterPlotlyData} from '@/utils/ScatterPlotlyData';
+import {PlotlyScatterData} from '@/utils/PlotlyScatterData';
+import {PlotData} from "plotly.js";
+import {ImageWithName} from '@/types';
 
 export default class ActionScatterPlotData {
     readonly points: Array<ActionsScatterPlotPoint> = [];
@@ -14,12 +16,12 @@ export default class ActionScatterPlotData {
 
     // we may need to update sizex using the difference between max and min values of x to display images properly.
     // e.g. 100 * dataRange
-    collectPlotImages() {
+    collectPlotImages(): Array<ImageWithName> {
         return this.points.map(p=>p.plotlyImage);
     }
 
-    createPlotScatterData(){
-        const data = new ScatterPlotlyData();
+    createPlotScatterData(): Partial<PlotData>{
+        const data = new PlotlyScatterData();
         this.points.forEach(point=>{
             data.x.push(point.x.dateTimeString);
             data.y.push(point.y);
@@ -31,15 +33,11 @@ export default class ActionScatterPlotData {
         return data.toPlotlyFormat();
     }
 
-    getPrevious() {
+    getPrevious(): ActionsScatterPlotPoint {
         return this.points[this.points.length - 1];
     }
 
-    // dataRange() {
-    //     return this.points[this.points.length - 1].x.seconds - this.points[0].x.seconds
-    // }
-
-    xAxisRange() {
+    xAxisRange():[(string|number),(string|number)] {
         return [0, this.points[this.points.length - 1].x.dateTimeString + 10];
     }
 }

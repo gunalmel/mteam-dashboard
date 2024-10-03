@@ -2,14 +2,14 @@ import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 
 export default class ActionsCsvRow {
   ///\(\d+\)([^(]+)\(action\)/; //this is lightweight action parser not ignoring the whitespace within parentheses and between beginning and end of the phase stage name
-  static readonly #actionRegex =
+  static readonly #ACTION_REGEX =
     /^\s*\(\s*\d+\s*\)\s*(.*?)\s*\(\s*[^)]*action\s*\)\s*$/i;
-  static readonly #cprPhrases = {
+  static readonly #CPR_PHRASES = {
     start: ['begin cpr', 'enter cpr'],
     end: ['stop cpr', 'end cpr'],
   };
-  static readonly #errorRowDistanceToActionRowInSeconds = 3;
-  static readonly #phaseErrorPhrase = 'error-triggered';
+  static readonly #ERROR_ROW_DISTANCE_TO_ACTION_ROW_IN_SECONDS = 3;
+  static readonly #STAGE_ERROR_PHRASE = 'error-triggered';
 
   readonly #actionOrVitalName: string;
   readonly #timeStamp: CsvDateTimeStamp;
@@ -135,13 +135,13 @@ export default class ActionsCsvRow {
   }
 
   #markCPRRow(row: ActionsCsvRow, cprType: 'start' | 'end') {
-    return ActionsCsvRow.#cprPhrases[cprType].some((phrase) =>
+    return ActionsCsvRow.#CPR_PHRASES[cprType].some((phrase) =>
       row.#subAction?.toLowerCase().includes(phrase.toLowerCase()),
     );
   }
 
   #actionMatch(actionString: string) {
-    const actionMatch = ActionsCsvRow.#actionRegex.exec(actionString);
+    const actionMatch = ActionsCsvRow.#ACTION_REGEX.exec(actionString);
     return {
       isAction: actionMatch !== null,
       name: actionMatch ? actionMatch[1] : '',
@@ -154,8 +154,8 @@ export default class ActionsCsvRow {
 
   #parseError() {
     const triggered =
-      this.#oldValue.trim().toLowerCase() === ActionsCsvRow.#phaseErrorPhrase;
-    const errorMatch = ActionsCsvRow.#actionRegex.exec(this.#username);
+      this.#oldValue.trim().toLowerCase() === ActionsCsvRow.#STAGE_ERROR_PHRASE;
+    const errorMatch = ActionsCsvRow.#ACTION_REGEX.exec(this.#username);
     return { triggered, stageName: errorMatch ? errorMatch[1] : '' };
   }
 
@@ -164,7 +164,7 @@ export default class ActionsCsvRow {
       timeStamp &&
       timeStamp.seconds &&
       Math.abs(timeStamp.seconds - this.#timeStamp.seconds) <
-        ActionsCsvRow.#errorRowDistanceToActionRowInSeconds
+        ActionsCsvRow.#ERROR_ROW_DISTANCE_TO_ACTION_ROW_IN_SECONDS
     );
   }
 }

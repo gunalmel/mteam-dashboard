@@ -1,13 +1,13 @@
 import {ImageWithName} from '@/types';
 
-export class ScatterPlotlyImage {
+export class PlotlyScatterImage {
     readonly source: string;
     readonly x: number | string;
     readonly y: number | string;
     readonly name: string;
     sizex: number = 100000;
 
-    constructor(source: string, x: string, y: number, name: string) {
+    constructor(source: string, x:  number | string, y:  number | string, name: string) {
         this.source = source;
         this.x = x;
         this.y = y;

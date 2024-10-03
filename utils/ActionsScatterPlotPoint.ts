@@ -1,7 +1,7 @@
 import ActionsCsvRow from '@/utils/ActionsCsvRow';
 import {getIcon, yValues} from '@/components/constants';
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
-import {ScatterPlotlyImage} from '@/utils/ScatterPlotlyImage';
+import {PlotlyScatterImage} from '@/utils/PlotlyScatterImage';
 import {ImageWithName} from '@/types';
 
 export default class ActionsScatterPlotPoint {
@@ -44,6 +44,6 @@ export default class ActionsScatterPlotPoint {
     }
 
     #createImage(){
-        return new ScatterPlotlyImage(this.icon.image, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
+        return new PlotlyScatterImage(this.icon.image, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
     }
 }

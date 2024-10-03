@@ -1,19 +1,20 @@
 import { Datum, ScatterData } from 'plotly.js';
 
-export default class CompressionLines {
-  plotData: Array<CompressionLine>;
-  constructor(lines: Array<CompressionLine> = []) {
+export default class ActionsCompressionLines {
+  plotData: Array<ActionCompressionLine>;
+  constructor(lines: Array<ActionCompressionLine> = []) {
     this.plotData = lines;
   }
   addStart(x: Datum, hovertext: string) {
-    this.plotData.push(new CompressionLine(x, hovertext));
+    this.plotData.push(new ActionCompressionLine(x, hovertext));
   }
   updateEnd(x: Datum, hovertext: string) {
     this.plotData[this.plotData.length - 1].add(x, hovertext);
   }
 }
 
-export class CompressionLine implements Partial<ScatterData> {
+// noinspection JSUnusedGlobalSymbols
+class ActionCompressionLine implements Partial<ScatterData> {
   x: Array<Datum>;
   y: Array<Datum>;
   readonly hovertext: string[];

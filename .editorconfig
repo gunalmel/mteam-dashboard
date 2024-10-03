@@ -1,0 +1,15 @@
+# A search for .editorconfig files will stop if the root filepath is reached or an EditorConfig file with root=true is found.
+root = true
+
+[*]
+# Non-configurable Prettier behaviors
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Configurable Prettier behaviors
+# (change these if your Prettier config differs)
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+max_line_length = 120

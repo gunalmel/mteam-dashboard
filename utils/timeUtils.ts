@@ -7,7 +7,22 @@ export function timeStampStringToSeconds(timeStr: string|undefined): number {
     const timeParts = timestampString.split(':');
     return parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
 }
+export function parseSeconds(seconds: number): {seconds: number, dateTimeString: string, timeStampString: string} {
+    const now = new Date();
+    const todayUTC =  new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, seconds));
 
+    // Format the date string in 'YYYY-MM-DD HH:MM:SS' format in UTC
+    const dateString = todayUTC.toISOString().replace('T', ' ').slice(0, 19);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    return {
+        seconds: seconds,
+        dateTimeString: dateString,
+        timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
+    };
+}
 /**
  * Parse time string in 'HH:MM:SS' format and return an object with
  * today's date and the given time in seconds and string formats.
