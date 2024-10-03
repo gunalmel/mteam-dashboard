@@ -1,6 +1,8 @@
-import ActionsCsvRow from "@/utils/ActionsCsvRow";
-import {yValues} from "@/components/constants";
-import CsvDateTimeStamp from "@/utils/CsvDateTimeStamp";
+import ActionsCsvRow from '@/utils/ActionsCsvRow';
+import {getIcon, yValues} from '@/components/constants';
+import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
+import {ScatterPlotlyImage} from '@/utils/ScatterPlotlyImage';
+import {ImageWithName} from '@/types';
 
 export default class ActionsScatterPlotPoint {
     static readonly ERROR_MARKER_COLOR = 'red';
@@ -9,14 +11,23 @@ export default class ActionsScatterPlotPoint {
     readonly x: CsvDateTimeStamp;
     readonly y: number;
     readonly name: string;
-    readonly annotation: string;
+    readonly hovertext: string;
+    readonly icon: { unicode: string; image: string; name: string };
+    readonly plotlyImage: ImageWithName;
+    /**
+     * will be displayed somewhere around the data on the plot
+     */
+    readonly dataText: string;
     color: string = ActionsScatterPlotPoint.CORRECT_MARKER_COLOR;
 
     constructor(parsedCsvRow: ActionsCsvRow){
         this.x = parsedCsvRow.timeStamp;
         this.y = yValues[parsedCsvRow.actionName];
         this.name = parsedCsvRow.actionName;
-        this.annotation = parsedCsvRow.actionAnnotation;
+        this.hovertext = parsedCsvRow.actionAnnotation;
+        this.dataText = this.#extractImageText(this.name);
+        this.icon = getIcon(this.name);
+        this.plotlyImage = this.#createImage();
     }
 
     markError() {
@@ -25,5 +36,14 @@ export default class ActionsScatterPlotPoint {
 
     markCorrect() {
         this.color=ActionsScatterPlotPoint.CORRECT_MARKER_COLOR;
+    }
+
+    #extractImageText(name:string) {
+        const shockMatch = name?.match(/\d+J/);
+        return shockMatch ? shockMatch[0] : '';
+    }
+
+    #createImage(){
+        return new ScatterPlotlyImage(this.icon.image, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
     }
 }

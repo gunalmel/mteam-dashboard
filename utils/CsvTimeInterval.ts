@@ -1,6 +1,6 @@
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 
-export default class CsvTimePeriod{
+export default class CsvTimeInterval {
     readonly start: CsvDateTimeStamp;
     readonly end: CsvDateTimeStamp;
     readonly duration: number;

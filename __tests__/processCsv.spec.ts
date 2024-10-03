@@ -5,7 +5,7 @@ import CompressionLines from '@/utils/CompressionLines';
 import ErrorActionTracker from '@/utils/ErrorActionTracker';
 import {processRow} from '@/utils/dataUtils';
 
-describe("Should be able to parse the csv file produced by equipment to build the data needed by plotly js so that action scatter data can be plotted on a timeline", () => {
+describe('Should be able to parse the csv file produced by equipment to build the data needed by plotly js so that action scatter data can be plotted on a timeline', () => {
     const fileStream = fs.createReadStream('./__tests__/test-action-data.csv');
     const error: ErrorActionTracker = new ErrorActionTracker();
     const stageMap: SequentialTimePeriods = new SequentialTimePeriods();//{ [key: string]: { start: string, end: string } } = {};
@@ -17,7 +17,7 @@ describe("Should be able to parse the csv file produced by equipment to build th
     const compressionLines = new CompressionLines();
     const phaseErrors: { [key: string]: Array<{ [key: string]: string }> } = {};
 
-    it("Hey", (done)=>{
+    it('Hey', (done)=>{
         let count = 0;
         Papa.parse(fileStream, {
             header: true,

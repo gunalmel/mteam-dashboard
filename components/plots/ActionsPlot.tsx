@@ -15,11 +15,11 @@ const ActionsPlot = ({ onHover, selectedMarkers, currentTime }: { onHover: (even
 
     // Define the current time marker
     const currentTimeMarker: Partial<Data> = {
-        type: "scatter",
-        mode: "lines",
+        type: 'scatter',
+        mode: 'lines',
         x: [currentTimeFormatted, currentTimeFormatted],
         y: [0, 12], // Adjust y range as needed - must be equal or greater than y1 value in createTransition boundary
-        line: { color: "red", width: 2 }
+        line: { color: 'red', width: 2 }
     };
 
     // Add the current time marker to the plot data

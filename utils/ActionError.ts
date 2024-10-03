@@ -1,5 +1,5 @@
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
-import ActionsCsvRow from "@/utils/ActionsCsvRow";
+import ActionsCsvRow from '@/utils/ActionsCsvRow';
 
 export default class ActionError {
     readonly name: string;

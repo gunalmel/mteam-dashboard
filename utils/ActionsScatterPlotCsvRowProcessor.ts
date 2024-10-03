@@ -4,28 +4,36 @@ import CompressionLines from '@/utils/CompressionLines';
 import Papa from 'papaparse';
 import { processRow } from '@/utils/dataUtils';
 import ActionScatterPlotData from '@/utils/ActionScatterPlotData';
-import ActionError from "@/utils/ActionError";
+import ActionError from '@/utils/ActionError';
 
 export default class ActionsScatterPlotCsvRowProcessor {
-  readonly scatterPlotData = new ActionScatterPlotData();
+  readonly data = new ActionScatterPlotData();
   readonly stageErrors: { [key: string]: Array<ActionError> } = {};
   readonly stages: SequentialTimePeriods = new SequentialTimePeriods();
   readonly compressionLines = new CompressionLines();
   readonly errorActionTracker: ErrorActionTracker = new ErrorActionTracker();
   constructor() {
-    this.process = this.process.bind(this);
+    this.rowProcessor = this.rowProcessor.bind(this);
   }
-  process(row: Papa.ParseStepResult<{ [key: string]: string }>) {
+  rowProcessor(row: Papa.ParseStepResult<{ [key: string]: string }>) {
     processRow(
       row.data,
-      this.scatterPlotData,
+      this.data,
       this.errorActionTracker,
       this.stages,
       this.compressionLines,
       this.stageErrors,
     );
   }
-  getStageMap(){
+  getStageIntervalMap(){
     return this.stages.getMap()
+  }
+
+  createScatterPlotData(){
+    return this.data.createPlotScatterData();
+  }
+
+  collectImages(){
+    return this.data.collectPlotImages();
   }
 }

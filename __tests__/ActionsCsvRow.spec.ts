@@ -1,8 +1,8 @@
 import ActionsCsvRow from '@/utils/ActionsCsvRow';
 
-describe.skip("CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot", () => {
+describe.skip('CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot', () => {
 
-  describe("Identify the transition boundary so that we can shade the stages/phases on the actions scatter plot", () => {
+  describe('Identify the transition boundary so that we can shade the stages/phases on the actions scatter plot', () => {
     it.each([
       ['(1)V-Tach 2D(action)','','','','','',true],
       ['(1)V-Tach 2D(action)','a','','','','',false],
@@ -10,7 +10,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['(1)V-Tach 2D(action)','','','c','','',false],
       ['(1)V-Tach 2D(action)','','','','d','',false],
       ['(1)V-Tach 2D(action)','','','','','e',false],
-    ])("when the action phrase is '%s' Then isStageBoundary is: '%s'", (actionString, subActionTime, subAction, score, oldValue, newValue, expected) => {
+    ])('when the action phrase is \'%s\' Then isStageBoundary is: \'%s\'', (actionString, subActionTime, subAction, score, oldValue, newValue, expected) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': actionString,
         'New Value': newValue,
@@ -26,7 +26,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
     });
   });
 
-  describe("Identify the action taken so we can use that to identify phase/stage transitions, extract phase/stage name or decide to plot this point on action scatter plot", () => {
+  describe('Identify the action taken so we can use that to identify phase/stage transitions, extract phase/stage name or decide to plot this point on action scatter plot', () => {
     it.each([
       ['(1)V-Tach 2D(action)', true, 'V-Tach 2D'],
       [' ( 1  )  V-Tach 2D  (  action ) ', true, 'V-Tach 2D'],
@@ -34,7 +34,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['PR(vital)', false, ''],
       ['XY(action)', false, ''],
       ['', false, ''],
-    ])("when the action phrase is '%s' Then isAction is: '%s' And the stageName is: '%s'", (actionString, expectedIsAction, expectedActionName) => {
+    ])('when the action phrase is \'%s\' Then isAction is: \'%s\' And the stageName is: \'%s\'', (actionString, expectedIsAction, expectedActionName) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': actionString,
         'New Value': '',
@@ -51,13 +51,13 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
     });
   });
 
-  describe("Identify cpr starts/end points so that on the plot we can draw a line between the start and end of cpr", () => {
+  describe('Identify cpr starts/end points so that on the plot we can draw a line between the start and end of cpr', () => {
     it.each([
       ['Begin CPR', true],
       ['beGin CpR', true],
       ['Begin Something', false],
       ['', false]
-    ])("when the cpr related phrase is '%s' Then cpr starts is: '%s'", (subAction, expected) => {
+    ])('when the cpr related phrase is \'%s\' Then cpr starts is: \'%s\'', (subAction, expected) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': '',
         'Speech Command': '',
@@ -73,7 +73,7 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
       ['end CpR', true],
       ['End Something', false],
       ['', false]
-    ])("when the cpr related phrase is '%s' Then cpr ends is: '%s'", (subAction, expected) => {
+    ])('when the cpr related phrase is \'%s\' Then cpr ends is: \'%s\'', (subAction, expected) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': '',
         'Speech Command': '',
@@ -86,14 +86,14 @@ describe.skip("CSV row markers should identify rows to assign data points to cor
     });
   });
 
-  describe("Identify the error triggers so that we can color code the actions that triggered error and plot the actions that needed to be taken but not taken", () => {
+  describe('Identify the error triggers so that we can color code the actions that triggered error and plot the actions that needed to be taken but not taken', () => {
     it.each([
       ['Error-Triggered',true],
       ['erRor-triggered',true],
       ['  erRor-triggered ',true],
       ['something',false],
       ['',false]
-    ])("when the old value phrase is '%s' Then triggeredError is: '%s'", (oldValue, expected) => {
+    ])('when the old value phrase is \'%s\' Then triggeredError is: \'%s\'', (oldValue, expected) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': 'actionString',
         'New Value': 'newValue',

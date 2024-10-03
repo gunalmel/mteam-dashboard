@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import {PlotMouseEvent} from 'plotly.js';
-import VideoPlayer from '@/app/ui/dashboard/VideoPlayer';
+import VideoPlayer from '@/components/dashboard/VideoPlayer';
 import ActionsPlot from '@/components/plots/ActionsPlot';
 import CognitiveLoadPlot from '@/components/plots/CognitivePlot';
 import Explanation from '@/components/Explanation';

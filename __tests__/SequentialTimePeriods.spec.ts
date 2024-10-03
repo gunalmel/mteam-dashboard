@@ -1,7 +1,7 @@
 import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 import {parseTime} from '@/utils/timeUtils';
-import CsvTimePeriod from '@/utils/CsvTimePeriod';
+import CsvTimeInterval from '@/utils/CsvTimeInterval';
 
 describe('Should be able to build an actions stage transition map that will store start and end of each transition as we add each transition while processing csv file row by row', () => {
     const expectedDefaultTimeString = CsvDateTimeStamp.defaultTime.dateTimeString;
@@ -119,9 +119,9 @@ describe('Should be able to build an actions stage transition map that will stor
             const time3 = new CsvDateTimeStamp('3:01:3');
 
             const expected= new Map(
-                [['stage1', new CsvTimePeriod(defaultTime, defaultTime)],
-                    ['stage2',new CsvTimePeriod(defaultTime, time2)],
-                    ['stage3',new CsvTimePeriod(time2, time3)]]);
+                [['stage1', new CsvTimeInterval(defaultTime, defaultTime)],
+                    ['stage2',new CsvTimeInterval(defaultTime, time2)],
+                    ['stage3',new CsvTimeInterval(time2, time3)]]);
 
             actual.update('stage1');
             actual.update('stage2', time1);

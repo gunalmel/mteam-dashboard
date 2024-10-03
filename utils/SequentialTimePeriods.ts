@@ -1,5 +1,5 @@
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
-import CsvTimePeriod from "@/utils/CsvTimePeriod";
+import CsvTimeInterval from '@/utils/CsvTimeInterval';
 
 /**
  * Helps to build up a list of named time periods one by one, sequentially. Each time a named period is updated:
@@ -9,8 +9,8 @@ import CsvTimePeriod from "@/utils/CsvTimePeriod";
  */
 export default class SequentialTimePeriods {
     readonly #defaultTimeStamp: CsvDateTimeStamp = new CsvDateTimeStamp();
-    readonly #periods: Array<[string, CsvTimePeriod]> = [];
-    readonly #periodMap = new Map<string, CsvTimePeriod>();
+    readonly #periods: Array<[string, CsvTimeInterval]> = [];
+    readonly #periodMap = new Map<string, CsvTimeInterval>();
     #size: number;
 
     constructor() {
@@ -26,21 +26,21 @@ export default class SequentialTimePeriods {
         const previousEntry = this.#periods[this.#size - 1];
         let period;
         if (this.#size === 0) {
-            period = new CsvTimePeriod(this.#defaultTimeStamp, csvTimeStamp)
+            period = new CsvTimeInterval(this.#defaultTimeStamp, csvTimeStamp)
             this.#periods.push([name, period]);
         } else if (previousEntry[0] === name) {
-            period = new CsvTimePeriod(previousEntry[1].start, csvTimeStamp);
+            period = new CsvTimeInterval(previousEntry[1].start, csvTimeStamp);
             previousEntry[1] = period;
         } else {
-            period = new CsvTimePeriod(previousEntry[1].end, csvTimeStamp);
+            period = new CsvTimeInterval(previousEntry[1].end, csvTimeStamp);
             this.#periods.push([name, period]);
         }
         this.#periodMap.set(name, period);
         this.#size = this.#periods.length;
     }
 
-    get(periodName: string): CsvTimePeriod {
-        return this.#periodMap.get(periodName)??new CsvTimePeriod();
+    get(periodName: string): CsvTimeInterval {
+        return this.#periodMap.get(periodName)??new CsvTimeInterval();
     }
 
     getDateTimeString(periodName: string): { start: string; end: string } {
@@ -51,14 +51,7 @@ export default class SequentialTimePeriods {
         return {start: csvTimePeriod.start.dateTimeString, end: csvTimePeriod.end.dateTimeString};
     }
 
-    getMap(): Map<string,CsvTimePeriod> {
+    getMap(): Map<string,CsvTimeInterval> {
         return this.#periodMap;
     }
-
-    getAll(): { [key: string]: { start: string; end: string } } {
-        return Object.fromEntries(new Map(this.#periods.map((periodArray) => {
-            return [periodArray[0], {start: periodArray[1].start.dateTimeString, end: periodArray[1].end.dateTimeString}];
-        })));
-    }
-
 }

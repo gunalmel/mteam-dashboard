@@ -1,5 +1,5 @@
 import {Annotations, ScatterData, Shape} from 'plotly.js';
-import {parseTime, timeStampStringToSeconds} from '@/utils/timeUtils';
+import {parseTime} from '@/utils/timeUtils';
 import {getIcon, phaseColors, yValues} from '@/components/constants';
 import {ImageWithName, LayoutWithNamedImage} from '@/types';
 import ActionsCsvRow from '@/utils/ActionsCsvRow';
@@ -7,15 +7,10 @@ import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
 import CompressionLines from '@/utils/CompressionLines';
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 import ErrorActionTracker from '@/utils/ErrorActionTracker';
-import ActionScatterPlotData from "@/utils/ActionScatterPlotData";
-import ActionsScatterPlotPoint from "@/utils/ActionsScatterPlotPoint";
-import ActionError from "@/utils/ActionError";
-import CsvTimePeriod from "@/utils/CsvTimePeriod";
-
-function extractShockAmount(actionName:string) {
-    const shockMatch = actionName?.match(/\d+J/);
-    return shockMatch ? shockMatch[0] : '';
-}
+import ActionScatterPlotData from '@/utils/ActionScatterPlotData';
+import ActionsScatterPlotPoint from '@/utils/ActionsScatterPlotPoint';
+import ActionError from '@/utils/ActionError';
+import CsvTimeInterval from '@/utils/CsvTimeInterval';
 
 export const processRow = (
     row: { [key: string]: string },
@@ -42,7 +37,7 @@ export const processRow = (
     if (shouldRowRequireMissingActions(parsedRow, stages.get(parsedRow.stageName).end)) {
         const error = new ActionError(parsedRow);
         if (!stageErrors[parsedRow.stageName]) {
-            stageErrors[parsedRow.stageName] = []; // Initialize as an array
+            stageErrors[parsedRow.stageName] = [];
         }
         stageErrors[parsedRow.stageName].push(error);
     }
@@ -102,7 +97,7 @@ export function createScatterPoints(parsedRow:ActionsCsvRow, stages: SequentialT
 }
 
 export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array<ActionError> },
-                                             stageMap: Map<string, CsvTimePeriod>) => {
+                                             stageMap: Map<string, CsvTimeInterval>) => {
     let errorImagesData: Partial<ImageWithName>[] = [];
 
     Object.keys(stageErrors).forEach(action => {
@@ -160,14 +155,13 @@ export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array
 };
 
 export const generateLayout = (
-    // stageMap: Map<string, CsvTimePeriod>,
-    stageMap: { [key: string]: { start: string, end: string } },
-    timestampsInDateString: string[]
+    stageMap: Map<string, CsvTimeInterval>,
+    plotData: ActionScatterPlotData
 ): Partial<LayoutWithNamedImage> => {
     let stageCounter=0;
     const shapes : Partial<Shape>[] = [];
     const annotations:Partial<Annotations>[] = [];
-/*
+
     stageMap.forEach((period, stage)=>{
         shapes.push(createTransition(
             stage,
@@ -188,44 +182,17 @@ export const generateLayout = (
         ));
         stageCounter++;
     });
-    */
-    const { transitionShapes, transitionAnnotations } =
-        Object.keys(stageMap).reduce<{
-        transitionShapes: Partial<Shape>[],
-        transitionAnnotations: Partial<Annotations>[]
-    }>((accumulator, action, index) => {
-        accumulator.transitionShapes.push(createTransition(
-            action,
-            stageMap[action].start,
-            stageMap[action].end,
-            phaseColors[index % phaseColors.length] + '33'
-        ));
-
-        accumulator.transitionShapes.push(createStageErrorTransition(
-            action,
-            stageMap[action].start,
-            stageMap[action].end,
-            phaseColors[index % phaseColors.length] + '33',
-        ));
-
-        accumulator.transitionAnnotations.push(createTransitionAnnotation(
-            action,
-            stageMap[action].start,
-            phaseColors[index % phaseColors.length]
-        ));
-        return accumulator;
-    }, { transitionShapes: [], transitionAnnotations: [] });
 
     // Find the maximum yValue from the yValues object
     const maxYValue = Math.max(...Object.values(yValues));
 
     return {
         title: 'Clinical Review Timeline',
-        xaxis: { title: 'Time (seconds)', showgrid: false, range: [0, timestampsInDateString[timestampsInDateString.length - 1] + 10], tickformat: '%H:%M:%S' },
+        xaxis: { title: 'Time (seconds)', showgrid: false, range: plotData.xAxisRange(), tickformat: '%H:%M:%S' },
         yaxis: { visible: false, range: [-3, maxYValue + 2] },
         showlegend: false,
-        shapes: transitionShapes,
-        annotations: transitionAnnotations,
+        shapes,
+        annotations,
         autosize: true,
         modebar: {
             orientation: 'v',
@@ -233,51 +200,10 @@ export const generateLayout = (
     };
 };
 
-export function createActionsScatterData(timeStampsInDateString: Array<string>, actionColors: string[], yValues: Array<number>, actionNames: Array<string>, annotations: Array<string>)
-    : { scatterData: Partial<ScatterData>, images: Array<Partial<ImageWithName>> } {
-    const range = timeStampStringToSeconds(timeStampsInDateString[timeStampsInDateString.length - 1]) - timeStampStringToSeconds(timeStampsInDateString[0]);
-
-    const images: Array<Partial<ImageWithName>> = actionNames.map((actionName, index) => {
-        const icon = getIcon(actionName);
-        return {
-            source: icon.image,
-            xref: 'x',
-            yref: 'y',
-            x: timeStampsInDateString[index].replace(' ', 'T') + 'Z',
-            y: yValues[index],
-            name: icon.name,
-            sizex: range * 100,
-            sizey: 0.373,
-            xanchor: 'center',
-            yanchor: 'middle',
-            layer: 'above'
-        };
-    });
-
-    return {
-        scatterData: {
-            x: timeStampsInDateString,
-            y: yValues,
-            mode: 'text+markers',
-            type: 'scatter',
-            customdata: actionNames.map(actionName => getIcon(actionName).name),
-            text: actionNames.map(actionName => extractShockAmount(actionName)),
-            hovertext: annotations,
-            hoverinfo: 'text',
-            textposition: "bottom center",
-            textfont: { size: 8 },
-            marker: {
-                size: 18,
-                symbol: 'square',
-                color: actionColors
-            }
-        },
-        images
-    };
-}
 
 export function createStageErrorsScatterData(phaseErrorImages: Partial<ImageWithName>[]): { scatterData: Partial<ScatterData>; images: Array<Partial<ImageWithName>> } {
-    const errorImages: Array<Partial<ImageWithName>> = phaseErrorImages.map(errorImage => ({
+    const errorImages: Array<Partial<ImageWithName>> =
+        phaseErrorImages.map(errorImage => ({
         source: errorImage.source,
         xref: errorImage.xref,
         yref: errorImage.yref,
