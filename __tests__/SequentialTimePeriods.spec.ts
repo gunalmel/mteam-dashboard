@@ -1,6 +1,7 @@
 import SequentialTimePeriods from '@/utils/SequentialTimePeriods';
 import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
 import {parseTime} from '@/utils/timeUtils';
+import CsvTimePeriod from '@/utils/CsvTimePeriod';
 
 describe('Should be able to build an actions stage transition map that will store start and end of each transition as we add each transition while processing csv file row by row', () => {
     const expectedDefaultTimeString = CsvDateTimeStamp.defaultTime.dateTimeString;
@@ -88,24 +89,46 @@ describe('Should be able to build an actions stage transition map that will stor
         });
     });
 
-    describe('getAll', () => {
-        const actual = new SequentialTimePeriods();
+    describe('get', () => {
 
-        it('Given no transitions When asked for all Then should return empty object', () => {
-            expect(actual.getAll()).toEqual({});
-        });
-
-        it('Given there are transitions When asked for all Then an object mapping transition name to periods should be returned', () => {
+        it('When asked for a period by name Then the period mapped to that name should be returned.',()=>{
+            const actual = new SequentialTimePeriods();
             actual.update('stage1');
             actual.update('stage2', new CsvDateTimeStamp('3:1:1'));
-            actual.update('stage2', new CsvDateTimeStamp('3:1:02'));
-            actual.update('stage3', new CsvDateTimeStamp('3:01:3'));
+            actual.update('stage3', new CsvDateTimeStamp('3:1:02'));
+            actual.update('stage4', new CsvDateTimeStamp('3:01:3'));
 
-            expect(actual.getAll()).toEqual({
-                stage1: { start: expectedDefaultTimeString, end: expectedDefaultTimeString },
-                stage2: { start: expectedDefaultTimeString, end: parseTime('3:1:02').dateTimeString },
-                stage3: { start: parseTime('3:1:02').dateTimeString, end: parseTime('03:01:3').dateTimeString },
-            });
+            expect(actual.get('stage1').end.timeStampString).toEqual('00:00:00');
+            expect(actual.get('stage2').end.timeStampString).toEqual('03:01:01');
+            expect(actual.get('stage3').end.timeStampString).toEqual('03:01:02');
+            expect(actual.get('stage4').end.timeStampString).toEqual('03:01:03');
+        })
+    });
+
+    describe('getMap', () => {
+        const actual = new SequentialTimePeriods();
+
+        it('Given no periods When asked for all Then should return empty map', () => {
+            expect(actual.getMap()).toEqual(new Map());
+        });
+
+        it('Given there are periods When asked for all Then a map of period names to periods should be returned', () => {
+            const defaultTime = new CsvDateTimeStamp()
+            const time1 = new CsvDateTimeStamp('3:1:1');
+            const time2 = new CsvDateTimeStamp('3:1:02');
+            const time3 = new CsvDateTimeStamp('3:01:3');
+
+            const expected= new Map(
+                [['stage1', new CsvTimePeriod(defaultTime, defaultTime)],
+                    ['stage2',new CsvTimePeriod(defaultTime, time2)],
+                    ['stage3',new CsvTimePeriod(time2, time3)]]);
+
+            actual.update('stage1');
+            actual.update('stage2', time1);
+            actual.update('stage2', time2);
+            actual.update('stage3', time3);
+
+            expect(actual.getMap()).toEqual(expected);
         });
     });
 });

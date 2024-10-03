@@ -10,6 +10,7 @@ import ErrorActionTracker from '@/utils/ErrorActionTracker';
 import ActionScatterPlotData from "@/utils/ActionScatterPlotData";
 import ActionsScatterPlotPoint from "@/utils/ActionsScatterPlotPoint";
 import ActionError from "@/utils/ActionError";
+import CsvTimePeriod from "@/utils/CsvTimePeriod";
 
 function extractShockAmount(actionName:string) {
     const shockMatch = actionName?.match(/\d+J/);
@@ -101,18 +102,13 @@ export function createScatterPoints(parsedRow:ActionsCsvRow, stages: SequentialT
 }
 
 export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array<ActionError> },
-                                             stageMap: { [key: string]: { start: string, end: string } }) => {
+                                             stageMap: Map<string, CsvTimePeriod>) => {
     let errorImagesData: Partial<ImageWithName>[] = [];
 
     Object.keys(stageErrors).forEach(action => {
         const errors = stageErrors[action];
-        const phase = stageMap[action];
+        const phase = stageMap.get(action);
         if (!phase) return;
-
-        // Calculate phase timing
-        const phaseStartSeconds = timeStampStringToSeconds(phase.start);
-        const phaseEndSeconds = timeStampStringToSeconds(phase.end);
-        const phaseDuration = phaseEndSeconds - phaseStartSeconds;
 
         // Split errors into two lines
         const errorCount = errors.length;
@@ -120,8 +116,8 @@ export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array
         const secondLineCount = errorCount - firstLineCount;
 
         // Calculate the interval for each image
-        const totalSpacingFirstLine = phaseDuration / (firstLineCount + 1); // Space evenly for first line
-        const totalSpacingSecondLine = phaseDuration / (secondLineCount + 1); // Space evenly for second line
+        const totalSpacingFirstLine = phase.duration / (firstLineCount + 1); // Space evenly for first line
+        const totalSpacingSecondLine = phase.duration / (secondLineCount + 1); // Space evenly for second line
 
         // Set initial y-coordinates
         const yCoord1 = -1.5; // Y position for first line
@@ -136,12 +132,12 @@ export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array
             if (index < firstLineCount) {
                 // First line
                 yCoordinate = yCoord1;
-                xPosition = phaseStartSeconds + (index + 1) * totalSpacingFirstLine;
+                xPosition = phase.start.seconds + (index + 1) * totalSpacingFirstLine;//phaseStartSeconds + (index + 1) * totalSpacingFirstLine;
             } else {
                 // Second line
                 yCoordinate = yCoord2;
                 const secondLineIndex = index - firstLineCount; // Index for second line
-                xPosition = phaseStartSeconds + (secondLineIndex + 1) * totalSpacingSecondLine;
+                xPosition = phase.start.seconds + (secondLineIndex + 1) * totalSpacingSecondLine; // phaseStartSeconds + (secondLineIndex + 1) * totalSpacingSecondLine;
             }
 
             errorImagesData.push({
@@ -164,30 +160,57 @@ export const generateStageErrorImagesData = (stageErrors: { [key: string]: Array
 };
 
 export const generateLayout = (
-    phaseMap: { [key: string]: { start: string, end: string } },
+    // stageMap: Map<string, CsvTimePeriod>,
+    stageMap: { [key: string]: { start: string, end: string } },
     timestampsInDateString: string[]
 ): Partial<LayoutWithNamedImage> => {
-    const { transitionShapes, transitionAnnotations } = Object.keys(phaseMap).reduce<{
+    let stageCounter=0;
+    const shapes : Partial<Shape>[] = [];
+    const annotations:Partial<Annotations>[] = [];
+/*
+    stageMap.forEach((period, stage)=>{
+        shapes.push(createTransition(
+            stage,
+            period.start.dateTimeString,
+            period.end.dateTimeString,
+            phaseColors[stageCounter % phaseColors.length] + '33'
+        ));
+        shapes.push(createStageErrorTransition(
+            stage,
+            period.start.dateTimeString,
+            period.end.dateTimeString,
+            phaseColors[stageCounter % phaseColors.length] + '33',
+        ));
+        annotations.push(createTransitionAnnotation(
+            stage,
+            period.start.dateTimeString,
+            phaseColors[stageCounter % phaseColors.length]
+        ));
+        stageCounter++;
+    });
+    */
+    const { transitionShapes, transitionAnnotations } =
+        Object.keys(stageMap).reduce<{
         transitionShapes: Partial<Shape>[],
         transitionAnnotations: Partial<Annotations>[]
     }>((accumulator, action, index) => {
         accumulator.transitionShapes.push(createTransition(
             action,
-            phaseMap[action].start,
-            phaseMap[action].end,
+            stageMap[action].start,
+            stageMap[action].end,
             phaseColors[index % phaseColors.length] + '33'
         ));
 
-        accumulator.transitionShapes.push(createPhaseErrorTransition(
+        accumulator.transitionShapes.push(createStageErrorTransition(
             action,
-            phaseMap[action].start,
-            phaseMap[action].end,
+            stageMap[action].start,
+            stageMap[action].end,
             phaseColors[index % phaseColors.length] + '33',
         ));
 
         accumulator.transitionAnnotations.push(createTransitionAnnotation(
             action,
-            phaseMap[action].start,
+            stageMap[action].start,
             phaseColors[index % phaseColors.length]
         ));
         return accumulator;
@@ -295,7 +318,7 @@ export function createStageErrorsScatterData(phaseErrorImages: Partial<ImageWith
     };
 }
 
-export function createPhaseErrorTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
+export function createStageErrorTransition(phaseName: string, start: string, end: string, fillColor: string): Partial<Shape> {
     return {
         type: 'rect',
         xref: 'x',

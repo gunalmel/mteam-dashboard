@@ -25,7 +25,7 @@ export const parseCsvData = (
             const actionsScatterData = actionsData.scatterData;
             const stageMap = rowProcessor.getStageMap();
 
-            const layoutConfig = generateLayout(stageMap, scatterPlotTimeStampStrings);
+            const layoutConfig = generateLayout(rowProcessor.stages.getAll(), scatterPlotTimeStampStrings);
             const stageErrorImages = generateStageErrorImagesData(rowProcessor.stageErrors, stageMap);
 
             // working on this one now.

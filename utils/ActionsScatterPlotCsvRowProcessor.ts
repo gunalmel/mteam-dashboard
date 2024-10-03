@@ -26,6 +26,6 @@ export default class ActionsScatterPlotCsvRowProcessor {
     );
   }
   getStageMap(){
-    return this.stages.getAll();
+    return this.stages.getMap()
   }
 }

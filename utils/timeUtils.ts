@@ -20,22 +20,24 @@ export function timeStampStringToSeconds(timeStr: string|undefined): number {
  * @returns {object} - Object containing seconds and string values.
  * @param timeString The string representation in csv can be '03:06:05' or '3:6:5'
  */
-export function parseTime(timeString: string):{seconds:number, dateTimeString: string, timeStampString: string} {
-    const defaultValue = {dateTimeString: getBeginningOfDayString(), timeStampString: '00:00:00', seconds: 0};
-    if(!timeString){
-        return defaultValue;
-    }
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-    if(isNaN(hours)||isNaN(minutes)||isNaN(seconds)){
+export function parseTime(timeString: string): {seconds: number, dateTimeString: string, timeStampString: string} {
+    const defaultValue = { dateTimeString: getBeginningOfDayString(), timeStampString: '00:00:00', seconds: 0 };
+
+    if (!timeString) {
         return defaultValue;
     }
 
-    // Create a new Date object in UTC
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+        return defaultValue;
+    }
+
+    // Create a new Date object in UTC for the provided time
     const now = new Date();
     const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), hours, minutes, seconds));
 
-    // Calculate total seconds in UTC
-    const totalSeconds = todayUTC.getUTCHours() * 3600 + todayUTC.getUTCMinutes() * 60 + todayUTC.getUTCSeconds();
+    // Calculate total seconds from the beginning of the day in UTC
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
     // Format the date string in 'YYYY-MM-DD HH:MM:SS' format in UTC
     const dateString = todayUTC.toISOString().replace('T', ' ').slice(0, 19);
@@ -50,16 +52,16 @@ export function parseTime(timeString: string):{seconds:number, dateTimeString: s
 export function getBeginningOfDayString() {
     const now = new Date();
 
-    // Create a new date with time set to 00:00:00
-    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+    // Create a new date with time set to 00:00:00 UTC
+    const startOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
 
-    // Manually format the date to 'YYYY-MM-DD HH:MI:SS'
-    const year = startOfDay.getFullYear();
-    const month = String(startOfDay.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(startOfDay.getDate()).padStart(2, '0');
-    const hours = String(startOfDay.getHours()).padStart(2, '0');
-    const minutes = String(startOfDay.getMinutes()).padStart(2, '0');
-    const seconds = String(startOfDay.getSeconds()).padStart(2, '0');
+    // Manually format the date to 'YYYY-MM-DD HH:MM:SS' in UTC
+    const year = startOfDay.getUTCFullYear();
+    const month = String(startOfDay.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(startOfDay.getUTCDate()).padStart(2, '0');
+    const hours = String(startOfDay.getUTCHours()).padStart(2, '0');
+    const minutes = String(startOfDay.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(startOfDay.getUTCSeconds()).padStart(2, '0');
 
     // Return the formatted string
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
