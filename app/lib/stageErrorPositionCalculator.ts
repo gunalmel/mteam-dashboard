@@ -5,42 +5,22 @@ import ActionStages from '@/app/lib/ActionStages';
 import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
 import {PlotData} from 'plotly.js';
 
-/**
- *
- * @param errorCount
- */
 function calculateLineCounts(errorCount: number): [number, number] {
   const firstLineCount = Math.ceil(errorCount / 2);
   return [firstLineCount, errorCount - firstLineCount];
 }
 
-/**
- *
- * @param duration
- * @param firstLineCount
- * @param secondLineCount
- */
 function calculateTotalSpacing(duration: number, firstLineCount: number, secondLineCount: number): [number, number] {
   return [duration / (firstLineCount + 1), duration / (secondLineCount + 1)];
 }
 
-/**
- *
- * @param index
- * @param firstLineCount
- */
 function calculateLinePosition(index: number, firstLineCount: number): { lineIndex: number; linePosition: number } {
   const lineIndex = index < firstLineCount ? 0 : 1;
   const linePosition = index < firstLineCount ? index : index - firstLineCount;
   return { lineIndex, linePosition };
 }
 
-/**
- *
- * @param stages
- * @param stageErrors
- */
-export default function createStageErrorImages(stages: ActionStages, stageErrors: Record<string, ActionStageError[]>):
+export default function createStageErrors(stages: ActionStages, stageErrors: Record<string, ActionStageError[]>):
     { data:Partial<PlotData>, images: ImageWithName[] } {
   const errorImages: ImageWithName[] = [];
   const errorScatterData = new PlotlyScatterData([], [], [], [], [], [], { bgcolor: '#003366', font: { color: '#FFFF99' }});
@@ -64,7 +44,7 @@ export default function createStageErrorImages(stages: ActionStages, stageErrors
 
       errorScatterData.x.push(error.image.x);
       errorScatterData.y.push(error.image.y);
-      errorScatterData.hovertext.push(error.image.name);
+      errorScatterData.hovertext.push(error.annotation);
       errorScatterData.colors.push('rgba(249, 105, 14, 0.8)');
 
     });

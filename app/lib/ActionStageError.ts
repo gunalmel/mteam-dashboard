@@ -12,7 +12,7 @@ export default class ActionStageError {
 
   constructor(row: ActionsCsvRow) {
     this.#name = row.actionOrVitalName;
-    this.#explanation = row.triggeredError ? row.speechCommand : '';
+    this.#explanation = row.errorExplanation;
     this.#annotation = `${this.#name}${this.#explanation ? ' - ' + this.#explanation : ''}`;
     // this.severity = row.triggeredError?row.subActionTime:''; //Warning|Error|Critical Error
     // this.actionExplanation = row.triggeredError?row.subAction:''; //Action-Should-Be-Performed|Action-Should-Not-Be-Performed
@@ -21,6 +21,10 @@ export default class ActionStageError {
     // this.user = row.newValue; // 'New Value': newValue, //umich1|NA
     this.#icon = getIcon(this.#name);
     this.image = this.#createImage();
+  }
+
+  get annotation(): string {
+    return this.#annotation;
   }
 
   /**

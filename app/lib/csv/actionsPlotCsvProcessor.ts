@@ -6,14 +6,14 @@ import { processRow } from '@/app/lib/csv/actionCsvRowProcessor';
 import ActionScatterPlotData from '@/app/lib/ActionScatterPlotData';
 import ActionStageError from '@/app/lib/ActionStageError';
 import { ImageWithName, LayoutWithNamedImage } from '@/types';
-import createStageErrorImages from '@/app/lib/stageErrorPositionCalculator';
+import createStageErrors from '@/app/lib/stageErrorPositionCalculator';
 import { PlotData } from 'plotly.js';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 
 export default class ActionsPlotCsvProcessor {
   readonly data = new ActionScatterPlotData();
-  readonly stageErrors: Record<string, ActionStageError[]> = {};
   readonly stages: ActionStages = new ActionStages();
+  readonly stageErrors: Record<string, ActionStageError[]> = {};
   readonly compressionLines = new ActionsCompressionLines();
   readonly errorActionTracker: ErrorActionTracker = new ErrorActionTracker();
   constructor() {
@@ -43,7 +43,7 @@ export default class ActionsPlotCsvProcessor {
   }
 
   collectStageErrors(): { data: Partial<PlotData>; images: ImageWithName[] } {
-    return createStageErrorImages(this.stages, this.stageErrors);
+    return createStageErrors(this.stages, this.stageErrors);
   }
 
   collectScatterDataImages() {

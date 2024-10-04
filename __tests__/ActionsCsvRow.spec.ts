@@ -31,8 +31,8 @@ describe('CSV row markers should identify rows to assign data points to correct 
       ['(1)V-Tach 2D(action)', true, 'V-Tach 2D'],
       [' ( 1  )  V-Tach 2D  (  action ) ', true, 'V-Tach 2D'],
       ['(2)V-Tach 2A.1(action)', true, 'V-Tach 2A.1'],
-      ['PR(vital)', false, 'Could not extract action name from acton/vital name'],
-      ['XY(action)', false, 'Could not extract action name from acton/vital name'],
+      ['PR(vital)', false, 'Error:ActionsCsvRow.ts can not found'],
+      ['XY(action)', false, 'Error:ActionsCsvRow.ts can not found'],
       ['', false, 'Could not extract action name from acton/vital name'],
     ])('isScatterPlotData: When the action phrase is \'%s\' Then isScatterPlotData is: \'%s\' And the stageName is: \'%s\'', (actionString, expectedIsAction, expectedActionName) => {
       const actual = new ActionsCsvRow({

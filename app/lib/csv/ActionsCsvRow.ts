@@ -1,8 +1,8 @@
 import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
-import {areAllNullOrEmpty, isAnyNotNullOrEmpty} from '@/app/utils/validation';
+import { areAllNullOrEmpty, isAnyNotNullOrEmpty } from '@/app/utils/validation';
+import { STAGE_NAME_MAP } from '@/app/ui/components/constants';
 
 export default class ActionsCsvRow {
-  ///\(\d+\)([^(]+)\(action\)/; //this is lightweight action parser not ignoring the whitespace within parentheses and between beginning and end of the phase stage name
   static readonly #ACTION_REGEX = /^\s?\(\s*\d+\s*\)\s?([^()]+)\([^)]*action\s*\)\s?$/i;
   static readonly #CPR_PHRASES = {
     start: ['begin cpr', 'enter cpr'],
@@ -25,32 +25,23 @@ export default class ActionsCsvRow {
   readonly #stageName: string;
   readonly #stageBoundary: boolean;
   readonly #triggeredError: boolean;
+  readonly #errorExplanation: string;
   readonly #speechCommand: string;
 
   constructor(row: Record<string, string>) {
-    const {
-      'Time Stamp[Hr:Min:Sec]': timeStamp,
-      'Action/Vital Name': actionOrVitalName,
-      'SubAction Time[Min:Sec]': subActionTime,
-      'SubAction Name': subAction,
-      Score: score,
-      'Old Value': oldValue,
-      'New Value': newValue,
-      Username: username, //if the row reports the error at the end of the phase/stage this column shows phase/stage name otherwise username
-      'Speech Command': speechCommand //if the row reports the error at the end of the phase/stage this column shows error explanation otherwise speech command
-    } = row;
+    this.#timeStamp = new CsvDateTimeStamp(row['Time Stamp[Hr:Min:Sec]']);
+    this.#actionOrVitalName = row['Action/Vital Name'];
+    this.#subActionTime = row['SubAction Time[Min:Sec]'];
+    this.#subAction = row['SubAction Name'];
+    this.#score = row['Score'];
+    this.#oldValue = row['Old Value'] ?? '';
+    this.#newValue = row['New Value'];
+    this.#username = row['Username'];
+    this.#speechCommand = row['Speech Command'];
 
-    this.#timeStamp = new CsvDateTimeStamp(timeStamp);
-    this.#actionOrVitalName = actionOrVitalName;
-    this.#subActionTime = subActionTime;
-    this.#subAction = subAction;
-    this.#score = score;
-    this.#oldValue = oldValue ?? '';
-    this.#newValue = newValue;
-    this.#username = username;
-    this.#speechCommand = speechCommand;
     const parsedAction = this.#parseAction();
     const parsedError = this.#parseError();
+
     this.#triggeredError = parsedError.triggered;
     this.isAction = parsedAction.isAction;
     this.#actionName = this.isAction ? this.#subAction : 'Not an Action';
@@ -60,12 +51,12 @@ export default class ActionsCsvRow {
     this.#stageName = parsedError.triggered
       ? parsedError.stageName
       : parsedAction.name;
+    this.#errorExplanation = parsedError.triggered
+      ? this.#speechCommand
+      : '';
     this.#stageBoundary = this.#isTransitionBoundary();
   }
 
-  /**
-   * If the row specifies stage/phase boundary then this is the stage/phase name, if error then the error name
-   */
   get actionOrVitalName() {
     return this.#actionOrVitalName;
   }
@@ -86,15 +77,14 @@ export default class ActionsCsvRow {
     return this.#stageName;
   }
 
-  get speechCommand() {
-    return this.#speechCommand;
+  get errorExplanation() {
+    return this.#errorExplanation;
   }
 
   isScatterPlotData() {
     return (
       this.isAction &&
-      isAnyNotNullOrEmpty(this.#subActionTime, this.#subAction, this.#score,
-        this.#oldValue, this.#newValue) &&
+      isAnyNotNullOrEmpty(this.#subActionTime, this.#subAction, this.#score, this.#oldValue, this.#newValue) &&
       !this.doesCPRStart() && !this.doesCPREnd()
     );
   }
@@ -112,41 +102,11 @@ export default class ActionsCsvRow {
   }
 
   doesCPRStart() {
-    return this.#markCPRRow(this, 'start');
+    return this.#markCPRRow('start');
   }
 
   doesCPREnd() {
-    return this.#markCPRRow(this, 'end');
-  }
-
-  #isTransitionBoundary() {
-    return this.isAction && areAllNullOrEmpty(this.#subActionTime,
-      this.#subAction, this.#score, this.#oldValue, this.#newValue);
-  }
-
-  #markCPRRow(row: ActionsCsvRow, cprType: 'start' | 'end') {
-    return ActionsCsvRow.#CPR_PHRASES[cprType].some((phrase) =>
-      row.#subAction?.toLowerCase().includes(phrase.toLowerCase())
-    );
-  }
-
-  #actionMatch(actionString: string) {
-    const actionMatch = ActionsCsvRow.#ACTION_REGEX.exec(actionString);
-    return {
-      isAction: actionMatch !== null,
-      name: actionMatch ? actionMatch[1].trim() : 'Could not extract action name from acton/vital name'
-    };
-  }
-
-  #parseAction(): {isAction: boolean; name: string} {
-    return this.#actionMatch(this.#actionOrVitalName);
-  }
-
-  #parseError() {
-    const triggered =
-      this.#oldValue.trim().toLowerCase() === ActionsCsvRow.#STAGE_ERROR_PHRASE;
-    const errorMatch = ActionsCsvRow.#ACTION_REGEX.exec(this.#username);
-    return {triggered, stageName: errorMatch ? errorMatch[1] : ''};
+    return this.#markCPRRow('end');
   }
 
   canMarkError(timeStamp: CsvDateTimeStamp) {
@@ -155,5 +115,33 @@ export default class ActionsCsvRow {
       Math.abs(timeStamp.seconds - this.#timeStamp.seconds) <
       ActionsCsvRow.#ERROR_ROW_DISTANCE_TO_ACTION_ROW_IN_SECONDS
     );
+  }
+
+  #isTransitionBoundary() {
+    return this.isAction && areAllNullOrEmpty(this.#subActionTime, this.#subAction, this.#score, this.#oldValue, this.#newValue);
+  }
+
+  #markCPRRow(cprType: 'start' | 'end') {
+    return ActionsCsvRow.#CPR_PHRASES[cprType].some((phrase) =>
+      this.#subAction?.toLowerCase().includes(phrase.toLowerCase())
+    );
+  }
+
+  #actionMatch(actionString: string) {
+    const actionMatch = ActionsCsvRow.#ACTION_REGEX.exec(actionString);
+    return {
+      isAction: actionMatch !== null,
+      name: actionMatch ? STAGE_NAME_MAP[actionMatch[1].trim()] : 'Error:ActionsCsvRow.ts can not found'
+    };
+  }
+
+  #parseAction() {
+    return this.#actionMatch(this.#actionOrVitalName);
+  }
+
+  #parseError() {
+    const triggered = this.#oldValue.trim().toLowerCase() === ActionsCsvRow.#STAGE_ERROR_PHRASE;
+    const errorMatch = ActionsCsvRow.#ACTION_REGEX.exec(this.#username);
+    return { triggered, stageName: errorMatch ? STAGE_NAME_MAP[errorMatch[1]] : '' };
   }
 }
