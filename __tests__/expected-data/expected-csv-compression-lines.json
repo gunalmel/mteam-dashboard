@@ -1,0 +1,277 @@
+[
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:02:20",
+      "2024-10-04 00:02:20"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:02:20",
+      "00:02:20"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:02:21",
+      "2024-10-04 00:02:54"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:02:21",
+      "00:02:54"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:03:02",
+      "2024-10-04 00:03:23"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:03:02",
+      "00:03:23"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:03:25",
+      "2024-10-04 00:04:12"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:03:25",
+      "00:04:12"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:04:46",
+      "2024-10-04 00:05:01"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:04:46",
+      "00:05:01"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:05:04",
+      "2024-10-04 00:05:25"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:05:04",
+      "00:05:25"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:05:56",
+      "2024-10-04 00:06:05"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:05:56",
+      "00:06:05"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:06:07",
+      "2024-10-04 00:06:08"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:06:07",
+      "00:06:08"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:06:09",
+      "2024-10-04 00:07:25"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:06:09",
+      "00:07:25"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:07:25",
+      "2024-10-04 00:07:48"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:07:25",
+      "00:07:48"
+    ]
+  },
+  {
+    "text": "",
+    "mode": "lines",
+    "type": "scatter",
+    "hoverinfo": "text",
+    "textposition": "top center",
+    "textfont": {
+      "size": 16
+    },
+    "line": {
+      "color": "rgb(0, 150, 0)"
+    },
+    "x": [
+      "2024-10-04 00:08:19",
+      "2024-10-04 00:08:39"
+    ],
+    "y": [
+      0.5,
+      0.5
+    ],
+    "hovertext": [
+      "00:08:19",
+      "00:08:39"
+    ]
+  }
+]

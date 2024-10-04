@@ -1,12 +1,15 @@
-/** @type {import('next').NextConfig} */
 
-import TerserPlugin  from 'terser-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+
 const nextConfig = {
   // experimental: {
   //   ppr: 'incremental',
   // },
   // productionBrowserSourceMaps: true,
-  webpack: (config, { dev, isServer }) => {
+  eslint: {
+    ignoreDuringBuilds: true, // to use the latest eslint version
+  },
+  webpack: (config, {dev, isServer}) => {
     if (!dev && !isServer) {
       config.optimization.minimizer = [
         new TerserPlugin({

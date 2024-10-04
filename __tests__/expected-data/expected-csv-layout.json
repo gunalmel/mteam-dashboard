@@ -1,0 +1,328 @@
+{
+  "title": "Clinical Review Timeline",
+  "shapes": [
+    {
+      "x0": "2024-10-04 00:00:00",
+      "x1": "2024-10-04 00:01:55",
+      "fillcolor": "#1f77b433",
+      "name": "V-Tach 2D",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:00:00",
+      "x1": "2024-10-04 00:01:55",
+      "fillcolor": "#1f77b433",
+      "name": "V-Tach 2D",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:01:55",
+      "x1": "2024-10-04 00:04:36",
+      "fillcolor": "#d6272833",
+      "name": "V-Tach 2A.1",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:01:55",
+      "x1": "2024-10-04 00:04:36",
+      "fillcolor": "#d6272833",
+      "name": "V-Tach 2A.1",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:04:36",
+      "x1": "2024-10-04 00:05:51",
+      "fillcolor": "#2ca02c33",
+      "name": "V-Tach 2B.1",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:04:36",
+      "x1": "2024-10-04 00:05:51",
+      "fillcolor": "#2ca02c33",
+      "name": "V-Tach 2B.1",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:05:51",
+      "x1": "2024-10-04 00:06:10",
+      "fillcolor": "#8c564b33",
+      "name": "Asystole 1D No.1",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:05:51",
+      "x1": "2024-10-04 00:06:10",
+      "fillcolor": "#8c564b33",
+      "name": "Asystole 1D No.1",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:06:10",
+      "x1": "2024-10-04 00:08:15",
+      "fillcolor": "#9467bd33",
+      "name": "V-Fib 4C.1 - AMIO",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:06:10",
+      "x1": "2024-10-04 00:08:15",
+      "fillcolor": "#9467bd33",
+      "name": "V-Fib 4C.1 - AMIO",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:08:15",
+      "x1": "2024-10-04 00:10:56",
+      "fillcolor": "#ff7f0e33",
+      "name": "ROSC 5B - Stemi",
+      "y0": 0,
+      "y1": 12,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    },
+    {
+      "x0": "2024-10-04 00:08:15",
+      "x1": "2024-10-04 00:10:56",
+      "fillcolor": "#ff7f0e33",
+      "name": "ROSC 5B - Stemi",
+      "y0": -1,
+      "y1": -4,
+      "type": "rect",
+      "xref": "x",
+      "yref": "y",
+      "line": {
+        "width": 0
+      },
+      "layer": "below"
+    }
+  ],
+  "annotations": [
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:00:00",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "V-Tach 2D",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#1f77b470",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#1f77b470",
+      "borderwidth": 1,
+      "borderpad": 3
+    },
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:01:55",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "V-Tach 2A.1",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#d6272870",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#d6272870",
+      "borderwidth": 1,
+      "borderpad": 3
+    },
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:04:36",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "V-Tach 2B.1",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#2ca02c70",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#2ca02c70",
+      "borderwidth": 1,
+      "borderpad": 3
+    },
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:05:51",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "Asystole 1D No.1",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#8c564b70",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#8c564b70",
+      "borderwidth": 1,
+      "borderpad": 3
+    },
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:06:10",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "V-Fib 4C.1 - AMIO",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#9467bd70",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#9467bd70",
+      "borderwidth": 1,
+      "borderpad": 3
+    },
+    {
+      "xref": "x",
+      "yref": "paper",
+      "x": "2024-10-04 00:08:15",
+      "y": 0.9,
+      "xanchor": "left",
+      "yanchor": "middle",
+      "text": "ROSC 5B - Stemi",
+      "showarrow": false,
+      "font": {
+        "size": 16,
+        "color": "#ff7f0e70",
+        "family": "Arial, sans-serif",
+        "weight": 700
+      },
+      "bgcolor": "rgba(255, 255, 255, 0.8)",
+      "bordercolor": "#ff7f0e70",
+      "borderwidth": 1,
+      "borderpad": 3
+    }
+  ],
+  "xaxis": {
+    "range": [
+      0,
+      "2024-10-04 00:10:2210"
+    ],
+    "title": "Time (seconds)",
+    "showgrid": false,
+    "tickformat": "%H:%M:%S"
+  },
+  "yaxis": {
+    "visible": false,
+    "range": [
+      -3,
+      13
+    ]
+  },
+  "showlegend": false,
+  "autosize": true,
+  "modebar": {
+    "orientation": "v"
+  }
+}

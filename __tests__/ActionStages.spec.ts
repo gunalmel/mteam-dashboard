@@ -1,7 +1,6 @@
-import ActionStages from '@/utils/ActionStages';
-import CsvDateTimeStamp from '@/utils/CsvDateTimeStamp';
-import {parseTime} from '@/utils/timeUtils';
-import CsvTimeInterval from '@/utils/CsvTimeInterval';
+import ActionStages from '@/app/lib/ActionStages';
+import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
+import {parseTime} from '@/app/utils/timeUtils';
 
 describe('Should be able to build an actions stage transition map that will store start and end of each transition as we add each transition while processing csv file row by row', () => {
     const expectedDefaultTimeString = CsvDateTimeStamp.defaultTime.dateTimeString;
@@ -31,7 +30,7 @@ describe('Should be able to build an actions stage transition map that will stor
                 end: parseTime(timeStr).dateTimeString,
             });
 
-            timeStr = '0:4:0'
+            timeStr = '0:4:0';
             actual.update('stage1', new CsvDateTimeStamp(timeStr));
 
             expect(actual.getDateTimeString('stage1')).toEqual({
@@ -39,7 +38,7 @@ describe('Should be able to build an actions stage transition map that will stor
                 end: parseTime(timeStr).dateTimeString,
             });
 
-            timeStr = '0:5:0'
+            timeStr = '0:5:0';
             actual.update('stage1', new CsvDateTimeStamp(timeStr));
 
             expect(actual.getDateTimeString('stage1')).toEqual({
@@ -50,7 +49,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
         it('Adds New: Given only the first period added When I enter new transition Then a new transition should be added to the map And the start period should be set to the date And the first periods end date should be set to the date', () => {
             const actual = new ActionStages();
-            let timeStr = '0:3:0';
+            const timeStr = '0:3:0';
 
             actual.update('stage1');
             actual.update('stage2', new CsvDateTimeStamp(timeStr));
@@ -102,33 +101,6 @@ describe('Should be able to build an actions stage transition map that will stor
             expect(actual.get('stage2').end.timeStampString).toEqual('03:01:01');
             expect(actual.get('stage3').end.timeStampString).toEqual('03:01:02');
             expect(actual.get('stage4').end.timeStampString).toEqual('03:01:03');
-        })
-    });
-
-    describe('getMap', () => {
-        const actual = new ActionStages();
-
-        it('Given no periods When asked for all Then should return empty map', () => {
-            expect(actual.getMap()).toEqual(new Map());
-        });
-
-        it('Given there are periods When asked for all Then a map of period names to periods should be returned', () => {
-            const defaultTime = new CsvDateTimeStamp()
-            const time1 = new CsvDateTimeStamp('3:1:1');
-            const time2 = new CsvDateTimeStamp('3:1:02');
-            const time3 = new CsvDateTimeStamp('3:01:3');
-
-            const expected= new Map(
-                [['stage1', new CsvTimeInterval(defaultTime, defaultTime)],
-                    ['stage2',new CsvTimeInterval(defaultTime, time2)],
-                    ['stage3',new CsvTimeInterval(time2, time3)]]);
-
-            actual.update('stage1');
-            actual.update('stage2', time1);
-            actual.update('stage2', time2);
-            actual.update('stage3', time3);
-
-            expect(actual.getMap()).toEqual(expected);
         });
     });
 });

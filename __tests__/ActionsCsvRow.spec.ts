@@ -1,6 +1,6 @@
-import ActionsCsvRow from '@/utils/ActionsCsvRow';
+import ActionsCsvRow from '@/app/lib/csv/ActionsCsvRow';
 
-describe.skip('CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot', () => {
+describe('CSV row markers should identify rows to assign data points to correct variables that will act as input to plotly js scatter plot', () => {
 
   describe('Identify the transition boundary so that we can shade the stages/phases on the actions scatter plot', () => {
     it.each([
@@ -31,22 +31,23 @@ describe.skip('CSV row markers should identify rows to assign data points to cor
       ['(1)V-Tach 2D(action)', true, 'V-Tach 2D'],
       [' ( 1  )  V-Tach 2D  (  action ) ', true, 'V-Tach 2D'],
       ['(2)V-Tach 2A.1(action)', true, 'V-Tach 2A.1'],
-      ['PR(vital)', false, ''],
-      ['XY(action)', false, ''],
-      ['', false, ''],
-    ])('when the action phrase is \'%s\' Then isAction is: \'%s\' And the stageName is: \'%s\'', (actionString, expectedIsAction, expectedActionName) => {
+      ['PR(vital)', false, 'Could not extract action name from acton/vital name'],
+      ['XY(action)', false, 'Could not extract action name from acton/vital name'],
+      ['', false, 'Could not extract action name from acton/vital name'],
+    ])('isScatterPlotData: When the action phrase is \'%s\' Then isScatterPlotData is: \'%s\' And the stageName is: \'%s\'', (actionString, expectedIsAction, expectedActionName) => {
       const actual = new ActionsCsvRow({
         'Action/Vital Name': actionString,
-        'New Value': '',
-        'Old Value': '',
-        'Speech Command': '',
+        'SubAction Name': 'stg',
         'SubAction Time[Min:Sec]': '',
-        'Time Stamp[Hr:Min:Sec]': '',
         Score: '',
+        'Old Value': '',
+        'New Value': '',
+        'Speech Command': '',
+        'Time Stamp[Hr:Min:Sec]': '',
         Username: '',
-        'SubAction Name': ''
       });
-      expect(actual.isScatterPlotData).toBe(expectedIsAction);
+      expect(actual.isAction).toBe(expectedIsAction);
+      expect(actual.isScatterPlotData()).toBe(expectedIsAction);
       expect(actual.stageName).toBe(expectedActionName);
     });
   });

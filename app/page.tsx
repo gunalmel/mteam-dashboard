@@ -1,16 +1,16 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import {PlotMouseEvent} from 'plotly.js';
-import VideoPlayer from '@/components/dashboard/VideoPlayer';
-import ActionsPlot from '@/components/plots/ActionsPlot';
-import CognitiveLoadPlot from '@/components/plots/CognitivePlot';
-import Explanation from '@/components/Explanation';
-import {timeStampStringToSeconds} from '@/utils/timeUtils';
-import {explanationItems} from '@/components/constants';
+import VideoPlayer from '@/app/ui/components/dashboard/VideoPlayer';
+import ActionsPlot from '@/app/ui/components/plots/ActionsPlot';
+import CognitiveLoadPlot from '@/app/ui/components/plots/CognitivePlot';
+import Explanation from '@/app/ui/components/Explanation';
+import {timeStampStringToSeconds} from '@/app/utils/timeUtils';
+import {explanationItems} from '@/app/ui/components/constants';
 
 const Page = () => {
     const [hoveredTime, setHoveredTime] = useState<number | null>(null);
-    const [currentCognitiveLoad, setCurrentCognitiveLoad] = useState<number | null>(null);
+    const [currentCognitiveLoad, ] = useState<number | null>(null);
     const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
     const [currentTime, setCurrentTime] = useState<number>(0);
     const videoRef = useRef<HTMLVideoElement | null>(null);

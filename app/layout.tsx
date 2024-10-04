@@ -1,6 +1,7 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
+import {ReactNode} from 'react';
 
 export const metadata: Metadata = {
   title: {
@@ -11,11 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children}: {children: Readonly<ReactNode>}) {
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>{children}</body>
