@@ -39,7 +39,7 @@ export default class ActionsScatterPlotPoint {
     }
 
     #extractImageText(name:string) {
-        const shockMatch = /\d+J/.exec(name);
+        const shockMatch = /\b\d+J\b/.exec(name);
         return shockMatch ? shockMatch[0] : '';
     }
 

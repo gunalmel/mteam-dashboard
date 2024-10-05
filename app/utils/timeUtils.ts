@@ -1,23 +1,17 @@
-/**
- *
- * @param timeStr
- */
-export function timeStampStringToSeconds(timeStr: string|undefined): number {
-    if(!timeStr){
-        return 0;
+export class Today {
+  static timeStampStringToSeconds(timeStr: string | undefined): number {
+    if (!timeStr) {
+      return 0;
     }
     const parts = timeStr.split(/\s+/);
     const timestampString = parts.length < 2 ? parts[0] : parts[1];
     const timeParts = timestampString.split(':');
     return parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
-}
-/**
- *
- * @param seconds
- */
-export function parseSeconds(seconds: number): {seconds: number, dateTimeString: string, timeStampString: string} {
+  }
+
+  static parseSeconds(seconds: number): {seconds: number, dateTimeString: string, timeStampString: string} {
     const now = new Date();
-    const todayUTC =  new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, seconds));
+    const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, seconds));
 
     // Format the date string in 'YYYY-MM-DD HH:MM:SS' format in UTC
     const dateString = todayUTC.toISOString().replace('T', ' ').slice(0, 19);
@@ -26,27 +20,28 @@ export function parseSeconds(seconds: number): {seconds: number, dateTimeString:
     const remainingSeconds = seconds % 60;
 
     return {
-        seconds: seconds,
-        dateTimeString: dateString,
-        timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
+      seconds: seconds,
+      dateTimeString: dateString,
+      timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
     };
-}
-/**
- * Parse time string in 'HH:MM:SS' format and return an object with
- * today's date and the given time in seconds and string formats.
- * @returns - Object containing seconds and string values.
- * @param timeString The string representation in csv can be '03:06:05' or '3:6:5'
- */
-export function parseTime(timeString: string): {seconds: number, dateTimeString: string, timeStampString: string} {
-    const defaultValue = { dateTimeString: getBeginningOfDayString(), timeStampString: '00:00:00', seconds: 0 };
+  }
+
+  /**
+   * Parse time string in 'HH:MM:SS' format and return an object with
+   * today's date and the given time in seconds and string formats.
+   * @returns - Object containing seconds and string values.
+   * @param timeString The string representation in csv can be '03:06:05' or '3:6:5'
+   */
+  static parseTime(timeString: string): {seconds: number, dateTimeString: string, timeStampString: string} {
+    const defaultValue = {dateTimeString: Today.getBeginningOfDayString(), timeStampString: '00:00:00', seconds: 0};
 
     if (!timeString) {
-        return defaultValue;
+      return defaultValue;
     }
 
     const [hours, minutes, seconds] = timeString.split(':').map(Number);
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
-        return defaultValue;
+      return defaultValue;
     }
 
     // Create a new Date object in UTC for the provided time
@@ -60,16 +55,13 @@ export function parseTime(timeString: string): {seconds: number, dateTimeString:
     const dateString = todayUTC.toISOString().replace('T', ' ').slice(0, 19);
 
     return {
-        seconds: totalSeconds,
-        dateTimeString: dateString,
-        timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+      seconds: totalSeconds,
+      dateTimeString: dateString,
+      timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
     };
-}
+  }
 
-/**
- *
- */
-export function getBeginningOfDayString() {
+  static getBeginningOfDayString() {
     const now = new Date();
 
     // Create a new date with time set to 00:00:00 UTC
@@ -85,4 +77,5 @@ export function getBeginningOfDayString() {
 
     // Return the formatted string
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
 }

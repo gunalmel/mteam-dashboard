@@ -7,7 +7,7 @@ export default class ActionScatterPlotData {
     readonly points: ActionsScatterPlotPoint[] = [];
 
     markPreviousError() {
-        this.points[this.points.length - 1].color = ActionsScatterPlotPoint.ERROR_MARKER_COLOR;
+        this.points[this.points.length - 1].markError();
     }
 
     add(point: ActionsScatterPlotPoint) {

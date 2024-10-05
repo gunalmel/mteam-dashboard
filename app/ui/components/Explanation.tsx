@@ -47,7 +47,7 @@ const Explanation: React.FC<ExplanationProps> = ({ selectedMarkers, onSelectAll,
             <div className="grid grid-cols-3 gap-2">
                 {explanationItems.map((item) => (
                     <ExplanationItem
-                        key={item.url}
+                        key={item.text}
                         iconUrl={item.url}
                         text={item.text}
                         isChecked={item.relatedMarkers.every(marker => selectedMarkers.includes(marker))}

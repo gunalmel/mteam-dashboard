@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import {useActionsData} from '@/app/hooks/useActionsData';
-import {parseTime} from '@/app/utils/timeUtils';
+import {Today} from '@/app/utils/timeUtils';
 import {Data, Layout, PlotHoverEvent} from 'plotly.js';
 
 // Dynamically import Plotly with no SSR
@@ -15,7 +15,7 @@ const ActionsPlot = ({onHover, selectedMarkers, currentTime}: {
   const {actionsData, actionsLayout} = useActionsData(selectedMarkers);
 
   // Convert currentTime (in seconds) to the same format as the plot data
-  const currentTimeFormatted = parseTime(new Date(currentTime * 1000).toISOString().slice(11, 19)).dateTimeString;
+  const currentTimeFormatted = Today.parseTime(new Date(currentTime * 1000).toISOString().slice(11, 19)).dateTimeString;
 
   // Define the current time marker
   const currentTimeMarker: Partial<Data> = {

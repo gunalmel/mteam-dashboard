@@ -1,6 +1,6 @@
 import ActionStages from '@/app/lib/ActionStages';
 import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
-import {parseTime} from '@/app/utils/timeUtils';
+import {Today} from '@/app/utils/timeUtils';
 
 describe('Should be able to build an actions stage transition map that will store start and end of each transition as we add each transition while processing csv file row by row', () => {
     const expectedDefaultTimeString = CsvDateTimeStamp.defaultTime.dateTimeString;
@@ -14,7 +14,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage1')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime(timeStr).dateTimeString,
+                end: Today.parseTime(timeStr).dateTimeString,
             });
         });
 
@@ -27,7 +27,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage1')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime(timeStr).dateTimeString,
+                end: Today.parseTime(timeStr).dateTimeString,
             });
 
             timeStr = '0:4:0';
@@ -35,7 +35,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage1')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime(timeStr).dateTimeString,
+                end: Today.parseTime(timeStr).dateTimeString,
             });
 
             timeStr = '0:5:0';
@@ -43,7 +43,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage1')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime(timeStr).dateTimeString,
+                end: Today.parseTime(timeStr).dateTimeString,
             });
         });
 
@@ -61,7 +61,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage2')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime(timeStr).dateTimeString,
+                end: Today.parseTime(timeStr).dateTimeString,
             });
         });
     });
@@ -83,7 +83,7 @@ describe('Should be able to build an actions stage transition map that will stor
 
             expect(actual.getDateTimeString('stage1')).toEqual({
                 start: expectedDefaultTimeString,
-                end: parseTime('4:1:1').dateTimeString,
+                end: Today.parseTime('4:1:1').dateTimeString,
             });
         });
     });

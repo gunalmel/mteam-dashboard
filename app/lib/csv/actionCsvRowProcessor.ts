@@ -6,6 +6,7 @@ import ErrorActionTracker from '@/app/lib/csv/ErrorActionTracker';
 import ActionScatterPlotData from '@/app/lib/ActionScatterPlotData';
 import ActionsScatterPlotPoint from '@/app/lib/ActionsScatterPlotPoint';
 import ActionStageError from '@/app/lib/ActionStageError';
+import {STAGE_NAME_MAP} from '@/app/ui/components/constants';
 
 export const processRow = (
   row: Record<string, string>,
@@ -15,7 +16,7 @@ export const processRow = (
   compressionLines: ActionsCompressionLines,
   stageErrors: Record<string, ActionStageError[]>,
 ) => {
-  const parsedRow = new ActionsCsvRow(row);
+  const parsedRow = new ActionsCsvRow(row, STAGE_NAME_MAP);
 
   if (parsedRow.doesCPRStart()) {
     compressionLines.addStart( parsedRow.timeStamp.dateTimeString, parsedRow.timeStamp.timeStampString);
@@ -54,12 +55,9 @@ function shouldRowMarkAnActionError(row: ActionsCsvRow, stageTransitionBoundary:
 
 /**
  * Handles marking the previous row as an error or tracking the next potential error.
- * @param row
- * @param scatterPlotData
- * @param errorActionTracker
  */
 function handlePreviousRowError(row: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker): void {
-  if (row.canMarkError(scatterPlotData.getPrevious().x)) {
+  if (row.isCloseEnough(scatterPlotData.getPrevious().x)) {
     scatterPlotData.markPreviousError();
     errorActionTracker.reset();
   } else {
@@ -73,7 +71,7 @@ function handlePreviousRowError(row: ActionsCsvRow, scatterPlotData: ActionScatt
 function processScatterPlotDataRow(parsedRow: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker): void {
   const scatterPoint = new ActionsScatterPlotPoint(parsedRow);
 
-  if (parsedRow.canMarkError(errorActionTracker.time)) {
+  if (parsedRow.isCloseEnough(errorActionTracker.time)) {
     scatterPoint.markError();
     errorActionTracker.reset();
   } else {

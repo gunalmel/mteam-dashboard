@@ -1,8 +1,8 @@
-import {getBeginningOfDayString, parseTime} from '@/app/utils/timeUtils';
+import {Today} from '@/app/utils/timeUtils';
 
 export default class CsvDateTimeStamp {
     static readonly defaultTime ={
-        dateTimeString: getBeginningOfDayString(),
+        dateTimeString: Today.getBeginningOfDayString(),
         timeStampString: '00:00:00',
         seconds: 0
     };
@@ -12,7 +12,7 @@ export default class CsvDateTimeStamp {
 
     constructor(timeString?: string) {
         if (timeString) {
-            const time = parseTime(timeString);
+            const time = Today.parseTime(timeString);
             if(time) {
                 this.dateTimeString = time.dateTimeString;
                 this.timeStampString = time.timeStampString;

@@ -1,6 +1,6 @@
 import { ImageWithName } from '@/types';
 import ActionStageError from '@/app/lib/ActionStageError';
-import { parseSeconds } from '@/app/utils/timeUtils';
+import { Today } from '@/app/utils/timeUtils';
 import ActionStages from '@/app/lib/ActionStages';
 import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
 import {PlotData} from 'plotly.js';
@@ -38,7 +38,7 @@ export default function createStageErrors(stages: ActionStages, stageErrors: Rec
       const linePosition = calculateLinePosition(index, lineCounts[0]);
       const xPosition = stagePeriod.start.seconds + (linePosition.linePosition + 1) * totalSpacing[linePosition.lineIndex];
 
-      error.image.x = parseSeconds(xPosition).dateTimeString;
+      error.image.x = Today.parseSeconds(xPosition).dateTimeString;
       error.image.y = yCoords[linePosition.lineIndex];
       errorImages.push(error.image);
 

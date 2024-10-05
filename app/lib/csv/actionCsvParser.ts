@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 import { ScatterData } from 'plotly.js';
 import { ImageWithName, LayoutWithNamedImage } from '@/types';
-import ActionsPlotCsvProcessor from '@/app/lib/csv/actionsPlotCsvProcessor';
+import ActionsPlotCsvProcessor from '@/app/lib/csv/ActionsPlotCsvProcessor';
 
 export const parseCsvData = (
   url: string,

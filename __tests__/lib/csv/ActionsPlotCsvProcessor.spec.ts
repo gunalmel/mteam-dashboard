@@ -1,11 +1,11 @@
 import Papa from 'papaparse';
 import fs from 'fs';
-import ActionsPlotCsvProcessor from '@/app/lib/csv/actionsPlotCsvProcessor';
-import {default as expectedLayout} from './expected-data/expected-csv-layout.json' assert { type: 'json' };
-import {default as expectedStageErrors} from './expected-data/expected-csv-stage-errors.json';
-import {default as expectedCompressionLines} from './expected-data/expected-csv-compression-lines.json';
-import {default as expectedScatterDataImages} from './expected-data/expected-csv-scatter-data-images.json';
-import {default as expectedScatterPlotData} from './expected-data/expected-csv-scatter-plot-data.json';
+import ActionsPlotCsvProcessor from '@/app/lib/csv/ActionsPlotCsvProcessor';
+import {default as expectedLayout} from '../../expected-data/expected-csv-layout.json' assert { type: 'json' };
+import {default as expectedStageErrors} from '../../expected-data/expected-csv-stage-errors.json';
+import {default as expectedCompressionLines} from '../../expected-data/expected-csv-compression-lines.json';
+import {default as expectedScatterDataImages} from '../../expected-data/expected-csv-scatter-data-images.json';
+import {default as expectedScatterPlotData} from '../../expected-data/expected-csv-scatter-plot-data.json';
 
 describe('Should be able to parse the csv file produced by equipment to build the data needed by plotly js so that action scatter data can be plotted on a timeline', () => {
   const fileStream = fs.createReadStream('./__tests__/test-action-data.csv');
