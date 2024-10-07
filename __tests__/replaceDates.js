@@ -8,7 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(__filename);
 
 // Directory containing JSON files
-const directoryPath = path.join(dirname, 'expected-data');
+const templateDirectoryPath = path.join(dirname, 'expected-data');
+const testDataOutputDirectoryPath = path.join(dirname, '../build/test-data');
 
 // Improved regex pattern to match 'YYYY-MM-DD HH:MM:SS' date strings, allowing extra characters after the seconds
 const datePattern = /\b(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})(\d*)\b/g;
@@ -28,7 +29,7 @@ function replaceDatePartsInDates(content) {
 }
 
 // Read all JSON files in the directory
-fs.readdir(directoryPath, (err, files) => {
+fs.readdir(templateDirectoryPath, (err, files) => {
   if (err) {
     console.error(`Could not list the directory.`, err);
     process.exit(1);
@@ -37,7 +38,7 @@ fs.readdir(directoryPath, (err, files) => {
   files.forEach((file) => {
     // Check if the file is a JSON file
     if (path.extname(file) === '.json') {
-      const filePath = path.join(directoryPath, file);
+      const filePath = path.join(templateDirectoryPath, file);
 
       // Read the JSON file
       fs.readFile(filePath, 'utf8', (err, data) => {
@@ -49,12 +50,16 @@ fs.readdir(directoryPath, (err, files) => {
         // Replace the year, month, and day in date strings
         const updatedData = replaceDatePartsInDates(data);
 
+        const outputFilePath = path.join(testDataOutputDirectoryPath, file);
         // Write the updated data back to the file
-        fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+        if (!fs.existsSync(testDataOutputDirectoryPath)){
+          fs.mkdirSync(testDataOutputDirectoryPath, { recursive: true });
+        }
+        fs.writeFile(outputFilePath, updatedData, 'utf8', (err) => {
           if (err) {
-            console.error(`Error writing file ${filePath}:`, err);
+            console.error(`Error writing file ${outputFilePath}:`, err);
           } else {
-            console.log(`Updated ${filePath}`);
+            console.log(`Updated ${outputFilePath}`);
           }
         });
       });
