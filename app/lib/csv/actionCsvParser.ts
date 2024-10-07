@@ -15,7 +15,7 @@ export const parseCsvData = (
 ) => {
   const csvProcessor = new ActionsPlotCsvProcessor();
   Papa.parse(url, {
-    download: true,
+    // download: true,
     header: true,
     step: csvProcessor.rowProcessor,
     complete: function () {
