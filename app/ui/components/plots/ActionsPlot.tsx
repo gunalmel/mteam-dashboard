@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import {useActionsData} from '@/app/hooks/useActionsData';
 import {Today} from '@/app/utils/timeUtils';
-import {Data, Layout, PlotHoverEvent} from 'plotly.js';
+import {Data, Layout, PlotMouseEvent} from 'plotly.js';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-const ActionsPlot = ({onHover, selectedMarkers, currentTime}: {
-  onHover: (event: PlotHoverEvent) => void,
+const ActionsPlot = ({onClick, selectedMarkers, currentTime}: {
+  onClick: (event: Readonly<PlotMouseEvent>) => void,
   selectedMarkers: string[],
   currentTime: number
 }) => {
@@ -40,10 +40,10 @@ const ActionsPlot = ({onHover, selectedMarkers, currentTime}: {
 
   return (
     <Plot
+      onClick={(e)=>onClick(e)}
       data={plotData}
       layout={layout}
       config={{displayModeBar: true, responsive: true, displaylogo: false}}
-      onHover={onHover}
       style={{width: '100%', height: '100%'}}
       useResizeHandler={true} // Ensure the plot adjusts size when container changes
     />

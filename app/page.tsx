@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {PlotMouseEvent} from 'plotly.js';
 import VideoPlayer from '@/app/ui/components/dashboard/VideoPlayer';
 import ActionsPlot from '@/app/ui/components/plots/ActionsPlot';
@@ -9,15 +9,10 @@ import {Today} from '@/app/utils/timeUtils';
 import {explanationItems} from '@/app/ui/components/constants';
 
 const Page = () => {
-  const [hoveredTime, setHoveredTime] = useState<number | null>(null);
   const [currentCognitiveLoad] = useState<number | null>(null);
   const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    // console.log('Selected markers:', selectedMarkers);
-  }, [selectedMarkers]);
+  const seekTo = useRef(0);
 
   const handleSelectAll = (selectAll: boolean) => {
     if (selectAll) {
@@ -38,43 +33,25 @@ const Page = () => {
     });
   };
 
-  const handlePlotHover = (event: PlotMouseEvent) => {
-    if (event.points.length > 0) {
-      setHoveredTime(Today.timeStampStringToSeconds(event.points[0]?.x as string));
-    }
+  const handleTimePointClick = (event: Readonly<PlotMouseEvent>) => {
+    setCurrentTime(Today.timeStampStringToSeconds(event.points[0].x as string));
+    seekTo.current=Today.timeStampStringToSeconds(event.points[0].x as string);
   };
 
-  const handleKeyPress = (event: KeyboardEvent) => {
-    if (event.key === 'g' && hoveredTime !== null && videoRef.current) {
-      videoRef.current.currentTime = hoveredTime;
-      videoRef.current.play();
-    }
+  const handleTimeUpdate = (time:number) => {
+      setCurrentTime(time);
   };
-
-  useEffect(() => {
-    window.addEventListener('keypress', handleKeyPress);
-    return () => {
-      window.removeEventListener('keypress', handleKeyPress);
-    };
-  }, [hoveredTime]);
-
-  useEffect(() => {
-    if (hoveredTime !== null) {
-      // Fetch and set the cognitive load value based on hoveredTime
-      // This can be implemented as needed, assuming you have the data or a function to fetch it
-    }
-  }, [hoveredTime]);
 
   return (
     <div className="flex flex-col justify-evenly">
-      <VideoPlayer ref={videoRef} setCurrentTime={setCurrentTime} />
+      <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
       <Explanation
         selectedMarkers={selectedMarkers}
         onSelectAll={handleSelectAll}
         onToggleMarker={handleToggleMarkers}
       />
       <div className="bg-white p-4" style={{width: '100%', height: '800px'}}>
-        <ActionsPlot onHover={handlePlotHover} selectedMarkers={selectedMarkers} currentTime={currentTime} />
+        <ActionsPlot onClick={handleTimePointClick} selectedMarkers={selectedMarkers} currentTime={currentTime} />
       </div>
       <div className="bg-white p-4 mt-4" style={{width: '100%', height: '800px'}}>
         <CognitiveLoadPlot currentTime={currentTime} />
