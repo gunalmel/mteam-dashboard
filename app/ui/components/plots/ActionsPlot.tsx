@@ -15,7 +15,7 @@ const ActionsPlot = ({onHover, selectedMarkers, currentTime}: {
   const {actionsData, actionsLayout} = useActionsData(selectedMarkers);
 
   // Convert currentTime (in seconds) to the same format as the plot data
-  const currentTimeFormatted = Today.parseTime(new Date(currentTime * 1000).toISOString().slice(11, 19)).dateTimeString;
+  const currentTimeFormatted = Today.parseSeconds(currentTime).dateTimeString;
 
   // Define the current time marker
   const currentTimeMarker: Partial<Data> = {
