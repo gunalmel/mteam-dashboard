@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { ScatterData, Layout, Datum } from 'plotly.js';
-import { parseCsvData } from '@/app/lib/csv/actionCsvParser';
-import { icons } from '@/app/ui/components/constants';
-import { LayoutWithNamedImage, ImageWithName } from '@/types';
+import {useEffect, useRef, useState} from 'react';
+import {Datum, Layout, ScatterData} from 'plotly.js';
+import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
+import {ImageWithName, LayoutWithNamedImage} from '@/types';
 
 const files = [
   'vj6wm2c30u3qqk5kbuj9v/timeline-multiplayer-06102024.csv?rlkey=ztegai6tskj3jgbxjbwz5l393&st=ofuo2z4c&dl=0',
@@ -75,7 +74,7 @@ export const useActionsData = (selectedMarkers: string[]) => {
 
     const filterActionsData = (actionsScatterData: Partial<ScatterData>,
                                layoutConfig: Partial<LayoutWithNamedImage>,
-                               selectedMarkers: string[]):
+                               selectedActions: string[]):
       { scatterData: Partial<ScatterData>; layoutConfig: Partial<Layout> } => {
         const { x, y, text, customdata, hovertext } = actionsScatterData;
 
@@ -83,17 +82,14 @@ export const useActionsData = (selectedMarkers: string[]) => {
             return { scatterData: {}, layoutConfig: {} };
         }
 
-        // Map selected markers to their corresponding icons
-        const selectedIcons = selectedMarkers.map((marker) => icons[marker].name);
-
         const filteredIndices = customdata?.reduce<number[]>((acc, value, index) => {
-            if (selectedIcons.includes(value as string)) {
+            if (selectedActions.includes(value as string)) {
                 acc.push(index);
             }
             return acc;
         }, []);
 
-        const filteredImages = layoutConfig.images?.filter((image) => image.name && selectedIcons.includes(image.name));
+        const filteredImages = layoutConfig.images?.filter((image) => image.name && selectedActions.includes(image.name));
 
         return {
             scatterData: {

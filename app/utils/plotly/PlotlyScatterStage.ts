@@ -1,10 +1,6 @@
 import {Shape} from 'plotly.js';
 
 export class PlotlyScatterStage {
-    static readonly #Y_VALS = {
-        error: {y0: -1, y1: -4},
-        stage: {y0: 0, y1: 12}
-    };
     readonly #stageName: string;
     readonly #start: string;
     readonly #end: string;
@@ -12,13 +8,13 @@ export class PlotlyScatterStage {
     readonly #y0: number;
     readonly #y1: number;
 
-    constructor(stageName: string, start: string, end: string, color: string, type: 'error' | 'stage' = 'stage') {
+    constructor(stageName: string, x:[string, string], y:[number,number], color: string) {
         this.#stageName = stageName;
-        this.#start = start;
-        this.#end = end;
+        this.#start = x[0];
+        this.#end = x[1];
         this.#color = color;
-        this.#y0 = PlotlyScatterStage.#Y_VALS[type].y0;
-        this.#y1 = PlotlyScatterStage.#Y_VALS[type].y1;
+        this.#y0 = y[0];
+        this.#y1 = y[1];
     }
 
     toPlotlyFormat(): Partial<Shape>{

@@ -7,7 +7,7 @@ export default class ActionStageError {
   readonly #name: string;
   readonly #explanation: string;
   readonly #annotation: string;
-  readonly #icon: { unicode: string; image: string; name: string };
+  readonly #icon: { url: string; name: string };
   readonly image: ImageWithName;
 
   constructor(row: ActionsCsvRow) {
@@ -28,12 +28,12 @@ export default class ActionStageError {
   }
 
   /**
-   * Creates image templates whose x/y values needed to be updated later.The positions of images will not be decided until the total n
+   * Creates url templates whose x/y values needed to be updated later.The positions of images will not be decided until the total n
    * umber of error images to be displayed is known
    */
   #createImage() {
     return new PlotlyScatterImage(
-      this.#icon.image,
+      this.#icon.url,
       '',
       0,
       this.#annotation,
