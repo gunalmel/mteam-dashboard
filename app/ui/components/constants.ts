@@ -7,7 +7,7 @@ export const STAGE_NAME_MAP: Record<string, string> = {
   'ROSC 5B - Stemi': 'ROSC'
 };
 
-export const explanationItems = [
+export const explanationItems:{icon:string, url:string, text:string, relatedMarkers: string[], yValue:number}[] = [
     { icon: '💓', url: '/icons/pulse.png', text: 'Pulse Check', relatedMarkers: ['Pulse Check','pulse_check'], yValue: 1 },
     { icon: '⚡', url: '/icons/synchronized-shock.png', text: 'SYNCHRONIZED Shock', relatedMarkers: ['SYNCHRONIZED Shock 100J','SYNCHRONIZED Shock 175J', 'SYNCHRONIZED Shock 200J', 'defib<149_sync_or_unsync'], yValue: 1.5 },
     { icon: '⚡', url: '/icons/unsynchronized-shock.png', text: 'Defib (UNsynchronized Shock)', relatedMarkers: ['Defib (UNsynchronized Shock) 200J','unsync_defib_150+', 'Defib (UNsynchronized Shock) 300J'], yValue: 2 },
@@ -32,7 +32,7 @@ export const explanationItems = [
 ];
 
 export const icons = explanationItems.reduce((acc, item) => {
-    item.relatedMarkers.forEach(marker => {
+    item.relatedMarkers.forEach((marker) => {
         if (!acc[marker]) {
             acc[marker] = { unicode: '', image: '', name: '' };
         }

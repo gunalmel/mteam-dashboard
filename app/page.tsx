@@ -4,7 +4,7 @@ import {PlotMouseEvent} from 'plotly.js';
 import VideoPlayer from '@/app/ui/components/dashboard/VideoPlayer';
 import ActionsPlot from '@/app/ui/components/plots/ActionsPlot';
 import CognitiveLoadPlot from '@/app/ui/components/plots/CognitivePlot';
-import Explanation from '@/app/ui/components/Explanation';
+import ToggleGrid from '@/app/ui/components/ToggleGrid';
 import {Today} from '@/app/utils/timeUtils';
 import {explanationItems} from '@/app/ui/components/constants';
 
@@ -45,8 +45,8 @@ const Page = () => {
   return (
     <div className="flex flex-col justify-evenly">
       <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
-      <Explanation
-        selectedMarkers={selectedMarkers}
+      <ToggleGrid allItems={explanationItems}
+        selectedItems={selectedMarkers}
         onSelectAll={handleSelectAll}
         onToggleMarker={handleToggleMarkers}
       />
