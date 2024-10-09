@@ -1,19 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import dynamic from 'next/dynamic';
 import {useActionsData} from '@/app/hooks/useActionsData';
 import {Today} from '@/app/utils/timeUtils';
 import {Data, Layout, PlotMouseEvent} from 'plotly.js';
+import {explanationItems} from '@/app/ui/components/constants';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-const ActionsPlot = ({onClick, selectedMarkers, currentTime}: {
+const ActionsPlot = ({setActions, onClick, selectedMarkers, currentTime}: {
+  setActions: (markers:typeof explanationItems)=> void,
   onClick: (event: Readonly<PlotMouseEvent>) => void,
   selectedMarkers: string[],
   currentTime: number
 }) => {
+  const firstTimeLoad = useRef(true);
   const {actionsData, actionsLayout} = useActionsData(selectedMarkers);
-
   // Convert currentTime (in seconds) to the same format as the plot data
   const currentTimeFormatted = Today.parseSeconds(currentTime).dateTimeString;
 
@@ -28,6 +30,13 @@ const ActionsPlot = ({onClick, selectedMarkers, currentTime}: {
 
   // Add the current time marker to the plot data
   const plotData: Partial<Data>[] = [...actionsData, currentTimeMarker];
+  const actions = (actionsData[0]?.customdata as string[]);
+  if (actions && firstTimeLoad.current) {
+    const filterActions = actions.filter((value, index, array) => array.indexOf(value) === index)
+      .map((action) => explanationItems.find((item) => item.relatedMarkers.includes(action)));
+    setActions(filterActions as typeof explanationItems);
+    firstTimeLoad.current = false;
+  }
 
   const layout: Partial<Layout> = {
     ...actionsLayout,

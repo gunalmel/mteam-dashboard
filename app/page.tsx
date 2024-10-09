@@ -11,6 +11,7 @@ import {explanationItems} from '@/app/ui/components/constants';
 const Page = () => {
   const [currentCognitiveLoad] = useState<number | null>(null);
   const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
+  const [availableActions, setAvailableActions] = useState<typeof explanationItems>([]);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const seekTo = useRef(0);
 
@@ -45,13 +46,13 @@ const Page = () => {
   return (
     <div className="flex flex-col justify-evenly">
       <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
-      <ToggleGrid allItems={explanationItems}
+      <ToggleGrid allItems={availableActions}
         selectedItems={selectedMarkers}
         onSelectAll={handleSelectAll}
         onToggleMarker={handleToggleMarkers}
       />
       <div className="bg-white p-4" style={{width: '100%', height: '800px'}}>
-        <ActionsPlot onClick={handleTimePointClick} selectedMarkers={selectedMarkers} currentTime={currentTime} />
+        <ActionsPlot setActions={(actions)=>setAvailableActions(actions)} onClick={handleTimePointClick} selectedMarkers={selectedMarkers} currentTime={currentTime} />
       </div>
       <div className="bg-white p-4 mt-4" style={{width: '100%', height: '800px'}}>
         <CognitiveLoadPlot currentTime={currentTime} />
