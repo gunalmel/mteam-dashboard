@@ -12,7 +12,7 @@ export default class ActionsScatterPlotPoint {
     readonly y: number;
     readonly name: string;
     readonly hovertext: string;
-    readonly icon: { unicode: string; image: string; name: string };
+    readonly icon: { url: string; name: string };
     readonly plotlyImage: ImageWithName;
     /**
      * will be displayed somewhere around the data on the plot
@@ -44,6 +44,6 @@ export default class ActionsScatterPlotPoint {
     }
 
     #createImage(){
-        return new PlotlyScatterImage(this.icon.image, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
+        return new PlotlyScatterImage(this.icon.url, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
     }
 }

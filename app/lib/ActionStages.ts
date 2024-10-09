@@ -2,7 +2,7 @@ import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
 import CsvTimeInterval from '@/app/lib/csv/CsvTimeInterval';
 import {Annotations, Shape} from 'plotly.js';
 import {PlotlyScatterStage} from '@/app/utils/plotly/PlotlyScatterStage';
-import {stageColors} from '@/app/ui/components/constants';
+import {stageColors, yMaxActions} from '@/app/ui/components/constants';
 import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStageAnnotation';
 
 /**
@@ -12,6 +12,10 @@ import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStag
  * Otherwise, a new entry created with same start date as the previous one and the end date is set to the time string provided.
  */
 export default class ActionStages {
+  static readonly #Y_VALS: {error:[number, number], stage:[number, number]} = {
+    error: [-1, -4],
+    stage: [0, yMaxActions+1]
+  };
   readonly #defaultTimeStamp: CsvDateTimeStamp = new CsvDateTimeStamp();
   readonly #periods: [string, CsvTimeInterval][] = [];
   readonly #periodMap = new Map<string, CsvTimeInterval>();
@@ -92,7 +96,7 @@ export default class ActionStages {
 
   #createPlotlyShape(name: string, period: CsvTimeInterval, stageCounter: number, type: 'error' | 'stage' = 'stage'): Partial<Shape> {
     const color = stageColors[stageCounter % stageColors.length] + '33';
-    return new PlotlyScatterStage(name, period.start.dateTimeString, period.end.dateTimeString, color, type).toPlotlyFormat();
+    return new PlotlyScatterStage(name, [period.start.dateTimeString, period.end.dateTimeString], ActionStages.#Y_VALS[type], color).toPlotlyFormat();
   }
 
   #createPlotlyAnnotation(name: string, period: CsvTimeInterval, stageCounter: number): Partial<Annotations> {

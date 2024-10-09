@@ -10,14 +10,14 @@ import {explanationItems} from '@/app/ui/components/constants';
 
 const Page = () => {
   const [currentCognitiveLoad] = useState<number | null>(null);
-  const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.relatedMarkers));
+  const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.keys));
   const [availableActions, setAvailableActions] = useState<typeof explanationItems>([]);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const seekTo = useRef(0);
 
   const handleSelectAll = (selectAll: boolean) => {
     if (selectAll) {
-      setSelectedMarkers(explanationItems.flatMap(item => item.relatedMarkers));
+      setSelectedMarkers(explanationItems.flatMap(item => item.keys));
     } else {
       setSelectedMarkers([]);
     }

@@ -2,8 +2,9 @@ import React, {useEffect, useRef} from 'react';
 import dynamic from 'next/dynamic';
 import {useActionsData} from '@/app/hooks/useActionsData';
 import {Today} from '@/app/utils/timeUtils';
-import {Data, Layout, PlotMouseEvent} from 'plotly.js';
-import {explanationItems} from '@/app/ui/components/constants';
+import {Data, PlotMouseEvent} from 'plotly.js';
+import {explanationItems, yMaxActions} from '@/app/ui/components/constants';
+import {PlotlyCurrentTimeMarker} from '@/app/utils/plotly/PlotlyCurrentTimeMarker';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
@@ -20,28 +21,22 @@ const ActionsPlot = ({setActions, onClick, selectedMarkers, currentTime}: {
   const currentTimeFormatted = Today.parseSeconds(currentTime).dateTimeString;
 
   // Define the current time marker
-  const currentTimeMarker: Partial<Data> = {
-    type: 'scatter',
-    mode: 'lines',
-    x: [currentTimeFormatted, currentTimeFormatted],
-    y: [0, 12], // Adjust y range as needed - must be equal or greater than y1 value in createTransition boundary
-    line: {color: 'red', width: 2}
-  };
+  const currentTimeMarker: Partial<Data> = new PlotlyCurrentTimeMarker([currentTimeFormatted, currentTimeFormatted], [0, yMaxActions+1]).toPlotlyFormat();
 
   // Add the current time marker to the plot data
   const plotData: Partial<Data>[] = [...actionsData, currentTimeMarker];
   const actions = (actionsData[0]?.customdata as string[]);
+  // should execute only on the first load to build the list of unique actions user has taken to list the filter options for actions taken only
   if (actions && firstTimeLoad.current) {
-    const filterActions = actions.filter((value, index, array) => array.indexOf(value) === index)
-      .map((action) => explanationItems.find((item) => item.relatedMarkers.includes(action)));
+    const filterActions = actions.map((action) => explanationItems.find((item) => item.keys.includes(action)))
+      .filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t?.name === value?.name && t?.url === value?.url
+          ))
+      );
     setActions(filterActions as typeof explanationItems);
     firstTimeLoad.current = false;
   }
-
-  const layout: Partial<Layout> = {
-    ...actionsLayout,
-    shapes: [...(actionsLayout.shapes || [])]
-  };
 
   useEffect(() => {
     // console.log('ActionsPlot Current Video Time:', currentTimeFormatted);
@@ -51,7 +46,7 @@ const ActionsPlot = ({setActions, onClick, selectedMarkers, currentTime}: {
     <Plot
       onClick={(e)=>onClick(e)}
       data={plotData}
-      layout={layout}
+      layout={actionsLayout}
       config={{displayModeBar: true, responsive: true, displaylogo: false}}
       style={{width: '100%', height: '100%'}}
       useResizeHandler={true} // Ensure the plot adjusts size when container changes
