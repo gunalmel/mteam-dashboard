@@ -5,7 +5,6 @@ export class PlotlyScatterImage {
     readonly x: number | string;
     readonly y: number | string;
     readonly name: string;
-    sizex = 100000;
 
     constructor(source: string, x:  number | string, y:  number | string, name: string) {
         this.source = source;
@@ -19,8 +18,8 @@ export class PlotlyScatterImage {
             x: this.x,
             y: this.y,
             name: this.name,
-            sizex: this.sizex,
-            sizey: 0.373,
+            sizex: 17000,
+            sizey: 0.5,
             xref: 'x',
             yref: 'y',
             xanchor: 'center',

@@ -35,7 +35,7 @@ export const useCognitiveLoadData = () => {
             }
         };
 
-        fetchCognitiveLoadData();
+        fetchCognitiveLoadData().catch(console.error);
     }, []);
 
     return { cognitiveLoadData, cognitiveLoadLayout };

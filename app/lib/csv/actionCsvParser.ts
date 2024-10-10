@@ -1,17 +1,15 @@
 import Papa from 'papaparse';
-import { ScatterData } from 'plotly.js';
-import { ImageWithName, LayoutWithNamedImage } from '@/types';
+import {ScatterData} from 'plotly.js';
+import {LayoutWithNamedImage} from '@/types';
 import ActionsPlotCsvProcessor from '@/app/lib/csv/ActionsPlotCsvProcessor';
 
 export const parseCsvData = (
   url: string,
   onComplete: (
-    actionsScatterData: Partial<ScatterData>,
-    errorsScatterData: Partial<ScatterData>,
-    compressionLines: Partial<ScatterData>[],
+    plotData: Partial<ScatterData>[],
     layoutConfig: Partial<LayoutWithNamedImage>,
-    stageErrorImages: Partial<ImageWithName>[],
-  ) => void,
+    distinctActionsTaken: {url:string, group:string}[]
+  ) => void
 ) => {
   const csvProcessor = new ActionsPlotCsvProcessor();
   Papa.parse(url, {
@@ -20,20 +18,17 @@ export const parseCsvData = (
     step: csvProcessor.rowProcessor,
     complete: function () {
       const layoutConfig = csvProcessor.layout();
-      const stageErrors = csvProcessor.collectStageErrors();
+      const {data:errorScatterData, images:errorImages} = csvProcessor.collectStageErrors();
 
       layoutConfig.images = [
         ...(layoutConfig.images || []),
-        ...csvProcessor.collectScatterDataImages(),
-        ...stageErrors.images
+        ...errorImages
       ];
 
       onComplete(
-        csvProcessor.createScatterPlotData(),
-        stageErrors.data,
-        csvProcessor.collectCompressionLines(),
+        [csvProcessor.createScatterPlotData(), errorScatterData, ...csvProcessor.collectCompressionLines()],
         layoutConfig,
-        stageErrors.images
+        csvProcessor.distinctActionsTaken.items
       );
     }
   });

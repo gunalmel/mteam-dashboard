@@ -2,7 +2,7 @@ import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
 import CsvTimeInterval from '@/app/lib/csv/CsvTimeInterval';
 import {Annotations, Shape} from 'plotly.js';
 import {PlotlyScatterStage} from '@/app/utils/plotly/PlotlyScatterStage';
-import {stageColors, yMaxActions} from '@/app/ui/components/constants';
+import {stageColors, actionsDictionary} from '@/app/ui/components/constants';
 import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStageAnnotation';
 
 /**
@@ -14,7 +14,7 @@ import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStag
 export default class ActionStages {
   static readonly #Y_VALS: {error:[number, number], stage:[number, number]} = {
     error: [-1, -4],
-    stage: [0, yMaxActions+1]
+    stage: [0, actionsDictionary.yMax+1]
   };
   readonly #defaultTimeStamp: CsvDateTimeStamp = new CsvDateTimeStamp();
   readonly #periods: [string, CsvTimeInterval][] = [];
