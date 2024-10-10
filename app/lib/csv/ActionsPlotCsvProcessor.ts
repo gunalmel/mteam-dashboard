@@ -5,10 +5,11 @@ import Papa from 'papaparse';
 import { processRow } from '@/app/lib/csv/actionCsvRowProcessor';
 import ActionScatterPlotData from '@/app/lib/ActionScatterPlotData';
 import ActionStageError from '@/app/lib/ActionStageError';
-import { ImageWithName, LayoutWithNamedImage } from '@/types';
+import {ActionImage, ImageWithName, LayoutWithNamedImage} from '@/types';
 import createStageErrors from '@/app/lib/stageErrorPositionCalculator';
 import { PlotData } from 'plotly.js';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
+import {DeepSet} from '@/app/utils/helpers';
 
 export default class ActionsPlotCsvProcessor {
   readonly data = new ActionScatterPlotData();
@@ -16,6 +17,7 @@ export default class ActionsPlotCsvProcessor {
   readonly stageErrors: Record<string, ActionStageError[]> = {};
   readonly compressionLines = new ActionsCompressionLines();
   readonly errorActionTracker: ErrorActionTracker = new ErrorActionTracker();
+  readonly distinctActionsTaken = new DeepSet<Omit<ActionImage,'name'>>();
   constructor() {
     this.rowProcessor = this.rowProcessor.bind(this);
   }
@@ -27,6 +29,7 @@ export default class ActionsPlotCsvProcessor {
       this.stages,
       this.compressionLines,
       this.stageErrors,
+      this.distinctActionsTaken
     );
   }
 
@@ -35,6 +38,7 @@ export default class ActionsPlotCsvProcessor {
       this.stages.plotlyShapes,
       this.stages.plotlyStageAnnotations,
       this.data.xAxisRange(),
+      this.data.plotlyImages,
     ).toPlotlyFormat();
   }
 
@@ -44,10 +48,6 @@ export default class ActionsPlotCsvProcessor {
 
   collectStageErrors(): { data: Partial<PlotData>; images: ImageWithName[] } {
     return createStageErrors(this.stages, this.stageErrors);
-  }
-
-  collectScatterDataImages() {
-    return this.data.collectPlotImages();
   }
 
   collectCompressionLines() {

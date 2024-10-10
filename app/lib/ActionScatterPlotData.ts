@@ -25,24 +25,7 @@ export default class ActionScatterPlotData {
     this.plotlyImages.push(point.plotlyImage);
   }
 
-  // we may need to update sizex using the difference between max and min values of x to display images properly.
-  // e.g. 100 * dataRange
-  collectPlotImages(): ImageWithName[] {
-    // return this.points.map(p => p.plotlyImage);
-    return this.plotlyImages;
-  }
-
   createPlotScatterData(): Partial<PlotData> {
-    // const data = new PlotlyScatterData();
-    // this.points.forEach(point=>{
-    //     data.x.push(point.x.dateTimeString);
-    //     data.y.push(point.y);
-    //     data.customdata.push(point.icon.name);
-    //     data.text.push(point.dataText);
-    //     data.hovertext.push(point.hovertext);
-    //     data.colors.push(point.color);
-    // });
-    // return data.toPlotlyFormat();
     return this.plotlyData.toPlotlyFormat();
   }
 
