@@ -24,6 +24,14 @@ export default tseslint.config(
           'avoidEscape': true,
           'allowTemplateLiterals': true
         }
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'warn', // or "error"
+        {
+          'argsIgnorePattern': '^_',
+          'varsIgnorePattern': '^_',
+          'caughtErrorsIgnorePattern': '^_'
+        }
       ]
     }
   }

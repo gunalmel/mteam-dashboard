@@ -1,5 +1,4 @@
 import {Image, Layout} from 'plotly.js';
-import {explanationItems} from '@/app/ui/components/constants';
 
 export type ImageWithName = Image & {
     name: string;
@@ -9,8 +8,7 @@ export type LayoutWithNamedImage = Omit<Layout, 'images'> & {
     images: Partial<ImageWithName>[];
 };
 
-
-export interface ImageToggleProps{
+export interface ImageToggleProps {
   iconUrl: string;
   text: string;
   isChecked: boolean;
@@ -18,8 +16,11 @@ export interface ImageToggleProps{
 }
 
 export interface ToggleGridProps {
-  allItems: typeof explanationItems;
+  allItems: {url: string, group: string}[];
   selectedItems: string[];
   onSelectAll: (selectAll: boolean) => void;
-  onToggleMarker: (markers: string[]) => void;
+  onToggleMarker: (marker: string) => void;
 }
+
+
+export interface ActionImage {url: string; name: string; group: string; y: number}

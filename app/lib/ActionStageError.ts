@@ -1,5 +1,5 @@
 import ActionsCsvRow from '@/app/lib/csv/ActionsCsvRow';
-import { ImageWithName } from '@/types';
+import {ActionImage, ImageWithName} from '@/types';
 import { PlotlyScatterImage } from '@/app/utils/plotly/PlotlyScatterImage';
 import { getIcon } from '@/app/ui/components/constants';
 
@@ -7,7 +7,7 @@ export default class ActionStageError {
   readonly #name: string;
   readonly #explanation: string;
   readonly #annotation: string;
-  readonly #icon: { url: string; name: string };
+  readonly #icon: ActionImage;
   readonly image: ImageWithName;
 
   constructor(row: ActionsCsvRow) {

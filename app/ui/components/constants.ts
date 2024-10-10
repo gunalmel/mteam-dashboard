@@ -1,4 +1,4 @@
-import {findMaxValue} from '@/app/utils/helpers';
+import {ActionImage} from '@/types';
 
 export const STAGE_NAME_MAP: Record<string, string> = {
   'V-Tach 2D': 'V Tach WITH Pulse',
@@ -9,50 +9,105 @@ export const STAGE_NAME_MAP: Record<string, string> = {
   'ROSC 5B - Stemi': 'ROSC'
 };
 
-export const explanationItems:{url:string, name:string, keys: string[], y:number}[] = [
-    { url: '/icons/pulse.png', name: 'Pulse Check', keys: ['Pulse Check','pulse_check'], y: 1 },
-    { url: '/icons/synchronized-shock.png', name: 'Synchronized Shock', keys: ['SYNCHRONIZED Shock 100J','SYNCHRONIZED Shock 175J', 'SYNCHRONIZED Shock 200J', 'defib<149_sync_or_unsync'], y: 1.5 },
-    { url: '/icons/unsynchronized-shock.png', name: 'Defib (Unsynchronized Shock)', keys: ['Defib (UNsynchronized Shock) 200J','unsync_defib_150+', 'Defib (UNsynchronized Shock) 300J'], y: 2 },
-    { url: '/icons/medication.png', name: 'Medication', keys: ['Select Adenosine', 'Select Calcium', 'Select Epinephrine', 'Select Amiodarone', 'Select Lidocaine', 'Epi','Amio_or_Lidocaine','glucose_anytime','chestneedle_thora_anytime','ROSC_Fentanyl_or_Propofol'], y: 2.5 },
-    { url: '/icons/inject-syringe-on-right-hand.png', name: 'Insert Syringe on Right Hand', keys: ['Insert Syringe on Right Hand'], y: 3 },
-    { url: '/icons/intravenous-access.png', name: 'Ask About IV Access', keys: ['Ask About IV Access'], y: 3.5 },
-    { url: '/icons/x-ray.png', name: 'Order Chest X-ray', keys: ['Order X-Ray','Order Chest X-ray','chest_xray'], y: 4 },
-    { url: '/icons/lab.png', name: 'Order new Labs UNAVAILABLE', keys: ['Order new Labs UNAVAILABLE', 'labcheck_anytime'], y: 4.5 },
-    { url: '/icons/ekg.png', name: 'Order EKG', keys: ['Order EKG','EKG'], y: 5 },
-    { url: '/icons/pericardiocentesis.png', name: 'Order Pericardiocentesis', keys: ['Order Pericardiocentesis','heartneedle_pericard_anytime'], y: 5.5 },
-    { url: '/icons/ultrasound.png', name: 'Order Ultrasound', keys: ['Order Ultrasound','ultrasound_FAST_anytime'], y: 6 },
-    { url: '/icons/cardiac-arrest.png', name: 'View Cardiac Arrest Guidelines', keys: ['View Cardiac Arrest Guidelines'], y: 6.5 },
-    { url: '/icons/cool-down.png', name: 'Order Cooling', keys: ['Order Cooling', 'ROSC_cool_patient'], y: 7 },
-    { url: '/icons/intubation.png', name: 'Order Intubation', keys: ['Intubation', 'Order Intubation', 'intubate_anytime'], y: 7.5 },
-    { url: '/icons//icons/sugar-blood-level.png', name: 'Measure Glucose Level', keys: ['Measure Glucose Level'], y: 8 },
-    { url: '/icons/perform-bag-mask.png', name: 'Perform Bag Mask Pump', keys: ['Perform Bag Mask Pump'], y: 8.5 },
-    { url: '/icons/lung-sounds.png', name: 'Lung Sounds', keys: ['Lung Sounds', 'lunglisten_anytime'], y: 9 },
-    { url: '/icons/intravenous-access.png', name: 'Insert Lactated Ringers (1 Liter)', keys: ['Insert Lactated Ringers (1 Liter)'], y: 9.5 },
-    { url: '/icons/insert-bag-mask.png', name: 'Insert Bag Mask', keys: ['Insert Bag Mask'], y: 10 },
-    { url: '/icons/check-lab-test.png', name: 'Check Lab Tests', keys: ['Check Lab Tests'], y: 10.5 },
-    { url: '/icons/cpr.png', name: 'CPR Should be performed', keys: ['CPR_perform_>1Pump'], y: 11 },
-    { url: '/icons//icons/bipap-niv.png', name: 'Measure Glucose Level', keys: ['bipap_NIV_anytime'], y: 11.5 },
-];
+export const ACTION_GROUP_MAP: Record<string, {url: string; actions: string[]; y: number}> = {
+  'Pulse Check': {url: '/icons/pulse.png', actions: ['Pulse Check', 'pulse_check'], y: 1},
+   'Synchronized Shock': {
+      url: '/icons/synchronized-shock.png',
+      actions: [
+        'SYNCHRONIZED Shock 100J',
+        'SYNCHRONIZED Shock 175J',
+        'SYNCHRONIZED Shock 200J',
+        'defib<149_sync_or_unsync'
+      ],
+      y: 1.5
+    },
+  'Defib (Unsynchronized Shock)': {
+      url: '/icons/unsynchronized-shock.png',
+      actions: ['Defib (UNsynchronized Shock) 200J', 'unsync_defib_150+', 'Defib (UNsynchronized Shock) 300J'],
+      y: 2
+    },
+    'Medication': {
+      url: '/icons/medication.png',
+      actions: [
+        'Select Adenosine',
+        'Select Calcium',
+        'Select Epinephrine',
+        'Select Amiodarone',
+        'Select Lidocaine',
+        'Epi',
+        'Amio_or_Lidocaine',
+        'glucose_anytime',
+        'chestneedle_thora_anytime',
+        'ROSC_Fentanyl_or_Propofol'
+      ],
+      y: 2.5
+  },
+    'Insert Syringe on Right Hand': {
+      url: '/icons/inject-syringe-on-right-hand.png',
+      actions: ['Insert Syringe on Right Hand'],
+      y: 3
+  },
+  'Ask About IV Access': {url: '/icons/intravenous-access.png', actions: ['Ask About IV Access'], y: 3.5},
+  'Order Chest X-ray': {url: '/icons/x-ray.png', actions: ['Order X-Ray', 'Order Chest X-ray', 'chest_xray'], y: 4},
+    'Order new Labs UNAVAILABLE': {
+      url: '/icons/lab.png',
+      actions: ['Order new Labs UNAVAILABLE', 'labcheck_anytime'],
+      y: 4.5
+  },
+  'Order EKG': {url: '/icons/ekg.png', actions: ['Order EKG', 'EKG'], y: 5},
+    'Order Pericardiocentesis': {
+      url: '/icons/pericardiocentesis.png',
+      actions: ['Order Pericardiocentesis', 'heartneedle_pericard_anytime'],
+      y: 5.5
+  },
+  'Order Ultrasound': {url: '/icons/ultrasound.png', actions: ['Order Ultrasound', 'ultrasound_FAST_anytime'], y: 6},
+    'View Cardiac Arrest Guidelines': {
+      url: '/icons/cardiac-arrest.png',
+      actions: ['View Cardiac Arrest Guidelines'],
+      y: 6.5
+  },
+  'Order Cooling': {url: '/icons/cool-down.png', actions: ['Order Cooling', 'ROSC_cool_patient'], y: 7},
+    'Order Intubation': {
+      url: '/icons/intubation.png',
+      actions: ['Intubation', 'Order Intubation', 'intubate_anytime'],
+      y: 7.5
+  },
+  'Measure Glucose Level': {url: '/icons//icons/sugar-blood-level.png', actions: ['Measure Glucose Level'], y: 8},
+  'Perform Bag Mask Pump': {url: '/icons/perform-bag-mask.png', actions: ['Perform Bag Mask Pump'], y: 8.5},
+  'Lung Sounds': {url: '/icons/lung-sounds.png', actions: ['Lung Sounds', 'lunglisten_anytime'], y: 9},
+    'Insert Lactated Ringers (1 Liter)': {
+      url: '/icons/intravenous-access.png',
+      actions: ['Insert Lactated Ringers (1 Liter)'],
+      y: 9.5
+  },
+  'Insert Bag Mask': {url: '/icons/insert-bag-mask.png', actions: ['Insert Bag Mask'], y: 10},
+  'Check Lab Tests': {url: '/icons/check-lab-test.png', actions: ['Check Lab Tests'], y: 10.5},
+  'CPR Should be performed': {url: '/icons/cpr.png', actions: ['CPR_perform_>1Pump'], y: 11},
+  'bipap_NIV_anytime': {url: '/icons//icons/bipap-niv.png', actions: ['bipap_NIV_anytime'], y: 11.5}
+  };
 
-export const yMaxActions = findMaxValue(explanationItems.map(item=>item.y));
-
-export const icons = explanationItems.reduce((acc, item) => {
-    item.keys.forEach((key) => {
-        if (!acc[key]) {
-            acc[key] = { url: '', name: '' };
-        }
-        acc[key].url = item.url;
-        acc[key].name = key;
+type groupMapValues = typeof ACTION_GROUP_MAP[keyof typeof ACTION_GROUP_MAP];
+class ActionsDictionary{
+  readonly #dictionary = {} as Record<string, ActionImage>;
+  #yMax = 0;
+  add(group: string, url:groupMapValues['url'], actions:groupMapValues['actions'], y:groupMapValues['y']){
+    actions.forEach(action=>{
+      this.#dictionary[action]={name:action, url, group, y};
     });
-    return acc;
-}, {} as Record<string, { url: string, name: string }>);
+    this.#yMax = this.#yMax>y?this.#yMax:y;
+    return this;
+  }
+  get(action: string){
+    return this.#dictionary[action];
+  }
+  get yMax(): number {
+    return this.#yMax;
+  }
+}
 
-export const yValues = explanationItems.reduce((acc, item) => {
-    item.keys.forEach(marker => {
-        acc[marker] = item.y;
-    });
-    return acc;
-}, {} as Record<string, number>);
+export const actionsDictionary =  Object.entries(ACTION_GROUP_MAP).reduce((acc, [group,actions])=>{
+  return acc.add(group, actions.url, actions.actions, actions.y);
+},new ActionsDictionary());
 
 export const stageColors = [
     '#1f77b4', '#d62728', '#2ca02c', '#8c564b',
@@ -60,16 +115,12 @@ export const stageColors = [
     '#bcbd22', '#17becf'
 ];
 
-/**
- *
- * @param subAction
- */
-export function getIcon(subAction: string): { url: string; name: string } {
-    const icon = icons[subAction];
+export function getIcon(action: string): ActionImage {
+    const icon = actionsDictionary.get(action);
 
     if (!icon) {
-        // console.error(`Icon not found for subAction: ${subAction} in explanationItems`);
-        return { url: '/icons/not-found.png', name: 'not found' };
+        // console.error(`Icon not found for action: ${action} in explanationItems`);
+        return { url: '/icons/not-found.png', name: 'not found', group:'', y:0 };
     }
 
     return icon;

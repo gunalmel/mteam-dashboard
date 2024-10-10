@@ -1,10 +1,9 @@
 import React from 'react';
-import { explanationItems } from '@/app/ui/components/constants';
 import ImageToggle from '@/app/ui/components/ImageToggle';
 import {ToggleGridProps} from '@/types';
 
 const ToggleGrid: React.FC<ToggleGridProps> = ({allItems, selectedItems, onSelectAll, onToggleMarker}) => {
-  const allSelected = explanationItems.every(item => item.keys.every(marker => selectedItems.includes(marker)));
+  const allSelected = allItems.every(item => selectedItems.includes(item.group));
   return (
     <div className="pl-28">
       <div className="mb-2 text-sm text-gray-700">
@@ -26,11 +25,11 @@ const ToggleGrid: React.FC<ToggleGridProps> = ({allItems, selectedItems, onSelec
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {allItems.map((item) => (
           <ImageToggle
-            key={item.name}
+            key={item.group}
             iconUrl={item.url}
-            text={item.name}
-            isChecked={item.keys.every(marker => selectedItems.includes(marker))}
-            onToggle={() => onToggleMarker(item.keys)}
+            text={item.group}
+            isChecked={selectedItems.includes(item.group)}
+            onToggle={() => onToggleMarker(item.group)}
           />
         ))}
       </div>

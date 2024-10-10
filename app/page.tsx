@@ -6,30 +6,29 @@ import ActionsPlot from '@/app/ui/components/plots/ActionsPlot';
 import CognitiveLoadPlot from '@/app/ui/components/plots/CognitivePlot';
 import ToggleGrid from '@/app/ui/components/ToggleGrid';
 import {Today} from '@/app/utils/timeUtils';
-import {explanationItems} from '@/app/ui/components/constants';
 
 const Page = () => {
   const [currentCognitiveLoad] = useState<number | null>(null);
-  const [selectedMarkers, setSelectedMarkers] = useState<string[]>(explanationItems.flatMap(item => item.keys));
-  const [availableActions, setAvailableActions] = useState<typeof explanationItems>([]);
+  const [selectedMarkers, setSelectedMarkers] = useState<string[]>([]);
+  const [availableActions, setAvailableActions] = useState<{url: string, group: string}[]>([]);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const seekTo = useRef(0);
 
   const handleSelectAll = (selectAll: boolean) => {
     if (selectAll) {
-      setSelectedMarkers(explanationItems.flatMap(item => item.keys));
+      setSelectedMarkers(availableActions.map(item => item.group));
     } else {
       setSelectedMarkers([]);
     }
   };
 
-  const handleToggleMarkers = (markers: string[]) => {
+  const handleToggleMarkers = (marker: string) => {
     setSelectedMarkers((prevSelectedMarkers) => {
-      const allMarkersSelected = markers.every(marker => prevSelectedMarkers.includes(marker));
+      const allMarkersSelected = prevSelectedMarkers.includes(marker);
       if (allMarkersSelected) {
-        return prevSelectedMarkers.filter(marker => !markers.includes(marker));
+        return prevSelectedMarkers.filter(m => m!==marker);
       } else {
-        return [...new Set([...prevSelectedMarkers, ...markers])];
+        return [...new Set([...prevSelectedMarkers, marker])];
       }
     });
   };
@@ -44,17 +43,26 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly">
+    <div className='flex flex-col justify-evenly'>
       <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
-      <ToggleGrid allItems={availableActions}
+      <ToggleGrid
+        allItems={availableActions}
         selectedItems={selectedMarkers}
         onSelectAll={handleSelectAll}
         onToggleMarker={handleToggleMarkers}
       />
-      <div className="bg-white p-4" style={{width: '100%', height: '800px'}}>
-        <ActionsPlot setActions={(actions)=>setAvailableActions(actions)} onClick={handleTimePointClick} selectedMarkers={selectedMarkers} currentTime={currentTime} />
+      <div className='bg-white p-4' style={{width: '100%', height: '800px'}}>
+        <ActionsPlot
+          setActionGroups={(actions) => {
+            setAvailableActions(actions);
+            setSelectedMarkers(actions.map(item => item.group));
+          }}
+          onClick={handleTimePointClick}
+          selectedActionGroups={selectedMarkers}
+          currentTime={currentTime}
+        />
       </div>
-      <div className="bg-white p-4 mt-4" style={{width: '100%', height: '800px'}}>
+      <div className='bg-white p-4 mt-4' style={{width: '100%', height: '800px'}}>
         <CognitiveLoadPlot currentTime={currentTime} />
         <div>
           Current Cognitive Load: {currentCognitiveLoad !== null ? `${currentCognitiveLoad.toFixed(2)}%` : 'N/A'}
