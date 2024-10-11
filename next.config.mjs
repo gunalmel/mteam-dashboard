@@ -9,6 +9,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // to use the latest eslint version
   },
+  productionBrowserSourceMaps: true,
   webpack: (config, {dev, isServer}) => {
     if (!dev && !isServer) {
       config.optimization.minimizer = [

@@ -70,6 +70,6 @@
     "eslint": "$eslint"
   },
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=20.0.0"
   }
 }
