@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gunalmel_mteam-dashboard&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gunalmel_mteam-dashboard)
+
 # Actions Scatter Plot CSV File Format
 
 ## Sections of the plot area

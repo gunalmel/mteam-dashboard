@@ -90,8 +90,8 @@ export const useActionsData = (selectedActionGroups: string[]) => {
         acc.x.push(x[index] as string);
         acc.y.push(y[index] as number);
         acc.customdata.push(value as string);
-        acc.text.push(text[index] as string);
-        acc.hovertext.push(hovertext[index] as string);
+        acc.text.push(text[index]);
+        acc.hovertext.push(hovertext[index]);
         acc.color.push((marker.color as string[])[index]);
       }
       return acc;
