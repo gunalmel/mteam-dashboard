@@ -15,7 +15,7 @@ export default class PlotlyScatterLayout {
         this.#images = images;
     }
 
-    toPlotlyFormat(): Partial<LayoutWithNamedImage> {
+    toPlotlyFormat(): LayoutWithNamedImage {
         return {
             title: 'Clinical Review Timeline',
             shapes: this.#shapes,

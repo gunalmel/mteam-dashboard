@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Data, Layout } from 'plotly.js';
 
 export const useCognitiveLoadData = () => {
-    const [cognitiveLoadData, setCognitiveLoadData] = useState<Partial<Data>[]>([]);
+    const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
     const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
 
     useEffect(() => {

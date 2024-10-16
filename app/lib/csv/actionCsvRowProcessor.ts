@@ -7,8 +7,6 @@ import ActionScatterPlotData from '@/app/lib/ActionScatterPlotData';
 import ActionsScatterPlotPoint from '@/app/lib/ActionsScatterPlotPoint';
 import ActionStageError from '@/app/lib/ActionStageError';
 import {STAGE_NAME_MAP} from '@/app/ui/components/constants';
-import {DeepSet, omit} from '@/app/utils/helpers';
-import {ActionImage} from '@/types';
 
 export const processRow = (
   row: Record<string, string>,
@@ -17,7 +15,7 @@ export const processRow = (
   stages: ActionStages,
   compressionLines: ActionsCompressionLines,
   stageErrors: Record<string, ActionStageError[]>,
-  distinctActionsTaken: DeepSet<Omit<ActionImage,'name'>>
+  distinctActionGroupIcons: Record<string,string>
 ) => {
   const parsedRow = new ActionsCsvRow(row, STAGE_NAME_MAP);
 
@@ -31,7 +29,7 @@ export const processRow = (
     stages.update(parsedRow.stageName, parsedRow.timeStamp);
   }
 
-  updateScatterPoints(parsedRow, stages, errorActionTracker, scatterPlotData, distinctActionsTaken);
+  updateScatterPoints(parsedRow, stages, errorActionTracker, scatterPlotData, distinctActionGroupIcons);
 
   if (shouldRowRequireMissingActions(parsedRow, stages.get(parsedRow.stageName).end)) {
     const error = new ActionStageError(parsedRow);
@@ -71,7 +69,7 @@ function handlePreviousRowError(row: ActionsCsvRow, scatterPlotData: ActionScatt
 /**
  * Handles the actual processing of scatter plot data and marking rows as either correct or erroneous.
  */
-function processScatterPlotDataRow(parsedRow: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker, distinctActionsTaken: DeepSet<Omit<ActionImage,'name'>>): void {
+function processScatterPlotDataRow(parsedRow: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker, distinctActionGroupIcons: Record<string,string>): void {
   const scatterPoint = new ActionsScatterPlotPoint(parsedRow);
 
   if (parsedRow.isCloseEnough(errorActionTracker.time)) {
@@ -80,17 +78,17 @@ function processScatterPlotDataRow(parsedRow: ActionsCsvRow, scatterPlotData: Ac
   } else {
     scatterPoint.markCorrect();
   }
-  distinctActionsTaken.add(omit(scatterPoint.icon, 'name'));
+  distinctActionGroupIcons[scatterPoint.icon.group] = scatterPoint.icon.url;
   scatterPlotData.add(scatterPoint);
 }
 
 // Main function to create scatter points with improved modularity
-function updateScatterPoints(parsedRow: ActionsCsvRow, stages: ActionStages, errorActionTracker: ErrorActionTracker, scatterPlotData: ActionScatterPlotData, distinctActionsTaken: DeepSet<Omit<ActionImage,'name'>>): void {
+function updateScatterPoints(parsedRow: ActionsCsvRow, stages: ActionStages, errorActionTracker: ErrorActionTracker, scatterPlotData: ActionScatterPlotData, distinctActionGroupIcons: Record<string,string>): void {
   const stageTransitionBoundary = stages.get(parsedRow.stageName).end;
 
   if (shouldRowMarkAnActionError(parsedRow, stageTransitionBoundary)) {
     handlePreviousRowError(parsedRow, scatterPlotData, errorActionTracker);
   } else if (parsedRow.isScatterPlotData()) {
-    processScatterPlotDataRow(parsedRow, scatterPlotData, errorActionTracker, distinctActionsTaken);
+    processScatterPlotDataRow(parsedRow, scatterPlotData, errorActionTracker, distinctActionGroupIcons);
   }
 }

@@ -1,14 +1,14 @@
 import Papa from 'papaparse';
-import {ScatterData} from 'plotly.js';
+import {PlotData} from 'plotly.js';
 import {LayoutWithNamedImage} from '@/types';
 import ActionsPlotCsvProcessor from '@/app/lib/csv/ActionsPlotCsvProcessor';
 
 export const parseCsvData = (
   url: string,
   onComplete: (
-    plotData: Partial<ScatterData>[],
-    layoutConfig: Partial<LayoutWithNamedImage>,
-    distinctActionsTaken: {url:string, group:string}[]
+    plotData: Partial<PlotData>[],
+    layoutConfig: LayoutWithNamedImage,
+    actionGroupIconMap: Record<string, string>
   ) => void
 ) => {
   const csvProcessor = new ActionsPlotCsvProcessor();
@@ -28,7 +28,7 @@ export const parseCsvData = (
       onComplete(
         [csvProcessor.createScatterPlotData(), errorScatterData, ...csvProcessor.collectCompressionLines()],
         layoutConfig,
-        csvProcessor.distinctActionsTaken.items
+        csvProcessor.actionGroupIconMap
       );
     }
   });

@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from 'react';
-import {Datum, Layout, ScatterData} from 'plotly.js';
+import {Data, Datum, Layout, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
-import {LayoutWithNamedImage} from '@/types';
-import {ACTION_GROUP_MAP} from '@/app/ui/components/constants';
+import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
+import {actionsDictionary} from '@/app/ui/components/constants';
 
 const files = [
   'vj6wm2c30u3qqk5kbuj9v/timeline-multiplayer-06102024.csv?rlkey=ztegai6tskj3jgbxjbwz5l393&st=ofuo2z4c&dl=0',
@@ -13,68 +13,63 @@ const files = [
 
 const fileLink = `https://dl.dropboxusercontent.com/scl/fi/${files[2]}`;
 
-export const useActionsData = (selectedMarkers: string[]) => {
-    const [actionsData, setActionsData] = useState<Partial<ScatterData>[]>([]);
+export const useActionsData = () => {
+    const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
+    const [actionsData, setActionsData] = useState<Data[]>([]);
     const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({});
 
     const parsedDataRef = useRef<{
         plotData: Partial<ScatterData>[];
-        layoutConfig: Partial<LayoutWithNamedImage>;
-        distinctActionsTaken : {url:string, group:string}[]
-    } >({ plotData: [], layoutConfig: {}, distinctActionsTaken: [] });
+        layoutConfig: LayoutWithNamedImage;
+    } >({ plotData: [], layoutConfig: {images:[]} });
+
     useEffect(() => {
-        parseCsvData(
-          fileLink,
-            (plotData, layoutConfig, distinctActionsTaken) => {
-                parsedDataRef.current = {
-                    plotData,
-                    layoutConfig,
-                    distinctActionsTaken
-                };
-                setActionsLayout(layoutConfig);
-                updateActionsData(plotData, layoutConfig, selectedMarkers);
-            }
+        parseCsvData( fileLink,
+           (plotData,
+                       layoutConfig,
+                       actionGroupIconMap) => {
+                          parsedDataRef.current = { plotData, layoutConfig };
+                          setActionGroupIcons(Object.entries(actionGroupIconMap).map((entry)=>({value:entry[0],source:entry[1]})));
+                          setActionsData(plotData);
+                          setActionsLayout(layoutConfig);
+                      }
         );
     }, []);
 
-    useEffect(() => {
-        if (parsedDataRef.current) {
-            updateActionsData( parsedDataRef.current.plotData,
-              parsedDataRef.current.layoutConfig,
-                selectedMarkers
-            );
-        }
-    }, [selectedMarkers]);
+  const updateActionsData = (selectedMarkers: string[]) => {
+    const filteredData = filterActionsData(parsedDataRef.current.plotData, parsedDataRef.current.layoutConfig, selectedMarkers);
 
-    const updateActionsData = (
-        plotData: Partial<ScatterData>[],
-        layoutConfig: Partial<LayoutWithNamedImage>,
-        selectedMarkers: string[],
-    ) => {
-        const filteredData = filterActionsData(plotData, layoutConfig, selectedMarkers);
+    setActionsData(filteredData.plotData);
+    setActionsLayout({ ...filteredData.layoutConfig, images: filteredData.layoutConfig.images });
+  };
 
-        setActionsData(filteredData.plotData);
-        setActionsLayout({ ...filteredData.layoutConfig, images: filteredData.layoutConfig.images });
-    };
 
-    const filterActionsData = (plotData: Partial<ScatterData>[],
-                               layoutConfig: Partial<LayoutWithNamedImage>,
-                               selectedActionGroups: string[]):
-      { plotData: Partial<ScatterData>[]; layoutConfig: Partial<Layout> } => {
-        const [actionsScatterData] = plotData;
-        const { x, y, text, customdata, hovertext } = actionsScatterData??{};
-        const selectedActions = selectedActionGroups.flatMap(group=>ACTION_GROUP_MAP[group].actions);
+    const filterActionsData = (plotData: Data[],
+                               layoutConfig: LayoutWithNamedImage,
+                               selectedActionGroups: string[]): { plotData: Data[]; layoutConfig: Partial<Layout> } => {
+      const actionsScatterData = plotData[0] as ScatterData;
+      const {x, y, text, customdata, hovertext} = (actionsScatterData ?? {}) as ScatterData;
+      if (!x || !y) {
+        return {plotData: [], layoutConfig: {}};
+      }
 
-        if (!x || !y) {
-            return { plotData: [], layoutConfig: {} };
-        }
+      const selectedActions = actionsDictionary.getActionNamesByGroups(selectedActionGroups);
 
-        const filteredIndices = customdata?.reduce<number[]>((acc, value, index) => {
+
+      const filtered = customdata?.reduce((acc, value, index) => {
             if (selectedActions.includes(value as string)) {
-                acc.push(index);
+              acc.x.push(x[index] as Datum);
+              acc.y.push(y[index] as Datum);
+              acc.color.push((actionsScatterData.marker?.color as string[])[index]);
+              if (text) {
+                acc.text.push(text[index] as string);
+              }
+              if (hovertext) {
+                acc.hovertext.push(hovertext[index] as string);
+              }
             }
             return acc;
-        }, []);
+        }, {x:[] as Datum[], y:[] as Datum[], color:[] as string[], text:[] as string[], hovertext:[] as string[]});
 
         //error images are on the negative y-axis, don't filter them
         const filteredImages = layoutConfig.images?.filter((image) => (image.y as number) < 0 || image.name && selectedActions.includes(image.name));
@@ -82,15 +77,15 @@ export const useActionsData = (selectedMarkers: string[]) => {
         return {
             plotData: [{
                 ...actionsScatterData,
-                x: filteredIndices?.map((index) => x[index]) as Datum[],
-                y: filteredIndices?.map((index) => y[index]) as Datum[],
+                x: filtered?.x,
+                y: filtered?.y,
                 marker: {
                     size: 18,
                     symbol: 'square',
-                    color: filteredIndices?.map((index) => (actionsScatterData.marker?.color as string[])[index]),
+                    color: filtered?.color,
                 },
-                text: text && filteredIndices?.map((index) => text[index]),
-                hovertext: hovertext && filteredIndices?.map((index) => hovertext[index]),
+                text: filtered?.text,
+                hovertext: filtered?.hovertext,
             }, plotData[1]],
             layoutConfig: {
                 ...layoutConfig,
@@ -99,5 +94,5 @@ export const useActionsData = (selectedMarkers: string[]) => {
         };
     };
 
-    return { actionsData, actionsLayout, distinctActionsTaken:parsedDataRef.current?.distinctActionsTaken };
+    return { actionsData, actionsLayout, actionGroupIcons, updateActionsData };
 };
