@@ -15,7 +15,7 @@ export class PlotlyCurrentTimeMarker {
     this.#y = y;
   }
 
-  toPlotlyFormat(): Partial<Data>{
+  toPlotlyFormat(): Data{
     return {
       type: this.#type,
       mode: this.#mode,

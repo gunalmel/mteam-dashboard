@@ -1,4 +1,4 @@
-import { Today } from '@/app/utils/timeUtils';
+import { Today } from '@/app/utils/TodayDateTimeConverter';
 
 describe('Today Utils', () => {
   const now = new Date();
