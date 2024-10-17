@@ -1,8 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
-import {Data, Datum, Layout, ScatterData} from 'plotly.js';
+import {useEffect, useState} from 'react';
+import {Data, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
 import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
+import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
 
 const files = [
   'vj6wm2c30u3qqk5kbuj9v/timeline-multiplayer-06102024.csv?rlkey=ztegai6tskj3jgbxjbwz5l393&st=ofuo2z4c&dl=0',
@@ -14,85 +15,83 @@ const files = [
 const fileLink = `https://dl.dropboxusercontent.com/scl/fi/${files[2]}`;
 
 export const useActionsData = () => {
-    const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
-    const [actionsData, setActionsData] = useState<Data[]>([]);
-    const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({});
+  const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
+  const [actionsData, setActionsData] = useState<Data[]>([]);
+  const [actionsLayout, setActionsLayout] = useState<LayoutWithNamedImage>({images: []});
 
-    const parsedDataRef = useRef<{
-        plotData: Partial<ScatterData>[];
-        layoutConfig: LayoutWithNamedImage;
-    } >({ plotData: [], layoutConfig: {images:[]} });
-
-    useEffect(() => {
-        parseCsvData( fileLink,
-           (plotData,
-                       layoutConfig,
-                       actionGroupIconMap) => {
-                          parsedDataRef.current = { plotData, layoutConfig };
-                          setActionGroupIcons(Object.entries(actionGroupIconMap).map((entry)=>({value:entry[0],source:entry[1]})));
-                          setActionsData(plotData);
-                          setActionsLayout(layoutConfig);
-                      }
-        );
-    }, []);
+  useEffect(() => {
+    parseCsvData(fileLink, (plotData, layoutConfig, actionGroupIconMap) => {
+      setActionGroupIcons(Object.entries(actionGroupIconMap).map((entry) => ({value: entry[0], source: entry[1]})));
+      setActionsData(plotData);
+      setActionsLayout(layoutConfig);
+    });
+  }, []);
 
   const updateActionsData = (selectedMarkers: string[]) => {
-    const filteredData = filterActionsData(parsedDataRef.current.plotData, parsedDataRef.current.layoutConfig, selectedMarkers);
+    const filteredData = filterActionsData(actionsData, actionsLayout, selectedMarkers);
 
     setActionsData(filteredData.plotData);
-    setActionsLayout({ ...filteredData.layoutConfig, images: filteredData.layoutConfig.images });
+    setActionsLayout({...filteredData.layoutConfig, images: filteredData.layoutConfig.images});
   };
 
+  const filterActionsData = (
+    plotData: Data[],
+    layoutConfig: LayoutWithNamedImage,
+    selectedActionGroups: string[]
+  ): {plotData: Data[]; layoutConfig: LayoutWithNamedImage} => {
+    if (!plotData[0]) {
+      return {plotData: [], layoutConfig: {images: []}};
+    }
 
-    const filterActionsData = (plotData: Data[],
-                               layoutConfig: LayoutWithNamedImage,
-                               selectedActionGroups: string[]): { plotData: Data[]; layoutConfig: Partial<Layout> } => {
-      const actionsScatterData = plotData[0] as ScatterData;
-      const {x, y, text, customdata, hovertext} = (actionsScatterData ?? {}) as ScatterData;
-      if (!x || !y) {
-        return {plotData: [], layoutConfig: {}};
+    const actionsScatterData = plotData[0] as ScatterData;
+    const selectedActions = actionsDictionary.getActionNamesByGroups(selectedActionGroups);
+
+    const filtered = actionsScatterData.customdata.reduce(
+      (acc, value) => {
+        if (selectedActions.includes(value as string)) {
+          acc.textColor.push('rgba(0,0,0,1)');
+          acc.hoverinfo.push('text');
+          acc.opacity.push(1);
+        } else {
+          acc.textColor.push('rgba(0,0,0,0)');
+          acc.hoverinfo.push('none');
+          acc.opacity.push(0);
+        }
+        return acc;
+      },
+      {textColor: [] as string[], opacity: [] as number[], hoverinfo: [] as string[]}
+    );
+
+    return {
+      plotData: [
+        {
+          ...actionsScatterData,
+          marker: {
+            ...actionsScatterData.marker,
+            color: actionsScatterData.marker?.color,
+            opacity: filtered.opacity
+          },
+          textfont: {
+            ...actionsScatterData.textfont,
+            color: filtered.textColor
+          },
+          // plotly.js doesn't give a mechanism to hide hovertext on a per-point basis but the below seemed to
+          // work even when typescript type didn't allow and documentation didn't state. That means we can get rid off
+          // ref variable to store initial state of scatterData and create a filtered set from it or replace fields within it to update the state.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          hoverinfo: filtered.hoverinfo
+        },
+        ...plotData.slice(1)
+      ],
+      layoutConfig: {
+        ...layoutConfig,
+        images: layoutConfig.images.map((image, idx) => {
+          return (image.y as number) > 0 ? {...image, opacity: filtered.opacity[idx]} : image;
+        })
       }
-
-      const selectedActions = actionsDictionary.getActionNamesByGroups(selectedActionGroups);
-
-
-      const filtered = customdata?.reduce((acc, value, index) => {
-            if (selectedActions.includes(value as string)) {
-              acc.x.push(x[index] as Datum);
-              acc.y.push(y[index] as Datum);
-              acc.color.push((actionsScatterData.marker?.color as string[])[index]);
-              if (text) {
-                acc.text.push(text[index] as string);
-              }
-              if (hovertext) {
-                acc.hovertext.push(hovertext[index] as string);
-              }
-            }
-            return acc;
-        }, {x:[] as Datum[], y:[] as Datum[], color:[] as string[], text:[] as string[], hovertext:[] as string[]});
-
-        //error images are on the negative y-axis, don't filter them
-        const filteredImages = layoutConfig.images?.filter((image) => (image.y as number) < 0 || image.name && selectedActions.includes(image.name));
-
-        return {
-            plotData: [{
-                ...actionsScatterData,
-                x: filtered?.x,
-                y: filtered?.y,
-                marker: {
-                    size: 18,
-                    symbol: 'square',
-                    color: filtered?.color,
-                },
-                text: filtered?.text,
-                hovertext: filtered?.hovertext,
-            }, plotData[1]],
-            layoutConfig: {
-                ...layoutConfig,
-                images: filteredImages
-            },
-        };
     };
+  };
 
-    return { actionsData, actionsLayout, actionGroupIcons, updateActionsData };
+  return {actionsData, actionsLayout, actionGroupIcons, updateActionsData};
 };

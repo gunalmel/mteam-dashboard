@@ -1,6 +1,9 @@
 import {HoverLabel, PlotData} from 'plotly.js';
 
 export class PlotlyScatterData {
+    static SYMBOL = 'square';
+    static MARKER_SIZE = 18;
+    static TEXT_FONT_SIZE = 8;
     readonly x: (string | number)[];
     readonly y: (string | number)[];
     readonly text: string[];
@@ -25,15 +28,15 @@ export class PlotlyScatterData {
             hovertext: this.hovertext,
             customdata: this.customdata,
             marker: {
-                size: 18,
-                symbol: 'square',
+                size: PlotlyScatterData.MARKER_SIZE,
+                symbol: PlotlyScatterData.SYMBOL,
                 color: this.colors
             },
             mode: 'text+markers',
             type: 'scatter',
             hoverinfo: 'text',
             textposition: 'bottom center',
-            textfont: { size: 8 }
+            textfont: { size: PlotlyScatterData.TEXT_FONT_SIZE }
         };
     }
 
