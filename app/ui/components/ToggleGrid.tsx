@@ -37,7 +37,7 @@ const ToggleGrid: FC<ToggleGridProps> = ({items, onChange}) => {
       </div>
       <div className='flex items-center pb-3'>
         <label className='relative cursor-pointer'>
-          <input
+          <input data-testid='toggle-all'
             type='checkbox'
             className='sr-only peer'
             checked={initialState.every((item) => selectedItems.includes(item))}
