@@ -3,7 +3,6 @@ import {Data, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
 import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
-import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
 
 const files = [
   'vj6wm2c30u3qqk5kbuj9v/timeline-multiplayer-06102024.csv?rlkey=ztegai6tskj3jgbxjbwz5l393&st=ofuo2z4c&dl=0',
@@ -31,7 +30,7 @@ export const useActionsData = () => {
     const filteredData = filterActionsData(actionsData, actionsLayout, selectedMarkers);
 
     setActionsData(filteredData.plotData);
-    setActionsLayout({...filteredData.layoutConfig, images: filteredData.layoutConfig.images});
+    setActionsLayout(filteredData.layoutConfig);
   };
 
   const filterActionsData = (

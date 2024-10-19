@@ -19,7 +19,7 @@ export class PlotlyScatterImage {
             y: this.y,
             name: this.name,
             sizex: 17000,
-            sizey: 0.5,
+            sizey: 0.7,
             xref: 'x',
             yref: 'y',
             xanchor: 'center',

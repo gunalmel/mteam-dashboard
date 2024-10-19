@@ -32,7 +32,7 @@ const FilteredActionsPlot: FC<FilteredActionsProps> = ({onClick, currentTime}) =
     <>
         <ToggleGrid items={actionGroupIcons} onChange={handleSelect} />
         <Plot
-          style={{width: '100%', height: '800px'}}
+          style={{width: '100%', height: '600px'}}
           data={plotData}
           layout={actionsLayout}
           onClick={onClick}

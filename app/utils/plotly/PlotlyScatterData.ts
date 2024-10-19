@@ -2,8 +2,8 @@ import {HoverLabel, PlotData} from 'plotly.js';
 
 export class PlotlyScatterData {
     static SYMBOL = 'square';
-    static MARKER_SIZE = 18;
-    static TEXT_FONT_SIZE = 8;
+    static MARKER_SIZE = 24;
+    static TEXT_FONT_SIZE = 10;
     readonly x: (string | number)[];
     readonly y: (string | number)[];
     readonly text: string[];

@@ -31,7 +31,7 @@ const ToggleGrid: FC<ToggleGridProps> = ({items, onChange}) => {
   }, [selectedItems]);
 
   return (
-    <div className='pl-28'>
+    <div className='pl-20'>
       <div className='mb-2 text-sm text-gray-700'>
         <hr className='border-t-2 border-green-600 w-6 inline-block my-1' />: Compression Interval
       </div>
@@ -51,7 +51,7 @@ const ToggleGrid: FC<ToggleGridProps> = ({items, onChange}) => {
             after:w-8 after:transition-all peer-checked:bg-blue-300"></div>
         </label>
       </div>
-      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1'>
         {items.map((item) => (
           <ImageToggle
             key={item.value}

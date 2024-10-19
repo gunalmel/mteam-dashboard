@@ -17,7 +17,13 @@ export default class PlotlyScatterLayout {
 
     toPlotlyFormat(): LayoutWithNamedImage {
         return {
-            title: 'Clinical Review Timeline',
+            title: {text: 'Clinical Review Timeline', y:0.98},
+            margin: {
+              t: 0, // Adjust this value to control the top margin
+              l: 50, // Left margin
+              r: 50, // Right margin
+              b: 50, // Bottom margin
+           },
             shapes: this.#shapes,
             annotations: this.#annotations,
             xaxis: {

@@ -195,7 +195,7 @@
     "Order Chest X-ray"
   ],
   "marker": {
-    "size": 18,
+    "size": 24,
     "symbol": "square",
     "color": [
       "green",
@@ -242,6 +242,6 @@
   "hoverinfo": "text",
   "textposition": "bottom center",
   "textfont": {
-    "size": 8
+    "size": 10
   }
 }
