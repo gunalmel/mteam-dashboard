@@ -1,23 +1,32 @@
-import {Annotations, Shape} from 'plotly.js';
+import {Annotations, LayoutAxis, Shape} from 'plotly.js';
 import {ImageWithName, LayoutWithNamedImage} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
 
 export default class PlotlyScatterLayout {
+    readonly #title: string;
     readonly #shapes: Partial<Shape>[];
     readonly #annotations: Partial<Annotations>[];
     readonly #xAxisRange: [(string|number),(string|number)];
     readonly #images: Partial<ImageWithName>[];
+    #yaxis:Partial<LayoutAxis>;
 
-    constructor(shapes: Partial<Shape>[], annotations: Partial<Annotations>[], xAxisRange: [(string|number),(string|number)], images: Partial<ImageWithName>[]) {
+    constructor(title: string, shapes: Partial<Shape>[], annotations: Partial<Annotations>[], xAxisRange: [(string|number),(string|number)], images: Partial<ImageWithName>[]) {
+        this.#title = title;
         this.#shapes = shapes;
         this.#annotations = annotations;
         this.#xAxisRange = xAxisRange;
         this.#images = images;
+        this.#yaxis = { visible: false, range: [-3, actionsDictionary.yMax + 2] };
     }
 
-    toPlotlyFormat(): LayoutWithNamedImage {
+
+  set yaxis(value: Partial<LayoutAxis>) {
+    this.#yaxis = value;
+  }
+
+  toPlotlyFormat(): LayoutWithNamedImage {
         return {
-            title: {text: 'Clinical Review Timeline', y:0.98},
+            title: {text: this.#title, y:0.98},
             margin: {
               t: 0, // Adjust this value to control the top margin
               l: 50, // Left margin
@@ -32,7 +41,7 @@ export default class PlotlyScatterLayout {
                 showgrid: false,
                 tickformat: '%H:%M:%S',
             },
-            yaxis: { visible: false, range: [-3, actionsDictionary.yMax + 2] },
+            yaxis: this.#yaxis,
             showlegend: false,
             autosize: true,
             modebar: {

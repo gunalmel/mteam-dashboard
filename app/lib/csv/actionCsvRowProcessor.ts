@@ -18,6 +18,9 @@ export const processRow = (
   distinctActionGroupIcons: Record<string,string>
 ) => {
   const parsedRow = new ActionsCsvRow(row, STAGE_NAME_MAP);
+  if(parsedRow.timeStamp.seconds!=0) {
+    scatterPlotData.lastDateTimeString = parsedRow.timeStamp.dateTimeString;
+  }
 
   if (parsedRow.doesCPRStart()) {
     compressionLines.addStart( parsedRow.timeStamp.dateTimeString, parsedRow.timeStamp.timeStampString);

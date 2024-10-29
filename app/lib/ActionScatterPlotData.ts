@@ -2,11 +2,13 @@ import ActionsScatterPlotPoint from '@/app/lib/ActionsScatterPlotPoint';
 import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
 import {PlotData} from 'plotly.js';
 import {ImageWithName} from '@/types';
+import {Today} from '@/app/utils/TodayDateTimeConverter';
 
 export default class ActionScatterPlotData {
   readonly points: ActionsScatterPlotPoint[] = [];
   readonly plotlyData = new PlotlyScatterData();
   readonly plotlyImages = new Array<ImageWithName>();
+  lastDateTimeString = '';
 
   markPreviousError() {
     this.getPrevious().markError();
@@ -34,6 +36,6 @@ export default class ActionScatterPlotData {
   }
 
   xAxisRange(): [(string | number), (string | number)] {
-    return [0, this.points[this.points.length - 1].x.dateTimeString + 10];
+    return [Today.getBeginningOfDayString(), '2024-10-29 00:11:54'/*this.lastDateTimeString*/];
   }
 }

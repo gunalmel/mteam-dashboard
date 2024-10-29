@@ -1,7 +1,7 @@
-// eslint-disable-next-line @eslint-community/eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
-import { Data, Layout } from 'plotly.js';
+import {useEffect, useState} from 'react';
+import {Data, Layout} from 'plotly.js';
+import {Today} from '@/app/utils/TodayDateTimeConverter';
+import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 
 export const useCognitiveLoadData = () => {
     const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
@@ -9,29 +9,35 @@ export const useCognitiveLoadData = () => {
 
     useEffect(() => {
         const fetchCognitiveLoadData = async () => {
-            const response = await fetch('/Data_sample2/sensor/umich2/1703183551_1be99daa2ff8508df747e0da6ce673b93cf8865a/sensor_1703183551_1be99daa2ff8508df747e0da6ce673b93cf8865a.json');
-            const sensor = await response.json();
-            const data = sensor.data;
-            const cogLoadData = data.find((sensor: any) => sensor.name === 'CognitiveLoad');
-            if (cogLoadData) {
-                const timestamps = cogLoadData.data.map((point: any) => point[0]);
-                const cogLoad = cogLoadData.data.map((point: any) => point[1]);
-                const minTimestamp = Math.min(...timestamps);
-                const normalizedTimestamps = timestamps.map((ts: number) => ts - minTimestamp);
+            const response = await fetch('https://dl.dropboxusercontent.com/scl/fi/6lmdyuka085hdpakzp7kn/team_lead_cognitive_load.json?rlkey=fm7881olmj0uu7j3zf111ebpd&st=cxwrqgo2&dl=0');
+            const data = await response.json();
+            const timeStamps: string[] = [];
+            const cogLoad: number[] = [];
+            if (data) {
+              // Convert the first epoch to your desired date format
+              const startTime = data[0][0];
+              // Create formatted timestamps relative to the first timestamp
+              data.forEach(([x,y]:[number,number]) => {
+                const elapsedSeconds = (x - startTime);
+                const currentTime = Today.parseSeconds(elapsedSeconds);
+                timeStamps.push(currentTime.dateTimeString);
+                cogLoad.push(y);
+              });
+
                 setCognitiveLoadData([{
-                    x: normalizedTimestamps,
+                    x: timeStamps,
                     y: cogLoad,
                     type: 'scatter',
                     mode: 'lines',
                     name: 'Cognitive Load',
                     line: { color: 'blue' },
                 }]);
-                setCognitiveLoadLayout({
-                    title: 'Cognitive Load Over Time',
-                    xaxis: { title: 'Time (seconds)', range: [0, Math.max(...normalizedTimestamps)] },
-                    yaxis: { title: 'Cognitive Load', range: [0, Math.max(...cogLoad)] },
-                    autosize: true,
-                });
+
+                const layoutConfig = new PlotlyScatterLayout('Cognitive Load Over Time',
+                  [], [], [Today.getBeginningOfDayString(), timeStamps[timeStamps.length-1]] , []);
+                layoutConfig.yaxis = { title: 'Cognitive Load', range: [0, 1] };
+
+                setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
             }
         };
 

@@ -29,7 +29,7 @@ export class Today {
   /**
    * Parse time string in 'HH:MM:SS' format and return an object with
    * today's date and the given time in seconds and string formats.
-   * @returns - Object containing seconds and string values.
+   * @returns - Object containing seconds and string values. {time: seconds ignoring date, dateTimeString: 'YYYY-MM-DD HH:MM:SS', timeStampString: 'HH:MM:SS'}
    * @param timeString The string representation in csv can be '03:06:05' or '3:6:5'
    */
   static parseTime(timeString: string): {seconds: number, dateTimeString: string, timeStampString: string} {
@@ -78,4 +78,27 @@ export class Today {
     // Return the formatted string
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+
+  static parseEpochTime(epochTime: number): {seconds: number, dateTimeString: string, timeStampString: string} {
+    // Create a date object from the epoch time
+    const inputDate = new Date(epochTime * 1000); // Convert epoch to milliseconds
+
+    // Get hours, minutes, and seconds from the input date
+    const hours = inputDate.getUTCHours();
+    const minutes = inputDate.getUTCMinutes();
+    const seconds = inputDate.getUTCSeconds();
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+    // Create today's date
+    const now = new Date();
+    const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), hours, minutes, seconds));
+    // Format the date string in 'YYYY-MM-DD HH:MM:SS' format in UTC
+    const dateTimeString = todayUTC.toISOString().replace('T', ' ').slice(0, 19);
+
+    return {
+      seconds: totalSeconds,
+      dateTimeString,
+      timeStampString: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  };
+    }
 }

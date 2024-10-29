@@ -34,6 +34,7 @@ export default class ActionsPlotCsvProcessor {
 
   layout(): LayoutWithNamedImage {
     return new PlotlyScatterLayout(
+      'Clinical Review Timeline',
       this.stages.plotlyShapes,
       this.stages.plotlyStageAnnotations,
       this.data.xAxisRange(),
