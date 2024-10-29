@@ -34,28 +34,39 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
 };
 
 export const useCognitiveLoadData = () => {
-    const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
-    const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
+  const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
+  const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
 
-    useEffect(() => {
-      const loadData = async () => {
-        const teamLeadPromise = fetchAndProcessData(PlotsFileSource.cognitiveLoad.teamLead.url, PlotsFileSource.cognitiveLoad.teamLead.name, 'blue');
-        const averagePromise = fetchAndProcessData(PlotsFileSource.cognitiveLoad.average.url, PlotsFileSource.cognitiveLoad.average.name, 'red');
+  useEffect(() => {
+    const loadData = async () => {
+      const teamLeadPromise = fetchAndProcessData(
+        PlotsFileSource.cognitiveLoad.teamLead.url,
+        PlotsFileSource.cognitiveLoad.teamLead.name,
+        'blue'
+      );
+      const averagePromise = fetchAndProcessData(
+        PlotsFileSource.cognitiveLoad.average.url,
+        PlotsFileSource.cognitiveLoad.average.name,
+        'red'
+      );
 
-        const [teamLeadResult, averageResult] = await Promise.all([teamLeadPromise, averagePromise]);
-        setCognitiveLoadData([teamLeadResult.seriesData, averageResult.seriesData]);
+      const [teamLeadResult, averageResult] = await Promise.all([teamLeadPromise, averagePromise]);
+      setCognitiveLoadData([teamLeadResult.seriesData, averageResult.seriesData]);
 
-        const layoutConfig = new PlotlyScatterLayout('Cognitive Load Over Time',
-          [], [], [Today.getBeginningOfDayString(), teamLeadResult.xMax] , []);
-        layoutConfig.yaxis = { title: 'Cognitive Load', range: [0, 1] };
-        layoutConfig.showLegend = true;
+      const layoutConfig = new PlotlyScatterLayout(
+        'Cognitive Load Over Time',
+        [],
+        [],
+        [Today.getBeginningOfDayString(), '2024-10-29 00:11:10'],
+        []
+      );
+      layoutConfig.yaxis = {title: 'Cognitive Load', range: [0, 1]};
+      layoutConfig.showLegend = true;
 
-        setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
-      };
-      loadData().catch(console.error);
+      setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
+    };
+    loadData().catch(console.error);
+  }, []);
 
-
-    }, []);
-
-    return { cognitiveLoadData, cognitiveLoadLayout };
+  return {cognitiveLoadData, cognitiveLoadLayout};
 };

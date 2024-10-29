@@ -36,6 +36,6 @@ export default class ActionScatterPlotData {
   }
 
   xAxisRange(): [(string | number), (string | number)] {
-    return [Today.getBeginningOfDayString(), '2024-10-29 00:11:54'/*this.lastDateTimeString*/];
+    return [Today.getBeginningOfDayString(), this.lastDateTimeString];
   }
 }

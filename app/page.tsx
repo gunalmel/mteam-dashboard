@@ -5,14 +5,16 @@ import VideoPlayer from '@/app/ui/components/VideoPlayer';
 import CognitiveLoadPlot from '@/app/ui/components/plots/CognitivePlot';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import FilteredActionsPlot from '@/app/ui/components/plots/FilteredActionsPlot';
+import PlotContext from '@/app/ui/components/PlotContext';
+import {useActionsData} from '@/app/hooks/useActionsData';
 
 const Page = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const seekTo = useRef(0);
 
   const handleTimePointClick = (event: Readonly<PlotMouseEvent>) => {
-    setCurrentTime(Today.timeStampStringToSeconds(event.points[0].x as string));
     seekTo.current = Today.timeStampStringToSeconds(event.points[0].x as string);
+    setCurrentTime(Today.timeStampStringToSeconds(event.points[0].x as string));
   };
 
   const handleTimeUpdate = (time: number) => {
@@ -20,11 +22,13 @@ const Page = () => {
   };
 
   return (
-    <div className='flex flex-col justify-evenly'>
-      <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
-      <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
-      <CognitiveLoadPlot currentTime={currentTime} />
-    </div>
+    <PlotContext.Provider value={useActionsData()}>
+      <div className='flex flex-col justify-evenly'>
+        <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
+        <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
+        <CognitiveLoadPlot currentTime={currentTime} />
+      </div>
+    </PlotContext.Provider>
   );
 };
 
