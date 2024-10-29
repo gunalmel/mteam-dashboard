@@ -3,15 +3,7 @@ import {Data, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
 import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
-
-const files = [
-  'vj6wm2c30u3qqk5kbuj9v/timeline-multiplayer-06102024.csv?rlkey=ztegai6tskj3jgbxjbwz5l393&st=ofuo2z4c&dl=0',
-  'tjl0wfx0nebdkx0w7al6w/timeline-multiplayer-08052024.csv?rlkey=kh4h2s09ombtkbu1iqpp6b7pg&st=b9hozrus&dl=0',
-  '6os941r9qnk19nkd22415/timeline-multiplayer-09182024.csv?rlkey=4lpfpmkf62fnua597t7bh3p17&st=1v2zw6n3&dl=0',
-  '1ls2txjhf6y1yqeab37i9/timeline-multiplayer-09302024.csv?rlkey=3opuazpyvp606md15pnjaxm3q&st=dvi2kwwd&dl=0'
-];
-
-const fileLink = `https://dl.dropboxusercontent.com/scl/fi/${files[2]}`;
+import PlotsFileSource from '@/app/utils/plotSourceProvider';
 
 export const useActionsData = () => {
   const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
@@ -19,7 +11,7 @@ export const useActionsData = () => {
   const [actionsLayout, setActionsLayout] = useState<LayoutWithNamedImage>({images: []});
 
   useEffect(() => {
-    parseCsvData(fileLink, (plotData, layoutConfig, actionGroupIconMap) => {
+    parseCsvData(PlotsFileSource.actions['09182024'].url, (plotData, layoutConfig, actionGroupIconMap) => {
       setActionGroupIcons(Object.entries(actionGroupIconMap).map((entry) => ({value: entry[0], source: entry[1]})));
       setActionsData(plotData);
       setActionsLayout(layoutConfig);
