@@ -26,7 +26,7 @@ const Page = () => {
       <div className='flex flex-col justify-evenly'>
         <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
         <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
-        <CognitiveLoadPlot currentTime={currentTime} />
+        <CognitiveLoadPlot />
       </div>
     </PlotContext.Provider>
   );

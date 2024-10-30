@@ -33,40 +33,57 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
   };
 };
 
-export const useCognitiveLoadData = () => {
+type SourceNames = keyof typeof PlotsFileSource.cognitiveLoad;
+type Sources = typeof PlotsFileSource.cognitiveLoad[SourceNames];
+
+export const loadData = async (source: Sources, onLoad: (data: { seriesData: Data, xMax: string }, averageData: {
+  seriesData: Data,
+  xMax: string
+}, layoutConfig: Partial<Layout>) => void) => {
+  const individualPromise = fetchAndProcessData(
+    source.url,
+    source.name,
+    'blue'
+  );
+  const averageSeries = localStorage.getItem('averageCognitiveLoadSeries');
+  let averagePromise;
+  if(averageSeries) {
+    averagePromise = Promise.resolve(JSON.parse(averageSeries));
+  }else {
+    averagePromise = fetchAndProcessData(
+      PlotsFileSource.cognitiveLoad.average.url,
+      PlotsFileSource.cognitiveLoad.average.name,
+      'red'
+    );
+  }
+
+  const [individualResult, averageResult] = await Promise.all([individualPromise, averagePromise]);
+  localStorage.setItem('averageCognitiveLoadSeries', JSON.stringify(averageResult));
+  const layoutConfig = new PlotlyScatterLayout(
+    'Cognitive Load Over Time',
+    [],
+    [],
+    [Today.getBeginningOfDayString(), individualResult.xMax],
+    []
+  );
+
+  layoutConfig.yaxis = {title: 'Cognitive Load', range: [0, 1]};
+  layoutConfig.showLegend = true;
+
+  onLoad(individualResult, averageResult, layoutConfig.toPlotlyFormat());
+};
+
+export const useCognitiveLoadData = (source: Sources) => {
   const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
   const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
 
   useEffect(() => {
-    const loadData = async () => {
-      const teamLeadPromise = fetchAndProcessData(
-        PlotsFileSource.cognitiveLoad.teamLead.url,
-        PlotsFileSource.cognitiveLoad.teamLead.name,
-        'blue'
-      );
-      const averagePromise = fetchAndProcessData(
-        PlotsFileSource.cognitiveLoad.average.url,
-        PlotsFileSource.cognitiveLoad.average.name,
-        'red'
-      );
-
-      const [teamLeadResult, averageResult] = await Promise.all([teamLeadPromise, averagePromise]);
-      setCognitiveLoadData([teamLeadResult.seriesData, averageResult.seriesData]);
-
-      const layoutConfig = new PlotlyScatterLayout(
-        'Cognitive Load Over Time',
-        [],
-        [],
-        [Today.getBeginningOfDayString(), '2024-10-29 00:11:10'],
-        []
-      );
-      layoutConfig.yaxis = {title: 'Cognitive Load', range: [0, 1]};
-      layoutConfig.showLegend = true;
-
-      setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
+    const onLoad = (data: { seriesData: Data; }, averageData: { seriesData: Data; }, layoutConfig:Partial<Layout>) => {
+      setCognitiveLoadData([data.seriesData, averageData.seriesData]);
+      setCognitiveLoadLayout(layoutConfig);
     };
-    loadData().catch(console.error);
+    loadData(source, onLoad).catch(console.error);
   }, []);
 
-  return {cognitiveLoadData, cognitiveLoadLayout};
+  return {cognitiveLoadData, cognitiveLoadLayout, setCognitiveLoadData};
 };

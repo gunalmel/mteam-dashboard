@@ -309,8 +309,8 @@
   ],
   "xaxis": {
     "range": [
-      0,
-      "2024-10-10 00:10:2210"
+      "2024-10-10 00:00:00",
+      "2024-10-10 00:11:10"
     ],
     "title": "Time (seconds)",
     "showgrid": false,
@@ -325,7 +325,12 @@
   },
   "showlegend": false,
   "autosize": true,
-  "margin": {
+  "legend": {
+    "x": 1,
+    "xanchor": "right",
+    "y": 1
+  },
+"margin": {
     "b": 50,
     "l": 50,
     "r": 50,
