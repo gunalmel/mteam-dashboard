@@ -34,3 +34,12 @@ export interface ActionImage {
   group: string;
   y: number;
 }
+export interface GazeData {
+  time: number; // Unix timestamp in seconds
+  category?: string|null;
+}
+
+export interface GazeDataStack {
+  time: number;
+  counts: Record<GazeData.category, number>;
+}

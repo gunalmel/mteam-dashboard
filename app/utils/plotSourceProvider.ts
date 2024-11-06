@@ -39,6 +39,24 @@ const PlotsFileSource = {
       name:'Airway',
       url: `${baseUrl}/v39rhujeqde7pj3r57xlk/airway_cognitive_load.json?rlkey=79b0094va3d4n6teq6zn4ko11&st=3n5gf8ie&dl=0`
     }
+  },
+  gaze:{
+    teamLead: {
+      name:'Team Lead',
+      url: `${baseUrl}/ujv8zhqty08u2xmcb7mt9/team_lead_fixation_data.json?rlkey=ni6lwp5a6cx7ioe9ydr4uerxe&st=m90n3yjg&dl=0`
+    },
+    defib:{
+      name: 'Defibrillator',
+      url: `${baseUrl}/64rs4pjq7iyva4hceq553/defib_fixation_data.json?rlkey=3a22v8gqwym18iej2usarlmc2&st=t9kdd47x&dl=0`
+    },
+    compressor: {
+      name:'Compressor',
+      url: `${baseUrl}/rnt4fk27e55xqmtgqdww5/cpr_fixation_data.json?rlkey=hdm0ara4on6it50dszif3ualx&st=khc7myuo&dl=0`
+    },
+    airway: {
+      name:'Airway',
+      url: `${baseUrl}/natojy0easb7ckev55mgs/airway_fixation_data.json?rlkey=kqmpytb0i00xjrn8jy66arysq&st=u6amcn8x&dl=0`
+    }
   }
 };
 

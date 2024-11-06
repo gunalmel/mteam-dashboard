@@ -1,84 +1,16 @@
 'use client';
-import {useEffect, useState} from 'react';
-import {Layout, PlotData} from 'plotly.js';
+import {Layout} from 'plotly.js';
 import dynamic from 'next/dynamic';
+import {useGazeData} from '@/app/hooks/useGazeData';
 
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-interface PlotCounts {
-  time: number;
-  counts: Record<string, number>;
-}
-
-interface GazeDataPoint {
-  time: number; // Unix timestamp in seconds
-  category: string; // "Team", "Patient", "Equipment", "Monitors", etc.
-}
-
-const windowSize = 10; // 10 seconds
-const stepSize = 10; // 10 seconds
+const windowSize = 10; // 10-second window
 const categories = ['Team', 'Patient', 'Equipment', 'Monitors'];
 
-// Function to calculate category counts in sliding windows
-function calculateCategoryCounts(
-  data: GazeDataPoint[],
-  windowSize: number, // in seconds
-  stepSize: number // in seconds
-): {time: number; counts: PlotCounts['counts']}[] {
-  const result: {time: number; counts: Record<string, number>}[] = [];
-
-  // Find the minimum and maximum time in the data
-  const minTime = Math.min(...data.map((d) => d.time));
-  const maxTime = Math.max(...data.map((d) => d.time));
-
-  // Iterate through each window start time
-  for (let startTime = minTime; startTime <= maxTime; startTime += stepSize) {
-    const endTime = startTime + windowSize;
-
-    // Count occurrences of each category within the window
-    const counts: Record<string, number> = {};
-    data.forEach((d) => {
-      if (d.time >= startTime && d.time < endTime) {
-        counts[d.category] = (counts[d.category] || 0) + 1;
-      }
-    });
-
-    // Add the result for this window
-    result.push({time: startTime, counts});
-  }
-
-  return result;
-}
-
-// Function to transform data into Plotly format for a stacked bar chart
-function transformDataForPlotly(categoryCounts: PlotCounts[], categories: string[]) {
-  const x = categoryCounts.map((d) => new Date(d.time * 1000).toISOString()); // Convert to ISO string for better readability
-  return categories.map((category) => ({
-    x: x,
-    y: categoryCounts.map((d) => d.counts[category] || 0),
-    name: category,
-    type: 'bar'
-  }));
-}
-
 const Page = () => {
-  const [plotData, setPlotData] = useState<Partial<PlotData>[]>([]);
-  useEffect(() => {
-    const fetchAndProcessData = async () => {
-      const baseUrl = 'https://dl.dropboxusercontent.com/scl/fi';
-      const response = await fetch(
-        `${baseUrl}//ujv8zhqty08u2xmcb7mt9/team_lead_fixation_data.json?rlkey=ni6lwp5a6cx7ioe9ydr4uerxe&st=m90n3yjg&dl=0`
-      );
-      const data = await response.json();
+  const [plotData] = useGazeData(windowSize, categories);
 
-      const categoryCounts = calculateCategoryCounts(data, windowSize, stepSize);
-
-      const plotData = transformDataForPlotly(categoryCounts, categories);
-      setPlotData(plotData as Partial<PlotData>[]);
-    };
-
-    fetchAndProcessData().catch(console.error);
-  }, []);
   return (plotData??[]).length === 0 ? <div>Loading...</div> : (
     <>
       <Plot
@@ -140,7 +72,7 @@ const Page = () => {
             yaxis: {
               title: 'Count of Category'
             }
-          } as Partial<Plotly.Layout>
+          } as Partial<Layout>
         }
         style={{width: '100%', height: '500px'}}
       />
