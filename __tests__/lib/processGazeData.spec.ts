@@ -17,9 +17,9 @@ describe('processGazeData', () => {
     ];
     const windowSize = 2;
     const expected = [
-      { time: 3, counts: { A: 2, B:2 } },
-      { time: 5, counts: { A: 1, B: 1 } },
-      { time: 7, counts: { '':3, C:1 } },
+      { time: 3, counts: { A: 0.5, B:0.5 }, totalCount: 4 },
+      { time: 5, counts: { A: 0.5, B: 0.5 }, totalCount: 2 },
+      { time: 7, counts: { C: 1 }, totalCount: 1 }
     ];
 
     const result = processGazeData(data, windowSize);

@@ -1,10 +1,9 @@
 import {useEffect, useState} from 'react';
-import {PlotData} from 'plotly.js';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import {processGazeData, transformGazeDataForPlotly} from '@/app/lib/processGazeData';
 
-export function useGazeData(windowSize: number, categories: string[]) {
-  const [plotData, setPlotData] = useState<Partial<PlotData>[]>([]);
+export function useGazeData(windowSize: number) {
+  const [plotData, setPlotData] = useState({} as ReturnType<typeof transformGazeDataForPlotly>);
 
   useEffect(() => {
     const fetchAndProcessData = async () => {
@@ -13,8 +12,8 @@ export function useGazeData(windowSize: number, categories: string[]) {
 
       const categoryCounts = processGazeData(data, windowSize);
 
-      const plotData = transformGazeDataForPlotly(categoryCounts, categories);
-      setPlotData(plotData as Partial<PlotData>[]);
+      const plotData = transformGazeDataForPlotly(categoryCounts);
+      setPlotData(plotData);
     };
 
     fetchAndProcessData().catch(console.error);
