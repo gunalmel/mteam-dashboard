@@ -40,7 +40,7 @@ export interface GazeData {
 }
 
 export interface GazeDataStack {
-  time: number;
+  time: string;
   counts: Record<GazeData.category, number>;
   totalCount: number;
 }

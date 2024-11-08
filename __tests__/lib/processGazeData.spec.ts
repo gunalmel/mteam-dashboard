@@ -1,5 +1,6 @@
 import { GazeData } from '@/types';
 import {processGazeData} from '@/app/lib/processGazeData';
+import {Today} from '@/app/utils/TodayDateTimeConverter';
 
 describe('processGazeData', () => {
   it('should calculate category counts in sliding windows', () => {
@@ -17,9 +18,9 @@ describe('processGazeData', () => {
     ];
     const windowSize = 2;
     const expected = [
-      { time: 3, counts: { A: 0.5, B:0.5 }, totalCount: 4 },
-      { time: 5, counts: { A: 0.5, B: 0.5 }, totalCount: 2 },
-      { time: 7, counts: { C: 1 }, totalCount: 1 }
+      { time: Today.parseSeconds(2).dateTimeString, counts: { A: 0.5, B:0.5 }, totalCount: 4 },
+      { time: Today.parseSeconds(4).dateTimeString, counts: { A: 0.5, B: 0.5 }, totalCount: 2 },
+      { time: Today.parseSeconds(6).dateTimeString, counts: { C: 1 }, totalCount: 1 }
     ];
 
     const result = processGazeData(data, windowSize);
