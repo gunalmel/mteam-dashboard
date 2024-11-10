@@ -79,7 +79,7 @@ export const useActionsData = () => {
         ...layoutConfig,
         images: layoutConfig.images.map((image, idx) => {
           return (image.y as number) > 0 ? {...image, opacity: filtered.opacity[idx]} : image;
-        })
+        }),
       }
     };
   };
