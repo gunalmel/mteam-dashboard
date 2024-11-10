@@ -1,23 +1,25 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
-import {processGazeData, transformGazeDataForPlotly} from '@/app/lib/processGazeData';
+import { processGazeData, transformGazeDataForPlotly } from '@/app/lib/processGazeData';
 
-export function useGazeData(windowSize: number) {
-  const [plotData, setPlotData] = useState({} as ReturnType<typeof transformGazeDataForPlotly>);
+type SourceNames = keyof typeof PlotsFileSource.gaze;
 
-  useEffect(() => {
-    const fetchAndProcessData = async () => {
-      const response = await fetch(PlotsFileSource.gaze.teamLead.url);
-      const data = await response.json();
+export function useGazeData(windowSize: number, selectedSource: SourceNames) {
+    const [plotData, setPlotData] = useState({} as ReturnType<typeof transformGazeDataForPlotly>);
 
-      const categoryCounts = processGazeData(data, windowSize);
+    useEffect(() => {
+        const fetchAndProcessData = async () => {
+            const response = await fetch(PlotsFileSource.gaze[selectedSource].url);
+            const data = await response.json();
 
-      const plotData = transformGazeDataForPlotly(categoryCounts);
-      setPlotData(plotData);
-    };
+            const categoryCounts = processGazeData(data, windowSize);
 
-    fetchAndProcessData().catch(console.error);
-  }, []);
+            const plotData = transformGazeDataForPlotly(categoryCounts);
+            setPlotData(plotData);
+        };
 
-  return [plotData, setPlotData] as const;
+        fetchAndProcessData().catch(console.error);
+    }, [selectedSource, windowSize]);
+
+    return [plotData, setPlotData] as const;
 }

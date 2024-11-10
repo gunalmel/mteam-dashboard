@@ -7,6 +7,7 @@ import {Today} from '@/app/utils/TodayDateTimeConverter';
 import FilteredActionsPlot from '@/app/ui/components/plots/FilteredActionsPlot';
 import PlotContext from '@/app/ui/components/PlotContext';
 import {useActionsData} from '@/app/hooks/useActionsData';
+import GazePlot from '@/app/ui/components/plots/GazePlot';
 
 const Page = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -27,6 +28,7 @@ const Page = () => {
         <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
         <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
         <CognitiveLoadPlot />
+        <GazePlot />
       </div>
     </PlotContext.Provider>
   );
