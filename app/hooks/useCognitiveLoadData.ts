@@ -36,54 +36,53 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
 type SourceNames = keyof typeof PlotsFileSource.cognitiveLoad;
 type Sources = typeof PlotsFileSource.cognitiveLoad[SourceNames];
 
-export const loadData = async (source: Sources, onLoad: (data: { seriesData: Data, xMax: string }, averageData: {
-  seriesData: Data,
-  xMax: string
-}, layoutConfig: Partial<Layout>) => void) => {
+export const loadData = async (source: Sources) => {
   const individualPromise = fetchAndProcessData(
     source.url,
     source.name,
     'blue'
   );
   const averageSeries = localStorage.getItem('averageCognitiveLoadSeries');
-  let averagePromise;
+  let individualResult, averageResult;
   if(averageSeries) {
-    averagePromise = Promise.resolve(JSON.parse(averageSeries));
+    averageResult = JSON.parse(averageSeries);
+    individualResult = await individualPromise;
   }else {
-    averagePromise = fetchAndProcessData(
+    [individualResult, averageResult] = await Promise.all([individualPromise,fetchAndProcessData(
       PlotsFileSource.cognitiveLoad.average.url,
       PlotsFileSource.cognitiveLoad.average.name,
       'red'
-    );
+    )]);
+    localStorage.setItem('averageCognitiveLoadSeries', JSON.stringify(averageResult));
   }
 
-  const [individualResult, averageResult] = await Promise.all([individualPromise, averagePromise]);
-  localStorage.setItem('averageCognitiveLoadSeries', JSON.stringify(averageResult));
   const layoutConfig = new PlotlyScatterLayout(
     'Cognitive Load Over Time',
     [],
     [],
-    [Today.getBeginningOfDayString(), individualResult.xMax],
+    [0, 0],
     []
   );
 
   layoutConfig.yaxis = {title: 'Cognitive Load', range: [0, 1]};
   layoutConfig.showLegend = true;
-
-  onLoad(individualResult, averageResult, layoutConfig.toPlotlyFormat());
+  return [individualResult, averageResult, layoutConfig];
 };
 
-export const useCognitiveLoadData = (source: Sources) => {
+export const useCognitiveLoadData = (source: SourceNames) => {
   const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
   const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
-
   useEffect(() => {
-    const onLoad = (data: { seriesData: Data; }, averageData: { seriesData: Data; }, layoutConfig:Partial<Layout>) => {
-      setCognitiveLoadData([data.seriesData, averageData.seriesData]);
-      setCognitiveLoadLayout(layoutConfig);
-    };
-    loadData(source, onLoad).catch(console.error);
-  }, []);
+    localStorage.removeItem('averageCognitiveLoadSeries');
+  },[]);
+  useEffect(() => {
+    loadData(PlotsFileSource.cognitiveLoad[source])
+      .then(([data, averageData, layoutConfig]) => {
+        setCognitiveLoadData([data.seriesData, averageData.seriesData]);
+        setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
+      })
+      .catch(console.error);
+  }, [source]);
 
   return {cognitiveLoadData, cognitiveLoadLayout, setCognitiveLoadData};
 };
