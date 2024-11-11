@@ -36,11 +36,11 @@ const FilteredActionsPlot: FC<FilteredActionsProps> = ({onClick, currentTime}) =
   }, [actionsData, actionsLayout, actionGroupIcons]);
 
   if (!isDataReady) {
-    return <div>Loading...</div>;
+    return <div>Loading Clinical Review Timeline...</div>;
   }
   return (
-    <>
-      <ToggleGrid items={actionGroupIcons} onChange={handleSelect} />
+    <div className="flex flex-col items-center p-4">
+      <ToggleGrid items={actionGroupIcons} onChange={handleSelect}/>
       <Plot
         style={{width: '100%', height: '600px'}}
         data={plotData}
@@ -49,7 +49,7 @@ const FilteredActionsPlot: FC<FilteredActionsProps> = ({onClick, currentTime}) =
         config={{displayModeBar: true, responsive: true, displaylogo: false}}
         useResizeHandler={true} // Ensure the plot adjusts size when container changes
       />
-    </>
+    </div>
   );
 };
 
