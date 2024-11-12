@@ -1,5 +1,5 @@
 'use client';
-import {Layout, PlotRelayoutEvent, UpdateMenuButton} from 'plotly.js';
+import {Layout, PlotRelayoutEvent, Shape, UpdateMenuButton} from 'plotly.js';
 import dynamic from 'next/dynamic';
 import {useGazeData} from '@/app/hooks/useGazeData';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
@@ -23,13 +23,40 @@ Object.keys(PlotsFileSource.gaze).forEach((key) => {
   });
 });
 
+// Generates vertical dotted line shapes using context actionsLayout.shapes
+const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shape>[] => {
+  // Extract unique x1 values for vertical lines
+  const uniqueX1Values = Array.from(new Set(shapesArray.map((shape) => shape.x1)));
+
+  // Create vertical line shapes for each unique x1 value
+  return uniqueX1Values.map((x1Value) => ({
+    type: 'line',
+    x0: x1Value,
+    x1: x1Value,
+    y0: 0,
+    y1: 1,
+    xref: 'x',
+    yref: 'paper',
+    line: {
+      color: 'black',
+      width: 2,
+      dash: 'dot'
+    }
+  })) as Partial<Shape>[];
+};
+
+
 const GazePlot = () => {
   const {actionsLayout} = useContext(PlotContext);
   const [selectedSource, setSelectedSource] = useState<SourceNames>(selections[0] as SourceNames);
   const [plotData] = useGazeData(windowSize, selectedSource);
+
+  // Generate vertical line shapes based on actionsLayout.shapes
+  const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);
+
   const layoutConfig = new PlotlyScatterLayout(
     'Category Distribution Over Time - (sliding window: 10 s, step: 10 s)',
-    [],
+    verticalLineShapes,
     [],
     [0, 0],
     []
@@ -72,7 +99,7 @@ const GazePlot = () => {
               y: 1.3,
               yanchor: 'top',
               active: selections.indexOf(selectedSource)
-            },]
+            },],
           } as Partial<Layout>
         }}
         config={{displayModeBar: true, responsive: true, displaylogo: false}}
