@@ -1,9 +1,9 @@
 'use client';
-import {Layout, PlotRelayoutEvent, Shape, UpdateMenuButton} from 'plotly.js';
+import {Layout, Shape} from 'plotly.js';
 import dynamic from 'next/dynamic';
 import {useGazeData} from '@/app/hooks/useGazeData';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
-import {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 
@@ -11,17 +11,7 @@ const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
 const windowSize = 10; // 10-second window
 
-type SourceNames = keyof typeof PlotsFileSource.gaze;
-const menuButtons: Partial<UpdateMenuButton>[] = [];
-const selections: string[] = [];
-Object.keys(PlotsFileSource.gaze).forEach((key) => {
-  selections.push(key);
-  menuButtons.push({
-    method: 'relayout',
-    label: PlotsFileSource.gaze[key as SourceNames].name,
-    args: ['source', key]
-  });
-});
+type SourceName = keyof typeof PlotsFileSource.visualAttention;
 
 // Generates vertical dotted line shapes using context actionsLayout.shapes
 const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shape>[] => {
@@ -45,11 +35,24 @@ const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shap
   })) as Partial<Shape>[];
 };
 
-
-const GazePlot = () => {
+const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
   const {actionsLayout} = useContext(PlotContext);
-  const [selectedSource, setSelectedSource] = useState<SourceNames>(selections[0] as SourceNames);
-  const [plotData] = useGazeData(windowSize, selectedSource);
+  const [plotData] = useGazeData(windowSize, selectedSource as SourceName);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true); // Set loading state when selectedSource changes
+  }, [selectedSource]);
+
+  useEffect(() => {
+    if (plotData && plotData.plotlyData && plotData.plotlyData[0]) {
+      setIsLoading(false); // Data is ready, disable loading
+    }
+  }, [plotData]);
+
+  if (isLoading) {
+    return <div>Loading Visual Attention Chart...</div>;
+  }
 
   // Generate vertical line shapes based on actionsLayout.shapes
   const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);
@@ -65,20 +68,19 @@ const GazePlot = () => {
   layoutConfig.yaxis = {title: 'Count of Category', range: [0, 1]};
   layoutConfig.showLegend = true;
 
-  const handleDataChange = (event: PlotRelayoutEvent & { source?: SourceNames }) => {
-    if (event.source) {
-      setSelectedSource(event.source);
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center p-4" style={{height: '550px'}}>
+    <div className='flex flex-col items-center p-4' style={{height: '550px'}}>
       <Plot
         data={plotData.plotlyData}
-        onRelayout={handleDataChange}
         layout={{
           ...layoutConfig.toPlotlyFormat(),
-          ...{
+          ...({
+            margin: { // This is to position the title
+              t: 50, // Adjust this value to control the top margin
+              l: 50, // Left margin
+              r: 50, // Right margin
+              b: 50 // Bottom margin
+            },
             barmode: 'stack',
             bargap: 0, // Remove gaps between bars
             xaxis: actionsLayout.xaxis,
@@ -88,19 +90,8 @@ const GazePlot = () => {
               y: 1, // Position the legend above the plot
               xanchor: 'center',
               yanchor: 'bottom'
-            },
-            updatemenus: [{
-              buttons: menuButtons,
-              direction: 'left',
-              pad: {t: 30},
-              showactive: true,
-              x: 0.5,
-              xanchor: 'center',
-              y: 1.3,
-              yanchor: 'top',
-              active: selections.indexOf(selectedSource)
-            },],
-          } as Partial<Layout>
+            }
+          } as Partial<Layout>)
         }}
         config={{displayModeBar: true, responsive: true, displaylogo: false}}
         style={{width: '100%', height: '100%'}}
@@ -110,4 +101,4 @@ const GazePlot = () => {
   );
 };
 
-export default GazePlot;
+export default VisualAttentionPlot;

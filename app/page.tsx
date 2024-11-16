@@ -7,10 +7,13 @@ import {Today} from '@/app/utils/TodayDateTimeConverter';
 import FilteredActionsPlot from '@/app/ui/components/plots/FilteredActionsPlot';
 import PlotContext from '@/app/ui/components/PlotContext';
 import {useActionsData} from '@/app/hooks/useActionsData';
-import GazePlot from '@/app/ui/components/plots/GazePlot';
+import VisualAttentionPlot from '@/app/ui/components/plots/VisualAttentionPlot';
+import SelectorButtonGroup from '@/app/ui/components/SelectorButtonGroup';
 
 const Page = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const [selectedSource, setSelectedSource] = useState('teamLead');
+
   const seekTo = useRef(0);
 
   const handleTimePointClick = (event: Readonly<PlotMouseEvent>) => {
@@ -27,8 +30,22 @@ const Page = () => {
       <div className='flex flex-col justify-evenly'>
         <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
         <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
-        <CognitiveLoadPlot />
-        <GazePlot />
+        <div className='flex flex-col items-center p-4'>
+          <SelectorButtonGroup
+            selections={[
+              ['teamLead', 'Team Lead'],
+              ['defib', 'Defibrillator'],
+              ['compressor', 'Compressor'],
+              ['airway', 'Airway']
+            ]}
+            selectedValue={selectedSource}
+            onSelect={(selected) => {
+              setSelectedSource(selected);
+            }}
+          />
+        </div>
+        <CognitiveLoadPlot selectedSource={selectedSource} />
+        <VisualAttentionPlot selectedSource={selectedSource} />
       </div>
     </PlotContext.Provider>
   );

@@ -38,7 +38,7 @@ type Sources = typeof PlotsFileSource.cognitiveLoad[SourceNames];
 
 export const loadData = async (source: Sources) => {
   const individualPromise = fetchAndProcessData(
-    source.url,
+    source.url['09302024'],
     source.name,
     'blue'
   );
@@ -49,7 +49,7 @@ export const loadData = async (source: Sources) => {
     individualResult = await individualPromise;
   }else {
     [individualResult, averageResult] = await Promise.all([individualPromise,fetchAndProcessData(
-      PlotsFileSource.cognitiveLoad.average.url,
+      PlotsFileSource.cognitiveLoad.average.url['09302024'],
       PlotsFileSource.cognitiveLoad.average.name,
       'red'
     )]);
