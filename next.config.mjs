@@ -9,6 +9,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // to use the latest eslint version
   },
+  logging: {
+    //to leg the cached fetches
+    fetches: {
+      fullUrl: true,
+    },
+  },
   webpack: (config, {dev, isServer}) => {
     if (!dev && !isServer) {
       config.optimization.minimizer = [

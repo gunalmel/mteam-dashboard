@@ -1,4 +1,4 @@
-import { Datum, ScatterData } from 'plotly.js';
+import {Datum, PlotData, ScatterData} from 'plotly.js';
 
 export default class ActionsCompressionLines {
   plotData: ActionCompressionLine[];
@@ -9,7 +9,7 @@ export default class ActionsCompressionLines {
     this.plotData.push(new ActionCompressionLine(x, hovertext));
   }
   updateEnd(x: Datum, hovertext: string) {
-    this.plotData[this.plotData.length - 1].add(x, hovertext);
+    this.plotData[this.plotData.length - 1].addLinePoint(x, hovertext);
   }
 }
 
@@ -32,8 +32,24 @@ class ActionCompressionLine implements Partial<ScatterData> {
     this.y = [0.5, 0.5];
     this.hovertext = Array.isArray(hovertext)?hovertext:[hovertext];
   }
-  add(x: Datum, hovertext: string) {
+  addLinePoint(x: Datum, hovertext: string) {
     this.x.push(x);
     this.hovertext.push(hovertext);
   }
+
+  toPlotlyFormat(): Partial<PlotData>{
+    return {
+      x: this.x,
+      y: this.y,
+      hovertext: this.hovertext,
+      text: this.text,
+      mode: this.mode,
+      type: this.type,
+      hoverinfo: this.hoverinfo,
+      textposition: this.textposition,
+      textfont: this.textfont,
+      line: this.line,
+    };
+  }
+
 }
