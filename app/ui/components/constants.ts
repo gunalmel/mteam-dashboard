@@ -127,3 +127,12 @@ export function getIcon(action: string): ActionImage {
 
     return icon;
 }
+
+export const VisualAttentionCategoryColors: Record<string, string> = {
+  'Tablet': '#c3bfbf',
+  'Patient': '#d62728',
+  'Team': '#1f77b4',
+  'Equipment': '#d6d655',
+  'Monitors': '#2ba02b',
+  'Others': '#9467bd',
+};

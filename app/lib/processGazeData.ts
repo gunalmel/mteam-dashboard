@@ -1,6 +1,7 @@
 import {GazeData, GazeDataStack} from '@/types';
 import {PlotData} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
+import {VisualAttentionCategoryColors} from '@/app/ui/components/constants';
 
 function convertCountToFraction(window: GazeDataStack): void {
   Object.entries(window.counts).forEach(([key])=>{
@@ -44,24 +45,32 @@ export function processGazeData(data: GazeData[], windowSize: number): GazeDataS
 }
 
 export function transformGazeDataForPlotly(categoryCounts: GazeDataStack[]): {tickVals: string[], plotlyData: Partial<PlotData>[]} {
-  const result = categoryCounts.reduce((acc, item) => {
-    acc.tickVals.push(item.time); // This is needed for the x-axis tick values to display without missing values
+  const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others']; // Desired order
 
-    Object.entries(item.counts).forEach(([category, count]) => {
-      // Initialize category entry if it doesn't exist
+  const result = categoryCounts.reduce((acc, item) => {
+    acc.tickVals.push(item.time); // Needed for x-axis tick values
+
+    // Initialize each category to ensure consistent order
+    visualAttentionCategoryOrder.forEach((category) => {
       if (!acc.dataSeries[category]) {
-        acc.dataSeries[category] = { x: [], y: [], name: category, type: 'bar' as const };
+        acc.dataSeries[category] = {
+          x: [],
+          y: [],
+          name: category,
+          type: 'bar' as const,
+          marker: { color: VisualAttentionCategoryColors[category] || 'black' }, // Assign color to category
+        };
       }
-      // Append time and count for each category
+      // Add data for the current time window (y = 0 if category is missing)
       acc.dataSeries[category].x.push(item.time);
-      acc.dataSeries[category].y.push(count);
+      acc.dataSeries[category].y.push(item.counts[category]);
     });
 
     return acc;
-  }, {tickVals:[], dataSeries:{}} as {tickVals:string[], dataSeries:Record<string, {x: string[]; y: number[]; name: string; type: 'bar' }>} );
+  }, {tickVals: [], dataSeries: {}} as {tickVals: string[], dataSeries: Record<string, {x: string[]; y: number[]; name: string; type: 'bar', marker: { color: string } }>});
 
-  // Convert the result object to an array of series for Plotly
   return {tickVals: result.tickVals, plotlyData: Object.values(result.dataSeries)};
 }
+
 
 

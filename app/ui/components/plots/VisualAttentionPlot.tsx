@@ -89,7 +89,8 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
               x: 0.5, // Center the legend horizontally
               y: 1, // Position the legend above the plot
               xanchor: 'center',
-              yanchor: 'bottom'
+              yanchor: 'bottom',
+              traceorder: 'normal', // Set trace order as normal to get the desired category order otherwise it's reversed
             }
           } as Partial<Layout>)
         }}
