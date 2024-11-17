@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import {useCognitiveLoadData} from '@/app/hooks/useCognitiveLoadData';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
+import PulseLoader from '@/app/ui/components/PulseLoader';
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
@@ -23,12 +24,9 @@ const CognitiveLoadPlot = ({selectedSource}: {selectedSource: string}) => {
     }
   }, [cognitiveLoadData, cognitiveLoadLayout]);
 
-  if (isLoading) {
-    return <div>Loading Cognitive Load Plot...</div>;
-  }
-
   return (
-    <div className='flex flex-col items-center p-4' style={{height: '500px'}}>
+    <div className='flex flex-col items-center p-4' style={{height: '500px', position: 'relative'}}>
+      <PulseLoader isLoading={isLoading} text={'Fetching data for Cognitive Load'} />
       <Plot
         data={cognitiveLoadData}
         layout={{

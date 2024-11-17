@@ -6,6 +6,7 @@ import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import React, {useContext, useEffect, useState} from 'react';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
+import PulseLoader from '@/app/ui/components/PulseLoader';
 
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
@@ -50,10 +51,6 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
     }
   }, [plotData]);
 
-  if (isLoading) {
-    return <div>Loading Visual Attention Chart...</div>;
-  }
-
   // Generate vertical line shapes based on actionsLayout.shapes
   const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);
 
@@ -69,13 +66,15 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
   layoutConfig.showLegend = true;
 
   return (
-    <div className='flex flex-col items-center p-4' style={{height: '550px'}}>
+    <div className='flex flex-col items-center p-4' style={{height: '500px', position: 'relative'}}>
+      <PulseLoader isLoading={isLoading} text={'Fetching data for Visual Attention'}/>
       <Plot
         data={plotData.plotlyData}
         layout={{
           ...layoutConfig.toPlotlyFormat(),
           ...({
-            margin: { // This is to position the title
+            margin: {
+              // This is to position the title
               t: 50, // Adjust this value to control the top margin
               l: 50, // Left margin
               r: 50, // Right margin
@@ -90,7 +89,7 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
               y: 1, // Position the legend above the plot
               xanchor: 'center',
               yanchor: 'bottom',
-              traceorder: 'normal', // Set trace order as normal to get the desired category order otherwise it's reversed
+              traceorder: 'normal' // Set trace order as normal to get the desired category order otherwise it's reversed
             }
           } as Partial<Layout>)
         }}

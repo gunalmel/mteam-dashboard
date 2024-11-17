@@ -25,6 +25,13 @@ const config: Config = {
           transform: 'translateX(100%)',
         },
       },
+      animloader27: {
+        '0%, 100%': { transform: 'scale(0)', opacity: '1' },
+        '50%': { transform: 'scale(1)', opacity: '0' },
+      }
+    },
+    animation: {
+      animloader27: 'animloader27 2s ease-in-out infinite',
     },
   },
   plugins: [require('@tailwindcss/forms')],
