@@ -58,7 +58,7 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
   const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);
 
   const layoutConfig = new PlotlyScatterLayout(
-    'Category Distribution Over Time - (sliding window: 10 s, step: 10 s)',
+    'Visual Attention - (sliding window: 10 s, step: 10 s)',
     verticalLineShapes,
     [],
     [0, 0],
