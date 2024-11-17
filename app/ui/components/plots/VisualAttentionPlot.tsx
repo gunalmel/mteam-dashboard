@@ -65,7 +65,7 @@ const VisualAttentionPlot = ({selectedSource}: {selectedSource: string}) => {
     []
   );
 
-  layoutConfig.yaxis = {title: 'Count of Category', range: [0, 1]};
+  layoutConfig.yaxis = {title: 'Proportion of time spent looking at each object/area of interest', range: [0, 1]};
   layoutConfig.showLegend = true;
 
   return (
