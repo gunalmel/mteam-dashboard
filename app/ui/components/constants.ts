@@ -128,6 +128,7 @@ export function getIcon(action: string): ActionImage {
     return icon;
 }
 
+//The order of the categories in the visual attention plot is important. The graph when changing source will consistently show the same categories in the same order.
 export const VisualAttentionCategoryColors: Record<string, string> = {
   'Tablet': '#c3bfbf',
   'Patient': '#d62728',

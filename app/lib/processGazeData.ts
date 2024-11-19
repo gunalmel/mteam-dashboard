@@ -68,7 +68,7 @@ export function processGazeData(data: GazeData[], windowSize: number): GazeDataS
 
 
 export function transformGazeDataForPlotly(categoryCounts: GazeDataStack[]): { tickVals: string[]; plotlyData: Partial<PlotData>[];} {
-  const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others'];
+  const visualAttentionCategoryOrder = Object.keys(VisualAttentionCategoryColors);
 
   const result = categoryCounts.reduce(
     (acc, item) => {
