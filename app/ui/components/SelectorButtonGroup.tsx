@@ -27,7 +27,7 @@ const Button: FC<ButtonProps> = ({value, label, position, selected, ...rest}) =>
   <button
     value={value}
     type='button'
-    className={`${selectionPositionSpecificClasses(position, selected)} px-4 py-2 text-sm font-medium border hover:bg-blue-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
+    className={`${selectionPositionSpecificClasses(position, selected)} px-4 py-2 text-sm font-medium border hover:bg-blue-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700`}
     {...rest}>
     {label}
   </button>
