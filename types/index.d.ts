@@ -37,6 +37,7 @@ export interface ActionImage {
 export interface GazeData {
   time: number; // Unix timestamp in seconds
   category?: string|null;
+  object?: string|null;
 }
 
 export interface GazeDataStack {

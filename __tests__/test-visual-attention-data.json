@@ -1,0 +1,1646 @@
+{"data":[{"time":1727713666.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713666.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713666.9000000954,"object":null,"category":null}
+,{"time":1727713667.4000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713667.7000000477,"object":null,"category":null}
+,{"time":1727713667.9000000954,"object":null,"category":null}
+,{"time":1727713668.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713668.5999999046,"object":null,"category":null}
+,{"time":1727713669.0,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713669.0999999046,"object":null,"category":null}
+,{"time":1727713669.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713669.9000000954,"object":null,"category":null}
+,{"time":1727713670.5,"object":null,"category":null}
+,{"time":1727713670.9000000954,"object":null,"category":null}
+,{"time":1727713671.0999999046,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727713671.5999999046,"object":null,"category":null}
+,{"time":1727713671.9000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713672.0999999046,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713672.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713673.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713673.7999999523,"object":null,"category":null}
+,{"time":1727713673.9000000954,"object":null,"category":null}
+,{"time":1727713674.2000000477,"object":null,"category":null}
+,{"time":1727713674.5,"object":null,"category":null}
+,{"time":1727713675.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713675.2999999523,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713675.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713675.9000000954,"object":"NetworkHandL1","category":"Team"}
+,{"time":1727713676.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713676.2999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713676.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713676.7999999523,"object":null,"category":null}
+,{"time":1727713677.0,"object":null,"category":null}
+,{"time":1727713677.0999999046,"object":null,"category":null}
+,{"time":1727713677.2999999523,"object":null,"category":null}
+,{"time":1727713677.7000000477,"object":null,"category":null}
+,{"time":1727713677.9000000954,"object":"Non_Breather_Interactable(Clone)","category":"Others"}
+,{"time":1727713678.0999999046,"object":null,"category":null}
+,{"time":1727713678.9000000954,"object":null,"category":null}
+,{"time":1727713679.2000000477,"object":null,"category":null}
+,{"time":1727713679.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713679.9000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713680.0,"object":null,"category":null}
+,{"time":1727713680.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713680.5,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713680.7000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713681.0,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713681.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713682.0,"object":null,"category":null}
+,{"time":1727713682.2999999523,"object":null,"category":null}
+,{"time":1727713682.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713682.9000000954,"object":null,"category":null}
+,{"time":1727713683.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713683.4000000954,"object":null,"category":null}
+,{"time":1727713684.0,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713684.7999999523,"object":null,"category":null}
+,{"time":1727713684.9000000954,"object":null,"category":null}
+,{"time":1727713685.0,"object":null,"category":null}
+,{"time":1727713685.5,"object":null,"category":null}
+,{"time":1727713685.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713686.0999999046,"object":null,"category":null}
+,{"time":1727713686.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713686.5999999046,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713686.9000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713687.0999999046,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713687.2999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713687.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713688.0,"object":null,"category":null}
+,{"time":1727713688.2000000477,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713688.4000000954,"object":null,"category":null}
+,{"time":1727713688.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713689.0999999046,"object":null,"category":null}
+,{"time":1727713689.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713689.4000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713689.5,"object":null,"category":null}
+,{"time":1727713690.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713690.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713690.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713690.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713690.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713691.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713691.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713691.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713691.7000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713691.9000000954,"object":null,"category":null}
+,{"time":1727713692.0999999046,"object":null,"category":null}
+,{"time":1727713692.2999999523,"object":null,"category":null}
+,{"time":1727713692.5,"object":null,"category":null}
+,{"time":1727713692.7999999523,"object":null,"category":null}
+,{"time":1727713693.0,"object":null,"category":null}
+,{"time":1727713693.2999999523,"object":null,"category":null}
+,{"time":1727713693.4000000954,"object":null,"category":null}
+,{"time":1727713693.5999999046,"object":null,"category":null}
+,{"time":1727713693.9000000954,"object":null,"category":null}
+,{"time":1727713694.0999999046,"object":null,"category":null}
+,{"time":1727713694.2999999523,"object":null,"category":null}
+,{"time":1727713694.5,"object":null,"category":null}
+,{"time":1727713694.7999999523,"object":null,"category":null}
+,{"time":1727713695.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713695.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713695.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713695.7000000477,"object":null,"category":null}
+,{"time":1727713696.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713696.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713696.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713696.7999999523,"object":null,"category":null}
+,{"time":1727713698.2999999523,"object":null,"category":null}
+,{"time":1727713698.4000000954,"object":null,"category":null}
+,{"time":1727713698.5,"object":null,"category":null}
+,{"time":1727713698.7999999523,"object":null,"category":null}
+,{"time":1727713699.2000000477,"object":null,"category":null}
+,{"time":1727713699.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713699.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713700.0,"object":null,"category":null}
+,{"time":1727713700.7000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713701.0,"object":null,"category":null}
+,{"time":1727713701.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713701.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713701.9000000954,"object":null,"category":null}
+,{"time":1727713702.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713702.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713702.4000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713702.7000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713702.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713703.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713704.0,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713704.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713704.7999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713705.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713705.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713706.0,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713706.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713707.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713707.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713707.5999999046,"object":null,"category":null}
+,{"time":1727713707.7000000477,"object":null,"category":null}
+,{"time":1727713708.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713708.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713708.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713709.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713709.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713710.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713710.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713711.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713711.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713711.9000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713712.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713712.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713712.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713713.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713713.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713713.5,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713713.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713714.0,"object":null,"category":null}
+,{"time":1727713714.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713714.5,"object":null,"category":null}
+,{"time":1727713714.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713715.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713715.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713715.7999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713716.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713716.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713717.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713717.5,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713717.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713718.0999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713718.4000000954,"object":"Sync","category":"Equipment"}
+,{"time":1727713718.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713719.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713719.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713720.0999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713720.2999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713720.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713721.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713721.2000000477,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713721.4000000954,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713721.5999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713721.7999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713722.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713723.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713723.5,"object":null,"category":null}
+,{"time":1727713724.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713724.4000000954,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713724.5,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713724.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713725.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713725.5,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713726.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713726.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713726.5,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713726.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713728.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713728.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713729.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713729.7999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713730.2999999523,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713730.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713730.5999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713730.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713731.5,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713731.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713733.5999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713734.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713735.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713735.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713736.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713737.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713737.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713738.0,"object":null,"category":null}
+,{"time":1727713738.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713739.0999999046,"object":null,"category":null}
+,{"time":1727713739.2999999523,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727713739.7000000477,"object":null,"category":null}
+,{"time":1727713740.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713740.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713741.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713741.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713741.4000000954,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713741.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713741.9000000954,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713742.4000000954,"object":null,"category":null}
+,{"time":1727713742.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713744.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713744.5,"object":null,"category":null}
+,{"time":1727713745.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713746.0,"object":null,"category":null}
+,{"time":1727713747.0,"object":null,"category":null}
+,{"time":1727713747.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713747.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713748.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713748.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713748.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713748.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713749.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713749.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713749.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713750.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713750.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713750.5999999046,"object":null,"category":null}
+,{"time":1727713751.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713751.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713751.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713752.2999999523,"object":null,"category":null}
+,{"time":1727713752.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713753.0999999046,"object":null,"category":null}
+,{"time":1727713753.7999999523,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727713754.0,"object":null,"category":null}
+,{"time":1727713754.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713754.5999999046,"object":null,"category":null}
+,{"time":1727713755.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713755.5,"object":null,"category":null}
+,{"time":1727713755.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713755.7999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713756.0999999046,"object":null,"category":null}
+,{"time":1727713756.5999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713756.7999999523,"object":null,"category":null}
+,{"time":1727713757.5,"object":null,"category":null}
+,{"time":1727713758.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713758.5,"object":null,"category":null}
+,{"time":1727713758.7999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713759.9000000954,"object":null,"category":null}
+,{"time":1727713760.7000000477,"object":null,"category":null}
+,{"time":1727713761.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713762.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713762.2999999523,"object":null,"category":null}
+,{"time":1727713762.4000000954,"object":null,"category":null}
+,{"time":1727713762.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713763.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713763.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713763.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713763.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713763.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713764.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713764.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713764.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713764.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713765.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713765.5999999046,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713765.7999999523,"object":null,"category":null}
+,{"time":1727713766.0,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713766.2000000477,"object":null,"category":null}
+,{"time":1727713766.7999999523,"object":null,"category":null}
+,{"time":1727713767.4000000954,"object":null,"category":null}
+,{"time":1727713767.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713768.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713768.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713769.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713769.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713769.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713769.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713770.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713770.5,"object":null,"category":null}
+,{"time":1727713771.5,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713772.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713772.2999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713772.9000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713773.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713773.4000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713773.7999999523,"object":null,"category":null}
+,{"time":1727713774.2000000477,"object":null,"category":null}
+,{"time":1727713774.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713775.5999999046,"object":null,"category":null}
+,{"time":1727713775.7999999523,"object":null,"category":null}
+,{"time":1727713777.2999999523,"object":null,"category":null}
+,{"time":1727713777.5,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713777.9000000954,"object":null,"category":null}
+,{"time":1727713778.5,"object":null,"category":null}
+,{"time":1727713779.5999999046,"object":null,"category":null}
+,{"time":1727713779.7000000477,"object":null,"category":null}
+,{"time":1727713780.0999999046,"object":null,"category":null}
+,{"time":1727713780.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713780.5999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713780.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713781.2000000477,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713781.4000000954,"object":null,"category":null}
+,{"time":1727713781.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713782.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713782.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713782.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713783.0,"object":null,"category":null}
+,{"time":1727713783.2999999523,"object":null,"category":null}
+,{"time":1727713784.0,"object":null,"category":null}
+,{"time":1727713784.0999999046,"object":null,"category":null}
+,{"time":1727713784.5999999046,"object":null,"category":null}
+,{"time":1727713785.4000000954,"object":null,"category":null}
+,{"time":1727713785.7000000477,"object":null,"category":null}
+,{"time":1727713786.7000000477,"object":null,"category":null}
+,{"time":1727713786.7999999523,"object":null,"category":null}
+,{"time":1727713787.0,"object":null,"category":null}
+,{"time":1727713787.4000000954,"object":null,"category":null}
+,{"time":1727713787.7000000477,"object":null,"category":null}
+,{"time":1727713788.0,"object":null,"category":null}
+,{"time":1727713788.5,"object":"Bipap_Mask_Interactable(Clone)","category":"Equipment"}
+,{"time":1727713788.7999999523,"object":null,"category":null}
+,{"time":1727713789.0,"object":null,"category":null}
+,{"time":1727713789.2000000477,"object":null,"category":null}
+,{"time":1727713789.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713790.4000000954,"object":null,"category":null}
+,{"time":1727713791.0999999046,"object":null,"category":null}
+,{"time":1727713791.2999999523,"object":null,"category":null}
+,{"time":1727713791.7999999523,"object":null,"category":null}
+,{"time":1727713792.7999999523,"object":null,"category":null}
+,{"time":1727713793.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713793.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713794.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713794.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713794.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713795.0999999046,"object":null,"category":null}
+,{"time":1727713795.7999999523,"object":null,"category":null}
+,{"time":1727713796.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713796.5999999046,"object":"Pump_Mask_Interactable_R(Clone)","category":"Equipment"}
+,{"time":1727713797.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713797.4000000954,"object":null,"category":null}
+,{"time":1727713798.2999999523,"object":null,"category":null}
+,{"time":1727713799.0,"object":null,"category":null}
+,{"time":1727713799.2000000477,"object":null,"category":null}
+,{"time":1727713799.4000000954,"object":null,"category":null}
+,{"time":1727713800.0,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713800.0999999046,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713800.5999999046,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713800.9000000954,"object":null,"category":null}
+,{"time":1727713801.0,"object":null,"category":null}
+,{"time":1727713801.2000000477,"object":null,"category":null}
+,{"time":1727713801.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713801.5,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713801.7000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713802.0,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713802.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713802.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713802.5999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713802.7999999523,"object":null,"category":null}
+,{"time":1727713803.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713803.4000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713803.5,"object":null,"category":null}
+,{"time":1727713803.7999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713804.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713804.7000000477,"object":"NetworkHandR1","category":"Team"}
+,{"time":1727713805.0999999046,"object":null,"category":null}
+,{"time":1727713805.4000000954,"object":null,"category":null}
+,{"time":1727713806.0999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713806.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713806.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713806.5999999046,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713806.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713806.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713807.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713807.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713807.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713808.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713808.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713808.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713808.7000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713808.7999999523,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713809.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713809.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713809.5,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713809.7000000477,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713810.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713810.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713810.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713810.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713811.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713811.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713811.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713811.7000000477,"object":null,"category":null}
+,{"time":1727713813.7999999523,"object":null,"category":null}
+,{"time":1727713814.7000000477,"object":null,"category":null}
+,{"time":1727713816.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713816.5999999046,"object":null,"category":null}
+,{"time":1727713817.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713817.5,"object":null,"category":null}
+,{"time":1727713817.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713818.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713818.5,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713818.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713819.2999999523,"object":null,"category":null}
+,{"time":1727713821.2000000477,"object":null,"category":null}
+,{"time":1727713821.4000000954,"object":null,"category":null}
+,{"time":1727713822.2999999523,"object":null,"category":null}
+,{"time":1727713826.5999999046,"object":null,"category":null}
+,{"time":1727713826.9000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713827.0,"object":null,"category":null}
+,{"time":1727713827.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713827.7000000477,"object":null,"category":null}
+,{"time":1727713828.5999999046,"object":null,"category":null}
+,{"time":1727713828.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713828.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713829.2000000477,"object":null,"category":null}
+,{"time":1727713829.7000000477,"object":null,"category":null}
+,{"time":1727713831.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713831.7999999523,"object":null,"category":null}
+,{"time":1727713832.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713833.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713833.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713834.0999999046,"object":null,"category":null}
+,{"time":1727713834.2999999523,"object":null,"category":null}
+,{"time":1727713834.5,"object":null,"category":null}
+,{"time":1727713834.7000000477,"object":null,"category":null}
+,{"time":1727713835.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713835.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713835.7000000477,"object":null,"category":null}
+,{"time":1727713837.5,"object":null,"category":null}
+,{"time":1727713837.7999999523,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713838.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713838.2999999523,"object":null,"category":null}
+,{"time":1727713839.2000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727713839.4000000954,"object":null,"category":null}
+,{"time":1727713840.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713840.5999999046,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727713841.7999999523,"object":"Pulse Point Groin - AirWay\/BVM","category":"Others"}
+,{"time":1727713841.9000000954,"object":"Pulse Point Groin - AirWay\/BVM","category":"Others"}
+,{"time":1727713842.0999999046,"object":"Patient Head","category":"Patient"}
+,{"time":1727713842.2999999523,"object":null,"category":null}
+,{"time":1727713843.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713843.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713843.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713844.5999999046,"object":null,"category":null}
+,{"time":1727713844.9000000954,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727713845.0999999046,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713845.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713846.0999999046,"object":null,"category":null}
+,{"time":1727713846.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713846.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713846.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713847.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713847.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713848.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713848.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713848.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713849.5,"object":null,"category":null}
+,{"time":1727713849.9000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713850.2000000477,"object":null,"category":null}
+,{"time":1727713850.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713852.2999999523,"object":null,"category":null}
+,{"time":1727713852.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713852.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713853.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713853.5,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713854.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713854.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713854.7999999523,"object":null,"category":null}
+,{"time":1727713855.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713855.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713856.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713856.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713856.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713857.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713858.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713858.5999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713858.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713859.2999999523,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727713859.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713860.0,"object":null,"category":null}
+,{"time":1727713860.2000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727713860.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713860.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713861.0,"object":null,"category":null}
+,{"time":1727713861.2999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713861.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713861.7999999523,"object":null,"category":null}
+,{"time":1727713861.9000000954,"object":null,"category":null}
+,{"time":1727713862.2000000477,"object":null,"category":null}
+,{"time":1727713862.4000000954,"object":null,"category":null}
+,{"time":1727713862.9000000954,"object":null,"category":null}
+,{"time":1727713863.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713863.9000000954,"object":null,"category":null}
+,{"time":1727713864.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713864.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713864.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713865.2000000477,"object":null,"category":null}
+,{"time":1727713865.4000000954,"object":null,"category":null}
+,{"time":1727713865.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713865.7999999523,"object":null,"category":null}
+,{"time":1727713866.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713866.5,"object":null,"category":null}
+,{"time":1727713866.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713866.7999999523,"object":null,"category":null}
+,{"time":1727713867.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713867.5,"object":null,"category":null}
+,{"time":1727713867.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713867.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713868.0999999046,"object":null,"category":null}
+,{"time":1727713868.2000000477,"object":null,"category":null}
+,{"time":1727713868.5,"object":null,"category":null}
+,{"time":1727713868.7000000477,"object":null,"category":null}
+,{"time":1727713869.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713869.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713869.9000000954,"object":null,"category":null}
+,{"time":1727713870.2000000477,"object":null,"category":null}
+,{"time":1727713870.4000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713871.0,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727713871.0999999046,"object":null,"category":null}
+,{"time":1727713871.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713871.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713872.0,"object":null,"category":null}
+,{"time":1727713872.5,"object":null,"category":null}
+,{"time":1727713873.5,"object":null,"category":null}
+,{"time":1727713874.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713874.2999999523,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727713874.5999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713874.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713875.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713875.5,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713875.7999999523,"object":null,"category":null}
+,{"time":1727713876.2000000477,"object":null,"category":null}
+,{"time":1727713876.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713876.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713877.0999999046,"object":null,"category":null}
+,{"time":1727713877.4000000954,"object":null,"category":null}
+,{"time":1727713877.7000000477,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713878.0,"object":null,"category":null}
+,{"time":1727713878.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713878.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713879.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713879.9000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713880.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713880.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713881.0999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713881.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713881.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713882.0,"object":null,"category":null}
+,{"time":1727713882.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713882.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713882.7000000477,"object":null,"category":null}
+,{"time":1727713883.4000000954,"object":null,"category":null}
+,{"time":1727713883.7999999523,"object":null,"category":null}
+,{"time":1727713884.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713884.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713885.0,"object":null,"category":null}
+,{"time":1727713885.2999999523,"object":null,"category":null}
+,{"time":1727713885.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713885.7999999523,"object":null,"category":null}
+,{"time":1727713886.2999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713886.5,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713886.5999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727713886.7999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727713887.2000000477,"object":null,"category":null}
+,{"time":1727713888.0,"object":null,"category":null}
+,{"time":1727713888.2999999523,"object":null,"category":null}
+,{"time":1727713888.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713889.0,"object":null,"category":null}
+,{"time":1727713889.2000000477,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727713889.5,"object":null,"category":null}
+,{"time":1727713889.5999999046,"object":null,"category":null}
+,{"time":1727713889.7999999523,"object":null,"category":null}
+,{"time":1727713890.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713890.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713890.7999999523,"object":null,"category":null}
+,{"time":1727713891.0,"object":null,"category":null}
+,{"time":1727713891.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713891.7000000477,"object":null,"category":null}
+,{"time":1727713892.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713892.4000000954,"object":null,"category":null}
+,{"time":1727713892.5999999046,"object":null,"category":null}
+,{"time":1727713893.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713893.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713893.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713894.2000000477,"object":null,"category":null}
+,{"time":1727713894.4000000954,"object":null,"category":null}
+,{"time":1727713894.5999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713895.0999999046,"object":null,"category":null}
+,{"time":1727713895.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713896.0,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713896.5,"object":null,"category":null}
+,{"time":1727713896.5999999046,"object":null,"category":null}
+,{"time":1727713897.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713897.5999999046,"object":null,"category":null}
+,{"time":1727713897.9000000954,"object":null,"category":null}
+,{"time":1727713898.0,"object":null,"category":null}
+,{"time":1727713898.2999999523,"object":null,"category":null}
+,{"time":1727713898.4000000954,"object":null,"category":null}
+,{"time":1727713898.5999999046,"object":null,"category":null}
+,{"time":1727713898.7999999523,"object":"Lactated_Ringers_Interactable(Clone)","category":"Others"}
+,{"time":1727713899.0,"object":null,"category":null}
+,{"time":1727713899.0999999046,"object":null,"category":null}
+,{"time":1727713899.2999999523,"object":null,"category":null}
+,{"time":1727713900.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713900.4000000954,"object":null,"category":null}
+,{"time":1727713900.7000000477,"object":null,"category":null}
+,{"time":1727713900.9000000954,"object":null,"category":null}
+,{"time":1727713901.0,"object":null,"category":null}
+,{"time":1727713901.2000000477,"object":null,"category":null}
+,{"time":1727713902.0,"object":null,"category":null}
+,{"time":1727713902.2000000477,"object":null,"category":null}
+,{"time":1727713902.4000000954,"object":null,"category":null}
+,{"time":1727713902.7999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713902.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713903.7999999523,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713904.0,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713904.4000000954,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713904.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713905.0,"object":null,"category":null}
+,{"time":1727713905.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713905.7000000477,"object":null,"category":null}
+,{"time":1727713906.5,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713906.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713907.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713907.4000000954,"object":null,"category":null}
+,{"time":1727713908.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713908.5,"object":"NetworkHandR1","category":"Team"}
+,{"time":1727713908.9000000954,"object":"Pulse Point Groin - AirWay\/BVM","category":"Others"}
+,{"time":1727713909.0999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713909.2000000477,"object":null,"category":null}
+,{"time":1727713910.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713911.0999999046,"object":null,"category":null}
+,{"time":1727713911.7000000477,"object":null,"category":null}
+,{"time":1727713912.2999999523,"object":null,"category":null}
+,{"time":1727713912.5,"object":null,"category":null}
+,{"time":1727713913.0999999046,"object":null,"category":null}
+,{"time":1727713913.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713913.4000000954,"object":"NetworkHandL2","category":"Team"}
+,{"time":1727713913.5999999046,"object":null,"category":null}
+,{"time":1727713914.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713914.4000000954,"object":null,"category":null}
+,{"time":1727713914.5999999046,"object":null,"category":null}
+,{"time":1727713914.7000000477,"object":null,"category":null}
+,{"time":1727713914.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713915.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713915.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713915.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713915.7000000477,"object":null,"category":null}
+,{"time":1727713915.7999999523,"object":null,"category":null}
+,{"time":1727713916.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713916.7999999523,"object":null,"category":null}
+,{"time":1727713917.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713917.4000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713917.5999999046,"object":null,"category":null}
+,{"time":1727713917.9000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713918.4000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713918.7999999523,"object":null,"category":null}
+,{"time":1727713919.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713919.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713920.0,"object":null,"category":null}
+,{"time":1727713921.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713922.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713922.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713923.2999999523,"object":null,"category":null}
+,{"time":1727713924.0999999046,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713924.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713924.9000000954,"object":null,"category":null}
+,{"time":1727713925.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713925.4000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713925.5999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713925.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713926.0999999046,"object":null,"category":null}
+,{"time":1727713926.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713926.7000000477,"object":null,"category":null}
+,{"time":1727713927.7000000477,"object":null,"category":null}
+,{"time":1727713928.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713928.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713928.5,"object":null,"category":null}
+,{"time":1727713928.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713929.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713929.5999999046,"object":null,"category":null}
+,{"time":1727713930.0999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713930.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713930.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713931.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713931.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713932.5,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713932.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713933.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713934.5,"object":null,"category":null}
+,{"time":1727713935.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713936.0999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713936.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713936.5,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713936.5999999046,"object":null,"category":null}
+,{"time":1727713938.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713938.4000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713938.5999999046,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713938.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713939.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713939.2999999523,"object":null,"category":null}
+,{"time":1727713940.7000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713940.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713941.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713941.5,"object":null,"category":null}
+,{"time":1727713942.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713942.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713943.0,"object":null,"category":null}
+,{"time":1727713943.7000000477,"object":null,"category":null}
+,{"time":1727713944.4000000954,"object":null,"category":null}
+,{"time":1727713944.7999999523,"object":null,"category":null}
+,{"time":1727713945.0999999046,"object":null,"category":null}
+,{"time":1727713945.5,"object":null,"category":null}
+,{"time":1727713947.0999999046,"object":"Patient Right Arm","category":"Patient"}
+,{"time":1727713947.2999999523,"object":null,"category":null}
+,{"time":1727713947.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713947.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713947.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713948.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713948.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713948.4000000954,"object":null,"category":null}
+,{"time":1727713949.2000000477,"object":null,"category":null}
+,{"time":1727713949.4000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727713949.9000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713950.2000000477,"object":null,"category":null}
+,{"time":1727713950.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713951.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713951.2999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713951.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713951.7999999523,"object":null,"category":null}
+,{"time":1727713954.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713955.0999999046,"object":null,"category":null}
+,{"time":1727713956.7999999523,"object":null,"category":null}
+,{"time":1727713957.0999999046,"object":null,"category":null}
+,{"time":1727713957.4000000954,"object":null,"category":null}
+,{"time":1727713958.0,"object":null,"category":null}
+,{"time":1727713958.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713958.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713959.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713959.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713959.7000000477,"object":null,"category":null}
+,{"time":1727713960.4000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727713960.5,"object":null,"category":null}
+,{"time":1727713961.2999999523,"object":null,"category":null}
+,{"time":1727713962.5,"object":null,"category":null}
+,{"time":1727713963.2999999523,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713963.5,"object":null,"category":null}
+,{"time":1727713964.2999999523,"object":null,"category":null}
+,{"time":1727713965.2999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727713965.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713965.7000000477,"object":null,"category":null}
+,{"time":1727713966.2999999523,"object":null,"category":null}
+,{"time":1727713967.4000000954,"object":null,"category":null}
+,{"time":1727713968.4000000954,"object":null,"category":null}
+,{"time":1727713972.2999999523,"object":null,"category":null}
+,{"time":1727713973.5,"object":null,"category":null}
+,{"time":1727713974.9000000954,"object":null,"category":null}
+,{"time":1727713975.0,"object":null,"category":null}
+,{"time":1727713975.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713975.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713975.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713975.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713976.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713976.7000000477,"object":null,"category":null}
+,{"time":1727713977.4000000954,"object":null,"category":null}
+,{"time":1727713981.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713981.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713981.5,"object":null,"category":null}
+,{"time":1727713981.9000000954,"object":null,"category":null}
+,{"time":1727713982.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713982.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713982.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713983.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713983.7000000477,"object":null,"category":null}
+,{"time":1727713983.9000000954,"object":null,"category":null}
+,{"time":1727713984.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713984.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713985.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713985.4000000954,"object":null,"category":null}
+,{"time":1727713990.0999999046,"object":null,"category":null}
+,{"time":1727713992.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713992.4000000954,"object":null,"category":null}
+,{"time":1727713993.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727713993.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727713993.5999999046,"object":null,"category":null}
+,{"time":1727713994.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713994.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713994.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713994.9000000954,"object":null,"category":null}
+,{"time":1727713995.2000000477,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727713995.4000000954,"object":null,"category":null}
+,{"time":1727713995.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713995.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713996.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713996.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727713996.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727713997.2000000477,"object":null,"category":null}
+,{"time":1727713997.7999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727713998.5999999046,"object":null,"category":null}
+,{"time":1727713999.2999999523,"object":null,"category":null}
+,{"time":1727714000.2000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727714000.4000000954,"object":null,"category":null}
+,{"time":1727714000.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714000.9000000954,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727714001.0999999046,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714001.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714001.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714001.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714002.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714002.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714002.5,"object":null,"category":null}
+,{"time":1727714002.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714003.0999999046,"object":null,"category":null}
+,{"time":1727714003.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714003.4000000954,"object":null,"category":null}
+,{"time":1727714003.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.2000000477,"object":null,"category":null}
+,{"time":1727714004.2999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714004.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714005.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714005.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714005.7000000477,"object":null,"category":null}
+,{"time":1727714005.9000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714006.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714006.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714006.7999999523,"object":null,"category":null}
+,{"time":1727714006.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714007.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714007.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714008.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714008.4000000954,"object":null,"category":null}
+,{"time":1727714008.7999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714009.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714009.9000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714010.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714010.5999999046,"object":null,"category":null}
+,{"time":1727714010.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714011.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714011.5,"object":null,"category":null}
+,{"time":1727714011.7000000477,"object":null,"category":null}
+,{"time":1727714012.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714012.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714013.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714013.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714013.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714013.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714014.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714014.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714015.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714015.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714015.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714016.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714016.7999999523,"object":null,"category":null}
+,{"time":1727714017.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714017.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714017.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714017.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714018.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714018.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714019.0999999046,"object":null,"category":null}
+,{"time":1727714019.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714020.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714020.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714020.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714021.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714021.9000000954,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714022.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714023.0999999046,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714023.7000000477,"object":null,"category":null}
+,{"time":1727714023.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714024.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714024.5999999046,"object":null,"category":null}
+,{"time":1727714025.4000000954,"object":null,"category":null}
+,{"time":1727714025.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714025.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714026.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714027.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714027.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714027.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714028.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714028.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714029.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714029.4000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714029.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714030.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714030.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714030.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714030.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714030.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714031.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714031.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714031.4000000954,"object":null,"category":null}
+,{"time":1727714032.7999999523,"object":null,"category":null}
+,{"time":1727714033.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714033.4000000954,"object":null,"category":null}
+,{"time":1727714034.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714034.2000000477,"object":null,"category":null}
+,{"time":1727714034.5999999046,"object":null,"category":null}
+,{"time":1727714035.0999999046,"object":null,"category":null}
+,{"time":1727714037.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714037.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714037.5999999046,"object":null,"category":null}
+,{"time":1727714037.7999999523,"object":null,"category":null}
+,{"time":1727714039.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714039.5999999046,"object":null,"category":null}
+,{"time":1727714040.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714040.2000000477,"object":null,"category":null}
+,{"time":1727714040.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714041.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714041.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714041.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714042.2000000477,"object":null,"category":null}
+,{"time":1727714042.2999999523,"object":null,"category":null}
+,{"time":1727714042.5999999046,"object":null,"category":null}
+,{"time":1727714042.7999999523,"object":null,"category":null}
+,{"time":1727714043.2999999523,"object":null,"category":null}
+,{"time":1727714044.0999999046,"object":null,"category":null}
+,{"time":1727714044.2000000477,"object":null,"category":null}
+,{"time":1727714044.5,"object":null,"category":null}
+,{"time":1727714046.5,"object":null,"category":null}
+,{"time":1727714046.7000000477,"object":null,"category":null}
+,{"time":1727714046.9000000954,"object":null,"category":null}
+,{"time":1727714047.5,"object":null,"category":null}
+,{"time":1727714047.7999999523,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714048.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714048.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714048.5,"object":null,"category":null}
+,{"time":1727714048.5999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714048.9000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714049.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714049.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714049.5,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714049.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714049.9000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714050.0999999046,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714051.0999999046,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714051.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714051.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714052.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714052.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714052.5999999046,"object":null,"category":null}
+,{"time":1727714054.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714054.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714054.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714054.5999999046,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714054.7999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714055.0,"object":null,"category":null}
+,{"time":1727714055.2999999523,"object":null,"category":null}
+,{"time":1727714055.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714055.7999999523,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714057.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714057.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714057.5999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714057.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714058.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714059.7000000477,"object":null,"category":null}
+,{"time":1727714061.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714061.7000000477,"object":null,"category":null}
+,{"time":1727714062.0999999046,"object":null,"category":null}
+,{"time":1727714063.0,"object":null,"category":null}
+,{"time":1727714063.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714064.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714064.2999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714064.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714064.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714065.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714065.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714065.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714065.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714066.0999999046,"object":null,"category":null}
+,{"time":1727714066.5999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714066.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714067.0,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714067.4000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714067.7999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714068.2999999523,"object":null,"category":null}
+,{"time":1727714068.5999999046,"object":null,"category":null}
+,{"time":1727714068.7000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714070.0,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714070.2999999523,"object":null,"category":null}
+,{"time":1727714071.5999999046,"object":null,"category":null}
+,{"time":1727714072.5999999046,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714072.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714073.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714073.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714073.5,"object":null,"category":null}
+,{"time":1727714074.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714074.7999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714076.7000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714076.9000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714077.0999999046,"object":null,"category":null}
+,{"time":1727714077.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714077.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714078.5999999046,"object":"Patient Left Arm","category":"Patient"}
+,{"time":1727714078.7999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714079.2000000477,"object":null,"category":null}
+,{"time":1727714081.0,"object":null,"category":null}
+,{"time":1727714081.5,"object":null,"category":null}
+,{"time":1727714082.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714082.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714082.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714082.5999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714082.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714082.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714083.5,"object":null,"category":null}
+,{"time":1727714083.7999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714084.5999999046,"object":null,"category":null}
+,{"time":1727714084.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714085.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714085.0999999046,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714085.4000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714086.0,"object":null,"category":null}
+,{"time":1727714086.7999999523,"object":null,"category":null}
+,{"time":1727714087.5,"object":null,"category":null}
+,{"time":1727714087.7000000477,"object":null,"category":null}
+,{"time":1727714088.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714089.2000000477,"object":null,"category":null}
+,{"time":1727714090.0,"object":null,"category":null}
+,{"time":1727714091.4000000954,"object":null,"category":null}
+,{"time":1727714093.0,"object":null,"category":null}
+,{"time":1727714093.2999999523,"object":null,"category":null}
+,{"time":1727714093.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714093.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714094.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714094.2000000477,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714094.5999999046,"object":null,"category":null}
+,{"time":1727714095.7000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714095.9000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714096.0,"object":null,"category":null}
+,{"time":1727714096.7000000477,"object":null,"category":null}
+,{"time":1727714098.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714099.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714100.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714100.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714100.7999999523,"object":null,"category":null}
+,{"time":1727714101.4000000954,"object":null,"category":null}
+,{"time":1727714102.0,"object":null,"category":null}
+,{"time":1727714102.2999999523,"object":null,"category":null}
+,{"time":1727714102.7999999523,"object":null,"category":null}
+,{"time":1727714103.7999999523,"object":null,"category":null}
+,{"time":1727714105.2999999523,"object":null,"category":null}
+,{"time":1727714105.7000000477,"object":null,"category":null}
+,{"time":1727714108.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714109.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714109.4000000954,"object":null,"category":null}
+,{"time":1727714110.4000000954,"object":null,"category":null}
+,{"time":1727714110.7000000477,"object":null,"category":null}
+,{"time":1727714111.7000000477,"object":null,"category":null}
+,{"time":1727714114.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714114.5,"object":null,"category":null}
+,{"time":1727714115.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714115.7999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714116.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714116.5,"object":null,"category":null}
+,{"time":1727714116.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714117.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714117.5999999046,"object":null,"category":null}
+,{"time":1727714119.5,"object":null,"category":null}
+,{"time":1727714119.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714120.0,"object":null,"category":null}
+,{"time":1727714120.2999999523,"object":null,"category":null}
+,{"time":1727714120.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714120.7999999523,"object":null,"category":null}
+,{"time":1727714121.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714121.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714121.7000000477,"object":null,"category":null}
+,{"time":1727714122.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714122.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714123.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714123.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714123.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714123.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714124.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714124.2999999523,"object":"NetworkHandL1","category":"Team"}
+,{"time":1727714124.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714125.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714125.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714125.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714126.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714126.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714127.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714127.9000000954,"object":null,"category":null}
+,{"time":1727714129.2000000477,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727714129.2999999523,"object":null,"category":null}
+,{"time":1727714129.5,"object":null,"category":null}
+,{"time":1727714129.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714129.9000000954,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714130.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714130.2999999523,"object":null,"category":null}
+,{"time":1727714130.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714131.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714131.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714132.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714132.2999999523,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714132.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714132.7000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714132.9000000954,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714133.0,"object":"NetworkHandL3","category":"Team"}
+,{"time":1727714133.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714133.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714134.2000000477,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714134.2999999523,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714134.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714134.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714137.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714138.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714138.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714138.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714139.0,"object":null,"category":null}
+,{"time":1727714139.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714140.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714141.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714141.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714141.7000000477,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714142.0,"object":null,"category":null}
+,{"time":1727714142.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714142.9000000954,"object":null,"category":null}
+,{"time":1727714143.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714143.9000000954,"object":null,"category":null}
+,{"time":1727714144.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714144.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714144.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714145.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714145.2999999523,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714145.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714145.5999999046,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727714145.9000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714146.5,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727714146.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714146.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714147.0,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714147.0999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714147.4000000954,"object":null,"category":null}
+,{"time":1727714147.7000000477,"object":null,"category":null}
+,{"time":1727714148.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714148.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714148.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714149.2000000477,"object":null,"category":null}
+,{"time":1727714149.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714150.0,"object":null,"category":null}
+,{"time":1727714150.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714151.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714151.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714151.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714151.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714152.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714152.2000000477,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714152.5,"object":null,"category":null}
+,{"time":1727714153.2000000477,"object":null,"category":null}
+,{"time":1727714154.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714155.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714155.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714155.9000000954,"object":null,"category":null}
+,{"time":1727714156.7000000477,"object":null,"category":null}
+,{"time":1727714157.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714157.2000000477,"object":null,"category":null}
+,{"time":1727714157.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714157.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714158.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714158.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714158.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714158.9000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714159.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714159.2000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714159.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714159.9000000954,"object":null,"category":null}
+,{"time":1727714160.5,"object":null,"category":null}
+,{"time":1727714160.5999999046,"object":null,"category":null}
+,{"time":1727714161.0999999046,"object":null,"category":null}
+,{"time":1727714161.2999999523,"object":null,"category":null}
+,{"time":1727714161.5,"object":null,"category":null}
+,{"time":1727714161.5999999046,"object":null,"category":null}
+,{"time":1727714161.7999999523,"object":null,"category":null}
+,{"time":1727714162.0999999046,"object":null,"category":null}
+,{"time":1727714162.2000000477,"object":null,"category":null}
+,{"time":1727714162.5999999046,"object":"Tablet_C3D","category":"Tablet"}
+,{"time":1727714162.7000000477,"object":"Tablet_C3D","category":"Tablet"}
+,{"time":1727714163.2000000477,"object":null,"category":null}
+,{"time":1727714163.5,"object":null,"category":null}
+,{"time":1727714164.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714164.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714164.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714164.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714165.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714165.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714165.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714165.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714165.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714166.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714166.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714166.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714167.0,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714167.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714167.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714168.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714168.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714168.7999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714168.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714169.0999999046,"object":null,"category":null}
+,{"time":1727714169.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714169.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714170.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714170.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714170.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714171.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714171.9000000954,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714172.0999999046,"object":null,"category":null}
+,{"time":1727714172.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714172.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714173.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714173.9000000954,"object":null,"category":null}
+,{"time":1727714175.2000000477,"object":null,"category":null}
+,{"time":1727714175.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714176.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714176.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714176.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714176.5,"object":null,"category":null}
+,{"time":1727714177.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714177.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714177.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714178.0,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714178.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714179.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714179.4000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714179.7999999523,"object":"NetworkHandR2","category":"Team"}
+,{"time":1727714180.0,"object":null,"category":null}
+,{"time":1727714180.2999999523,"object":null,"category":null}
+,{"time":1727714180.7999999523,"object":null,"category":null}
+,{"time":1727714180.9000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714181.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714181.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714181.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714181.5,"object":null,"category":null}
+,{"time":1727714182.0,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714182.5,"object":null,"category":null}
+,{"time":1727714182.7000000477,"object":null,"category":null}
+,{"time":1727714184.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714184.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714185.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714185.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714185.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714185.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714186.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714186.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714186.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714187.2000000477,"object":null,"category":null}
+,{"time":1727714189.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714189.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714190.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714190.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714190.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714190.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714191.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714192.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714192.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714193.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714193.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714193.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714193.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714194.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714194.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714194.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714195.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714195.7999999523,"object":null,"category":null}
+,{"time":1727714196.4000000954,"object":null,"category":null}
+,{"time":1727714196.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714196.7999999523,"object":null,"category":null}
+,{"time":1727714197.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714197.2999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714198.0,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714198.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714198.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714198.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714199.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714199.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714200.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714200.4000000954,"object":null,"category":null}
+,{"time":1727714201.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714201.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714202.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714202.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714202.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714202.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714203.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714203.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714203.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714204.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714204.5,"object":null,"category":null}
+,{"time":1727714204.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714205.2000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714205.5,"object":null,"category":null}
+,{"time":1727714205.7000000477,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714206.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714206.2000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714207.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714207.5999999046,"object":null,"category":null}
+,{"time":1727714209.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714209.9000000954,"object":null,"category":null}
+,{"time":1727714210.0,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714210.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714210.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714211.2999999523,"object":null,"category":null}
+,{"time":1727714213.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714213.7000000477,"object":null,"category":null}
+,{"time":1727714214.2000000477,"object":null,"category":null}
+,{"time":1727714214.2999999523,"object":null,"category":null}
+,{"time":1727714214.7999999523,"object":null,"category":null}
+,{"time":1727714215.0999999046,"object":null,"category":null}
+,{"time":1727714215.2999999523,"object":null,"category":null}
+,{"time":1727714215.5,"object":null,"category":null}
+,{"time":1727714216.4000000954,"object":"Lactated_Ringers_Interactable(Clone)","category":"Others"}
+,{"time":1727714216.5999999046,"object":null,"category":null}
+,{"time":1727714216.7000000477,"object":null,"category":null}
+,{"time":1727714217.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714218.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714218.5,"object":null,"category":null}
+,{"time":1727714218.7000000477,"object":null,"category":null}
+,{"time":1727714218.9000000954,"object":null,"category":null}
+,{"time":1727714219.0999999046,"object":null,"category":null}
+,{"time":1727714219.4000000954,"object":null,"category":null}
+,{"time":1727714219.5999999046,"object":"Bipap_Mask_Interactable(Clone)","category":"Equipment"}
+,{"time":1727714220.0,"object":null,"category":null}
+,{"time":1727714220.2000000477,"object":null,"category":null}
+,{"time":1727714220.4000000954,"object":null,"category":null}
+,{"time":1727714221.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714221.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714221.7000000477,"object":null,"category":null}
+,{"time":1727714222.9000000954,"object":null,"category":null}
+,{"time":1727714225.7000000477,"object":null,"category":null}
+,{"time":1727714226.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714227.0999999046,"object":null,"category":null}
+,{"time":1727714227.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714227.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714227.9000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714228.0,"object":null,"category":null}
+,{"time":1727714229.0,"object":null,"category":null}
+,{"time":1727714229.2999999523,"object":null,"category":null}
+,{"time":1727714235.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714235.5,"object":null,"category":null}
+,{"time":1727714236.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714237.2000000477,"object":null,"category":null}
+,{"time":1727714238.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714238.7000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714239.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714239.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714239.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714240.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714240.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714240.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714240.7999999523,"object":null,"category":null}
+,{"time":1727714241.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714241.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714242.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714242.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714242.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714242.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714243.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714243.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714243.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714243.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714245.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714245.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714245.7000000477,"object":null,"category":null}
+,{"time":1727714246.0,"object":null,"category":null}
+,{"time":1727714246.9000000954,"object":null,"category":null}
+,{"time":1727714247.0999999046,"object":null,"category":null}
+,{"time":1727714247.2000000477,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714247.5,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714247.7000000477,"object":null,"category":null}
+,{"time":1727714248.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714248.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714248.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714248.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.0,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.5,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714249.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714250.0999999046,"object":null,"category":null}
+,{"time":1727714250.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714251.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714251.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714251.7000000477,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714252.0999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714252.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714252.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714252.9000000954,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.4000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.7000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714253.7999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714254.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714254.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714254.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714254.5,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714255.0,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714255.5999999046,"object":null,"category":null}
+,{"time":1727714255.9000000954,"object":null,"category":null}
+,{"time":1727714256.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714256.5,"object":null,"category":null}
+,{"time":1727714256.7999999523,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714257.2000000477,"object":null,"category":null}
+,{"time":1727714257.7000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714258.2000000477,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714258.9000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714259.2000000477,"object":null,"category":null}
+,{"time":1727714259.7000000477,"object":null,"category":null}
+,{"time":1727714259.9000000954,"object":null,"category":null}
+,{"time":1727714260.0999999046,"object":null,"category":null}
+,{"time":1727714260.4000000954,"object":null,"category":null}
+,{"time":1727714260.9000000954,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714261.0999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714261.5,"object":null,"category":null}
+,{"time":1727714265.2999999523,"object":null,"category":null}
+,{"time":1727714266.5,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714266.7000000477,"object":null,"category":null}
+,{"time":1727714266.9000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714267.0999999046,"object":null,"category":null}
+,{"time":1727714267.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714268.2000000477,"object":null,"category":null}
+,{"time":1727714268.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714268.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714269.4000000954,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714269.5,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714269.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714270.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714270.7000000477,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727714270.7999999523,"object":null,"category":null}
+,{"time":1727714271.7000000477,"object":null,"category":null}
+,{"time":1727714272.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714272.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714273.2000000477,"object":null,"category":null}
+,{"time":1727714274.2000000477,"object":null,"category":null}
+,{"time":1727714274.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714275.0,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714275.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714275.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714275.5999999046,"object":null,"category":null}
+,{"time":1727714277.5999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714278.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714278.4000000954,"object":null,"category":null}
+,{"time":1727714278.7999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714279.0999999046,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714279.7999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714280.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714280.2000000477,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714280.5,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714281.2999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714281.5999999046,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714281.7999999523,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714282.0,"object":null,"category":null}
+,{"time":1727714282.2999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714282.5999999046,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727714282.7999999523,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727714282.9000000954,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714283.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714283.5,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714283.7999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714284.0,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714284.2000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714284.5,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714284.7000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714284.7999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714285.2000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714285.2999999523,"object":"Cpr Hands Object","category":"Others"}
+,{"time":1727714285.5,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714285.5999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714285.7999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714285.9000000954,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714286.0999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714286.2999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714286.7000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714286.7999999523,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714286.9000000954,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714287.0999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714287.2000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714287.5999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714287.5999999046,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714288.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714288.5999999046,"object":null,"category":null}
+,{"time":1727714289.2000000477,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714289.4000000954,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714289.5999999046,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714289.7999999523,"object":null,"category":null}
+,{"time":1727714290.2999999523,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714290.5,"object":null,"category":null}
+,{"time":1727714290.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714291.2999999523,"object":null,"category":null}
+,{"time":1727714291.9000000954,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714292.2999999523,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714292.7999999523,"object":null,"category":null}
+,{"time":1727714293.0,"object":null,"category":null}
+,{"time":1727714293.2999999523,"object":null,"category":null}
+,{"time":1727714293.9000000954,"object":null,"category":null}
+,{"time":1727714294.0,"object":null,"category":null}
+,{"time":1727714294.4000000954,"object":null,"category":null}
+,{"time":1727714294.7999999523,"object":"Non_Breather_Interactable(Clone)","category":"Others"}
+,{"time":1727714295.0,"object":null,"category":null}
+,{"time":1727714295.5999999046,"object":null,"category":null}
+,{"time":1727714295.9000000954,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714296.0999999046,"object":"Upper Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714296.2000000477,"object":"Middle Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714296.4000000954,"object":null,"category":null}
+,{"time":1727714297.0,"object":null,"category":null}
+,{"time":1727714297.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714297.2999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714297.5,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714297.5999999046,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714297.9000000954,"object":"NetworkHandR3","category":"Team"}
+,{"time":1727714298.0,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714298.2999999523,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714298.5,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714298.7000000477,"object":null,"category":null}
+,{"time":1727714299.2000000477,"object":null,"category":null}
+,{"time":1727714299.4000000954,"object":null,"category":null}
+,{"time":1727714299.5999999046,"object":null,"category":null}
+,{"time":1727714300.0,"object":null,"category":null}
+,{"time":1727714300.2000000477,"object":"OneSkeleton_Hips1","category":"Others"}
+,{"time":1727714300.2999999523,"object":null,"category":null}
+,{"time":1727714300.7000000477,"object":null,"category":null}
+,{"time":1727714300.9000000954,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714301.0,"object":"NetworkUser2","category":"Team"}
+,{"time":1727714301.2999999523,"object":null,"category":null}
+,{"time":1727714301.5999999046,"object":null,"category":null}
+,{"time":1727714302.7000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714303.0999999046,"object":null,"category":null}
+,{"time":1727714303.2999999523,"object":null,"category":null}
+,{"time":1727714303.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714303.7999999523,"object":null,"category":null}
+,{"time":1727714304.0999999046,"object":null,"category":null}
+,{"time":1727714304.4000000954,"object":"Patient Right Leg","category":"Patient"}
+,{"time":1727714304.7000000477,"object":null,"category":null}
+,{"time":1727714305.2000000477,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714305.4000000954,"object":null,"category":null}
+,{"time":1727714305.7999999523,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714306.2000000477,"object":null,"category":null}
+,{"time":1727714306.4000000954,"object":null,"category":null}
+,{"time":1727714306.7000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714307.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714307.5999999046,"object":null,"category":null}
+,{"time":1727714308.0,"object":null,"category":null}
+,{"time":1727714308.2000000477,"object":null,"category":null}
+,{"time":1727714308.2999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714308.7999999523,"object":null,"category":null}
+,{"time":1727714309.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714309.4000000954,"object":"Defibrillator(Clone)","category":"Equipment"}
+,{"time":1727714309.5999999046,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714309.7000000477,"object":null,"category":null}
+,{"time":1727714310.0,"object":null,"category":null}
+,{"time":1727714310.2999999523,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714310.4000000954,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714310.5999999046,"object":null,"category":null}
+,{"time":1727714311.0,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714311.2000000477,"object":null,"category":null}
+,{"time":1727714312.0999999046,"object":null,"category":null}
+,{"time":1727714312.2999999523,"object":"NetworkHandR1","category":"Team"}
+,{"time":1727714312.5999999046,"object":null,"category":null}
+,{"time":1727714312.7999999523,"object":null,"category":null}
+,{"time":1727714313.2000000477,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714313.4000000954,"object":"Patient Torso","category":"Patient"}
+,{"time":1727714313.7999999523,"object":null,"category":null}
+,{"time":1727714314.0999999046,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714314.4000000954,"object":null,"category":null}
+,{"time":1727714314.5,"object":null,"category":null}
+,{"time":1727714314.7000000477,"object":null,"category":null}
+,{"time":1727714314.9000000954,"object":null,"category":null}
+,{"time":1727714315.0999999046,"object":null,"category":null}
+,{"time":1727714315.2000000477,"object":null,"category":null}
+,{"time":1727714315.4000000954,"object":null,"category":null}
+,{"time":1727714315.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714315.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714315.9000000954,"object":null,"category":null}
+,{"time":1727714316.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714316.2999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714316.7999999523,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714316.9000000954,"object":null,"category":null}
+,{"time":1727714317.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714317.2999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714318.0,"object":null,"category":null}
+,{"time":1727714318.2000000477,"object":"Patient Left Leg","category":"Patient"}
+,{"time":1727714318.5999999046,"object":null,"category":null}
+,{"time":1727714318.7999999523,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714319.0,"object":null,"category":null}
+,{"time":1727714319.2999999523,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714319.4000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714319.5,"object":"A5PumpMask_R(Clone)","category":"Equipment"}
+,{"time":1727714320.0,"object":null,"category":null}
+,{"time":1727714320.4000000954,"object":"Pulse Point Groin - Defib Machine","category":"Others"}
+,{"time":1727714320.5,"object":null,"category":null}
+,{"time":1727714321.0,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714321.2000000477,"object":"Defibrillator Vital Cognitive","category":"Monitors"}
+,{"time":1727714321.5,"object":null,"category":null}
+,{"time":1727714321.7999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714322.0999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714322.5,"object":"Pulse Point Neck - AirWay\/BVM","category":"Others"}
+,{"time":1727714322.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714323.0,"object":null,"category":null}
+,{"time":1727714323.4000000954,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714323.9000000954,"object":null,"category":null}
+,{"time":1727714324.0999999046,"object":null,"category":null}
+,{"time":1727714324.2999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714324.5999999046,"object":null,"category":null}
+,{"time":1727714324.7000000477,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714325.0,"object":null,"category":null}
+,{"time":1727714325.0999999046,"object":null,"category":null}
+,{"time":1727714325.2999999523,"object":null,"category":null}
+,{"time":1727714325.5,"object":null,"category":null}
+,{"time":1727714325.7000000477,"object":null,"category":null}
+,{"time":1727714326.0,"object":null,"category":null}
+,{"time":1727714326.2000000477,"object":null,"category":null}
+,{"time":1727714326.4000000954,"object":null,"category":null}
+,{"time":1727714326.5,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714326.5999999046,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714327.2999999523,"object":null,"category":null}
+,{"time":1727714328.2999999523,"object":null,"category":null}
+,{"time":1727714328.5,"object":"NetworkUser3","category":"Team"}
+,{"time":1727714329.2999999523,"object":"NetworkUser1","category":"Team"}
+,{"time":1727714329.5,"object":null,"category":null}
+,{"time":1727714329.7999999523,"object":"Down Part Vital Cognitive","category":"Monitors"}
+,{"time":1727714330.2000000477,"object":"NetworkUser1","category":"Team"}]}
