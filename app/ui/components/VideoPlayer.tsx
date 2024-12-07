@@ -1,9 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import 'tailwindcss/tailwind.css';
 
-// uncomment if not using local video source
-// const fireBaseVideoUrl = 'gs://mteam-dashboard.appspot.com/Data_Sample2/video/video.mp4';
-
 // Set the local video path
 const localVideoUrl = 'https://www.dropbox.com/scl/fi/gzpo2mer8tigrit3npjxv/timeline-multiplayer-09182024.mp4?rlkey=6sbj1ru1qze8mmf2xgww5q9tt&st=1iu18zj4&dl=1'; //
 
