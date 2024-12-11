@@ -9,6 +9,7 @@ import PlotContext from '@/app/ui/components/PlotContext';
 import {useActionsData} from '@/app/hooks/useActionsData';
 import VisualAttentionPlot from '@/app/ui/components/plots/VisualAttentionPlot';
 import SelectorButtonGroup from '@/app/ui/components/SelectorButtonGroup';
+import StickyDiv from '@/app/ui/components/StickyDiv';
 
 const Page = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -28,7 +29,9 @@ const Page = () => {
   return (
     <PlotContext.Provider value={useActionsData()}>
       <div className='flex flex-col justify-evenly'>
-        <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
+        <StickyDiv>
+          <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
+        </StickyDiv>
         <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
         <div className='flex flex-col items-center p-4'>
           <SelectorButtonGroup
