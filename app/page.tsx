@@ -29,8 +29,8 @@ const Page = () => {
   return (
     <PlotContext.Provider value={useActionsData()}>
       <div className='flex flex-col justify-evenly'>
-        <StickyDiv>
-          <VideoPlayer onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
+        <StickyDiv videoElementId="video">
+          <VideoPlayer videoElementId="video" onTimeUpdate={handleTimeUpdate} seekTo={seekTo.current} />
         </StickyDiv>
         <FilteredActionsPlot currentTime={currentTime} onClick={handleTimePointClick} />
         <div className='flex flex-col items-center p-4'>

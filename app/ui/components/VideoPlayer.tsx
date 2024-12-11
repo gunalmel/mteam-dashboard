@@ -4,7 +4,7 @@ import 'tailwindcss/tailwind.css';
 // Set the local video path
 const localVideoUrl = 'https://www.dropbox.com/scl/fi/gzpo2mer8tigrit3npjxv/timeline-multiplayer-09182024.mp4?rlkey=6sbj1ru1qze8mmf2xgww5q9tt&st=1iu18zj4&dl=1'; //
 
-const VideoPlayer = ({onTimeUpdate, seekTo}: {onTimeUpdate: (currentTime:number)=>void, seekTo: number|null}) => {
+const VideoPlayer = ({videoElementId, onTimeUpdate, seekTo}: {videoElementId:string, onTimeUpdate: (currentTime:number)=>void, seekTo: number|null}) => {
   const videoRef = useRef({currentTime: 0} as HTMLVideoElement);
 
   const handleSeek = () => {
@@ -26,7 +26,7 @@ const VideoPlayer = ({onTimeUpdate, seekTo}: {onTimeUpdate: (currentTime:number)
   return (
     <div className="flex flex-col items-center p-4">
       <div className="w-full max-w-2xl bg-gray-800 rounded-md overflow-hidden mb-4">
-        <video
+        <video id={videoElementId}
           ref={videoRef}
           src={localVideoUrl}
           controls
