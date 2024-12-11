@@ -18,6 +18,7 @@ export default function StickyDiv({stickyClassName = styles.sticky, children, ..
     const observer = new IntersectionObserver(
       ([e]) => {
         cachedStickyRef.classList.toggle(stickyClassName, e.intersectionRatio < 1);
+        cachedStickyRef.classList.toggle('bg-white', e.intersectionRatio < 1);
       },
       {
         // rootMargin: '-1px 0px 0px 0px',
