@@ -10,8 +10,9 @@ export default class ActionScatterPlotData {
   readonly plotlyImages = new Array<ImageWithName>();
   lastDateTimeString = '';
 
-  markPreviousError() {
-    this.getPrevious().markError();
+  markPreviousError(explanation: string) {
+    this.getPrevious().markError(explanation);
+    this.plotlyData.hovertext[this.plotlyData.hovertext.length - 1] = `${this.getPrevious().hovertext}, explanation`;
     this.plotlyData.colors[this.plotlyData.colors.length - 1] = ActionsScatterPlotPoint.ERROR_MARKER_COLOR;
   }
 

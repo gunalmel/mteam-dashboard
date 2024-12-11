@@ -62,10 +62,10 @@ function shouldRowMarkAnActionError(row: ActionsCsvRow, stageTransitionBoundary:
  */
 function handlePreviousRowError(row: ActionsCsvRow, scatterPlotData: ActionScatterPlotData, errorActionTracker: ErrorActionTracker): void {
   if (row.isCloseEnough(scatterPlotData.getPrevious().x)) {
-    scatterPlotData.markPreviousError();
+    scatterPlotData.markPreviousError(row.errorExplanation);
     errorActionTracker.reset();
   } else {
-    errorActionTracker.track(row.timeStamp);
+    errorActionTracker.track(row.timeStamp, row.errorExplanation);
   }
 }
 
@@ -76,7 +76,7 @@ function processScatterPlotDataRow(parsedRow: ActionsCsvRow, scatterPlotData: Ac
   const scatterPoint = new ActionsScatterPlotPoint(parsedRow);
 
   if (parsedRow.isCloseEnough(errorActionTracker.time)) {
-    scatterPoint.markError();
+    scatterPoint.markError(errorActionTracker.explanation);
     errorActionTracker.reset();
   } else {
     scatterPoint.markCorrect();

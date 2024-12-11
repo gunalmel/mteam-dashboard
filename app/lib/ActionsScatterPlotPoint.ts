@@ -11,7 +11,7 @@ export default class ActionsScatterPlotPoint {
     readonly x: CsvDateTimeStamp;
     readonly y: number;
     readonly name: string;
-    readonly hovertext: string;
+    hovertext: string;
     readonly icon: ActionImage;
     readonly plotlyImage: ImageWithName;
     /**
@@ -30,8 +30,9 @@ export default class ActionsScatterPlotPoint {
         this.plotlyImage = this.#createImage();
     }
 
-    markError() {
+    markError(errorExplanation: string) {
         this.color=ActionsScatterPlotPoint.ERROR_MARKER_COLOR;
+        this.hovertext = `${this.hovertext}, ${errorExplanation}`;
     }
 
     markCorrect() {
