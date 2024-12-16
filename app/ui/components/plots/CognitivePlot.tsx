@@ -4,14 +4,17 @@ import {useCognitiveLoadData} from '@/app/hooks/useCognitiveLoadData';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import PulseLoader from '@/app/ui/components/PulseLoader';
+import {Data} from 'plotly.js';
+import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
 type SourceName = keyof typeof PlotsFileSource.cognitiveLoad;
 
-const CognitiveLoadPlot = ({selectedSource}: {selectedSource: string}) => {
+const CognitiveLoadPlot = ({currentTime, selectedSource}: {currentTime:number, selectedSource: string}) => {
   const {actionsLayout} = useContext(PlotContext);
   const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(selectedSource as SourceName);
+  const plotData: Data[] = addTimeTracer(currentTime, cognitiveLoadData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +31,7 @@ const CognitiveLoadPlot = ({selectedSource}: {selectedSource: string}) => {
     <div className='flex flex-col items-center p-4' style={{height: '500px', position: 'relative'}}>
       <PulseLoader isLoading={isLoading} text={'Fetching data for Cognitive Load'} />
       <Plot
-        data={cognitiveLoadData}
+        data={plotData}
         layout={{
           ...cognitiveLoadLayout,
           ...{

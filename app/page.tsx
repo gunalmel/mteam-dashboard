@@ -47,8 +47,8 @@ const Page = () => {
             }}
           />
         </div>
-        <CognitiveLoadPlot selectedSource={selectedSource} />
-        <VisualAttentionPlot selectedSource={selectedSource} />
+        <CognitiveLoadPlot currentTime={currentTime} selectedSource={selectedSource} />
+        <VisualAttentionPlot currentTime={currentTime} selectedSource={selectedSource} />
       </div>
     </PlotContext.Provider>
   );
