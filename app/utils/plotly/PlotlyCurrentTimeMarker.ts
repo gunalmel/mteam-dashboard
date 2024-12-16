@@ -7,10 +7,10 @@ export class PlotlyCurrentTimeMarker {
   readonly #y:number[];// Adjust y range as needed - must be equal or greater than y1 value in createTransition boundary
   readonly #line:{color:string, width:number};
 
-  constructor(x: string[], y: number[]) {
+  constructor(x: string[], y: number[], color = 'red', width = 2) {
     this.#type = 'scatter';
     this.#mode = 'lines';
-    this.#line = {color: 'red', width: 2};
+    this.#line = {color, width};
     this.#x = x;
     this.#y = y;
   }

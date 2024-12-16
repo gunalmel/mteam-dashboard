@@ -40,7 +40,7 @@ const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shap
 const VisualAttentionPlot = ({currentTime, selectedSource}: {currentTime:number, selectedSource: string}) => {
   const {actionsLayout} = useContext(PlotContext);
   const [gazeData] = useGazeData(windowSize, selectedSource as SourceName);
-  const plotData: Data[] = addTimeTracer(currentTime, gazeData.plotlyData??[]);
+  const plotData: Data[] = addTimeTracer(currentTime, gazeData.plotlyData??[], {color:'#610C04'} );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

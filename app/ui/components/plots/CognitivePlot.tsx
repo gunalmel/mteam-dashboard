@@ -14,7 +14,7 @@ type SourceName = keyof typeof PlotsFileSource.cognitiveLoad;
 const CognitiveLoadPlot = ({currentTime, selectedSource}: {currentTime:number, selectedSource: string}) => {
   const {actionsLayout} = useContext(PlotContext);
   const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(selectedSource as SourceName);
-  const plotData: Data[] = addTimeTracer(currentTime, cognitiveLoadData);
+  const plotData: Data[] = addTimeTracer(currentTime, cognitiveLoadData, {});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
