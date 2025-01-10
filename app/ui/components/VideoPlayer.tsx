@@ -1,10 +1,19 @@
 import React, {useEffect, useRef} from 'react';
 import 'tailwindcss/tailwind.css';
 
-// Set the local video path
-const localVideoUrl = 'https://www.dropbox.com/scl/fi/gzpo2mer8tigrit3npjxv/timeline-multiplayer-09182024.mp4?rlkey=6sbj1ru1qze8mmf2xgww5q9tt&st=1iu18zj4&dl=1'; //
+interface VideoPlayerProps {
+  videoElementId: string;
+  onTimeUpdate: (currentTime: number) => void;
+  seekTo: number | null;
+  videoUrl: string;
+}
 
-const VideoPlayer = ({videoElementId, onTimeUpdate, seekTo}: {videoElementId:string, onTimeUpdate: (currentTime:number)=>void, seekTo: number|null}) => {
+const VideoPlayer = ({
+  videoElementId,
+  onTimeUpdate,
+  seekTo,
+  videoUrl
+}: VideoPlayerProps) => {
   const videoRef = useRef({currentTime: 0} as HTMLVideoElement);
 
   const handleSeek = () => {
@@ -28,7 +37,7 @@ const VideoPlayer = ({videoElementId, onTimeUpdate, seekTo}: {videoElementId:str
       <div className="w-full max-w-2xl bg-gray-800 rounded-md overflow-hidden mb-4">
         <video id={videoElementId}
           ref={videoRef}
-          src={localVideoUrl}
+          src={videoUrl}
           controls
           className="w-full"
           onTimeUpdate={handleTimeUpdate}

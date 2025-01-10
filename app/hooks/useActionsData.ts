@@ -5,18 +5,28 @@ import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 
-export const useActionsData = () => {
+type AvailableDate = keyof typeof PlotsFileSource;
+
+export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFileSource)[0] as AvailableDate) => {
   const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
   const [actionsData, setActionsData] = useState<Data[]>([]);
   const [actionsLayout, setActionsLayout] = useState<LayoutWithNamedImage>({images: []});
 
   useEffect(() => {
-    parseCsvData(PlotsFileSource.actions['09182024'].url, (plotData, layoutConfig, actionGroupIconMap) => {
+    const url = PlotsFileSource[selectedDate].actions.url;
+    if (!url) {
+      setActionsData([]);
+      setActionsLayout({images: []});
+      setActionGroupIcons([]);
+      return;
+    }
+
+    parseCsvData(url, (plotData, layoutConfig, actionGroupIconMap) => {
       setActionGroupIcons(Object.entries(actionGroupIconMap).map((entry) => ({value: entry[0], source: entry[1]})));
       setActionsData(plotData);
       setActionsLayout(layoutConfig);
     });
-  }, []);
+  }, [selectedDate]);
 
   const updateActionsData = (selectedMarkers: string[]) => {
     const filteredData = filterActionsData(actionsData, actionsLayout, selectedMarkers);

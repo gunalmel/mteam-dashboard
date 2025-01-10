@@ -6,20 +6,30 @@ import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import PulseLoader from '@/app/ui/components/PulseLoader';
 import {Data} from 'plotly.js';
 import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
+
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-type SourceName = keyof typeof PlotsFileSource.cognitiveLoad;
+type SourceName = keyof typeof PlotsFileSource[string]['cognitiveLoad'];
+type SimulationDate = keyof typeof PlotsFileSource;
 
-const CognitiveLoadPlot = ({currentTime, selectedSource}: {currentTime:number, selectedSource: string}) => {
+const CognitiveLoadPlot = ({
+  currentTime, 
+  selectedSource,
+  selectedDate
+}: {
+  currentTime: number;
+  selectedSource: string;
+  selectedDate: SimulationDate;
+}) => {
   const {actionsLayout} = useContext(PlotContext);
-  const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(selectedSource as SourceName);
+  const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(selectedDate, selectedSource as SourceName);
   const plotData: Data[] = addTimeTracer(currentTime, cognitiveLoadData, {});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true); // Set loading state when selectedSource changes
-  }, [selectedSource]);
+  }, [selectedSource, selectedDate]);
 
   useEffect(() => {
     if (cognitiveLoadData && cognitiveLoadData[0] && cognitiveLoadLayout) {

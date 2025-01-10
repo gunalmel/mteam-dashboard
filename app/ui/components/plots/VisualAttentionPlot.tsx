@@ -1,9 +1,9 @@
 'use client';
+import React, {useContext, useEffect, useState} from 'react';
 import {Data, Layout, Shape} from 'plotly.js';
 import dynamic from 'next/dynamic';
 import {useGazeData} from '@/app/hooks/useGazeData';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
-import React, {useContext, useEffect, useState} from 'react';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 import PulseLoader from '@/app/ui/components/PulseLoader';
@@ -13,39 +13,26 @@ const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
 const windowSize = 10; // 10-second window
 
-type SourceName = keyof typeof PlotsFileSource.visualAttention;
+type SourceName = keyof typeof PlotsFileSource[string]['visualAttention'];
+type SimulationDate = keyof typeof PlotsFileSource;
 
-// Generates vertical dotted line shapes separating stages/transitions using context actionsLayout.shapes
-const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shape>[] => {
-  // Extract unique x1 values for vertical lines
-  const uniqueX1Values = Array.from(new Set(shapesArray.map((shape) => shape.x1)));
-
-  // Create vertical line shapes for each unique x1 value
-  return uniqueX1Values.map((x1Value) => ({
-    type: 'line',
-    x0: x1Value,
-    x1: x1Value,
-    y0: 0,
-    y1: 1,
-    xref: 'x',
-    yref: 'paper',
-    line: {
-      color: 'black',
-      width: 2,
-      dash: 'dot'
-    }
-  })) as Partial<Shape>[];
-};
-
-const VisualAttentionPlot = ({currentTime, selectedSource}: {currentTime:number, selectedSource: string}) => {
+const VisualAttentionPlot = ({
+  currentTime,
+  selectedSource,
+  selectedDate
+}: {
+  currentTime: number;
+  selectedSource: string;
+  selectedDate: SimulationDate;
+}) => {
   const {actionsLayout} = useContext(PlotContext);
-  const [gazeData] = useGazeData(windowSize, selectedSource as SourceName);
+  const [gazeData] = useGazeData(windowSize, selectedDate, selectedSource as SourceName);
   const plotData: Data[] = addTimeTracer(currentTime, gazeData.plotlyData??[], {color:'#610C04'} );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true); // Set loading state when selectedSource changes
-  }, [selectedSource]);
+  }, [selectedSource, selectedDate]);
 
   useEffect(() => {
     if (gazeData && gazeData.plotlyData && gazeData.plotlyData[0]) {
@@ -76,31 +63,52 @@ const VisualAttentionPlot = ({currentTime, selectedSource}: {currentTime:number,
           ...layoutConfig.toPlotlyFormat(),
           ...({
             margin: {
-              // This is to position the title
-              t: 50, // Adjust this value to control the top margin
-              l: 50, // Left margin
-              r: 50, // Right margin
-              b: 50 // Bottom margin
+              t: 50,
+              l: 50,
+              r: 50,
+              b: 50
             },
             barmode: 'stack',
-            bargap: 0, // Remove gaps between bars
+            bargap: 0,
             xaxis: actionsLayout.xaxis,
             legend: {
-              orientation: 'h', // Set the legend to horizontal
-              x: 0.5, // Center the legend horizontally
-              y: 1, // Position the legend above the plot
+              orientation: 'h',
+              x: 0.5,
+              y: 1,
               xanchor: 'center',
               yanchor: 'bottom',
-              traceorder: 'normal' // Set trace order as normal to get the desired category order otherwise it's reversed
+              traceorder: 'normal'
             }
           } as Partial<Layout>)
         }}
         config={{displayModeBar: true, responsive: true, displaylogo: false}}
         style={{width: '100%', height: '100%'}}
-        useResizeHandler={true} // Ensure the plot adjusts size when container changes
+        useResizeHandler={true}
       />
     </div>
   );
+};
+
+// Generates vertical dotted line shapes separating stages/transitions using context actionsLayout.shapes
+const generateVerticalLineShapes = (shapesArray: Partial<Shape>[]): Partial<Shape>[] => {
+  // Extract unique x1 values for vertical lines
+  const uniqueX1Values = Array.from(new Set(shapesArray.map((shape) => shape.x1)));
+
+  // Create vertical line shapes for each unique x1 value
+  return uniqueX1Values.map((x1Value) => ({
+    type: 'line',
+    x0: x1Value,
+    x1: x1Value,
+    y0: 0,
+    y1: 1,
+    xref: 'x',
+    yref: 'paper',
+    line: {
+      color: 'black',
+      width: 2,
+      dash: 'dot'
+    }
+  })) as Partial<Shape>[];
 };
 
 export default VisualAttentionPlot;

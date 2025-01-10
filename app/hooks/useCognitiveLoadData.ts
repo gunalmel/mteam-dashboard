@@ -33,27 +33,43 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
   };
 };
 
-type SourceNames = keyof typeof PlotsFileSource.cognitiveLoad;
-type Sources = typeof PlotsFileSource.cognitiveLoad[SourceNames];
+type SourceNames = keyof typeof PlotsFileSource[string]['cognitiveLoad'];
+type SimulationDate = keyof typeof PlotsFileSource;
 
-export const loadData = async (source: Sources) => {
+export const loadData = async (selectedDate: SimulationDate, source: SourceNames) => {
+  const simulationData = PlotsFileSource[selectedDate];
+  const sourceUrl = simulationData.cognitiveLoad[source].url;
+  const averageUrl = simulationData.cognitiveLoad.average.url;
+
+  if (!sourceUrl || !averageUrl) {
+    return [
+      { seriesData: {} as Data },
+      { seriesData: {} as Data },
+      new PlotlyScatterLayout('Cognitive Load Over Time', [], [], [0, 0], [])
+    ];
+  }
+
   const individualPromise = fetchAndProcessData(
-    source.url['09302024'],
-    source.name,
+    sourceUrl,
+    simulationData.cognitiveLoad[source].name,
     'blue'
   );
-  const averageSeries = localStorage.getItem('averageCognitiveLoadSeries');
+
+  const averageSeries = localStorage.getItem(`averageCognitiveLoadSeries_${selectedDate}`);
   let individualResult, averageResult;
   if(averageSeries) {
     averageResult = JSON.parse(averageSeries);
     individualResult = await individualPromise;
-  }else {
-    [individualResult, averageResult] = await Promise.all([individualPromise,fetchAndProcessData(
-      PlotsFileSource.cognitiveLoad.average.url['09302024'],
-      PlotsFileSource.cognitiveLoad.average.name,
-      'red'
-    )]);
-    localStorage.setItem('averageCognitiveLoadSeries', JSON.stringify(averageResult));
+  } else {
+    [individualResult, averageResult] = await Promise.all([
+      individualPromise,
+      fetchAndProcessData(
+        averageUrl,
+        simulationData.cognitiveLoad.average.name,
+        'red'
+      )
+    ]);
+    localStorage.setItem(`averageCognitiveLoadSeries_${selectedDate}`, JSON.stringify(averageResult));
   }
 
   const layoutConfig = new PlotlyScatterLayout(
@@ -69,20 +85,22 @@ export const loadData = async (source: Sources) => {
   return [individualResult, averageResult, layoutConfig];
 };
 
-export const useCognitiveLoadData = (source: SourceNames) => {
+export const useCognitiveLoadData = (selectedDate: SimulationDate, source: SourceNames) => {
   const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
   const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
+
   useEffect(() => {
-    localStorage.removeItem('averageCognitiveLoadSeries');
-  },[]);
+    localStorage.removeItem(`averageCognitiveLoadSeries_${selectedDate}`);
+  }, [selectedDate]);
+
   useEffect(() => {
-    loadData(PlotsFileSource.cognitiveLoad[source])
+    loadData(selectedDate, source)
       .then(([data, averageData, layoutConfig]) => {
         setCognitiveLoadData([data.seriesData, averageData.seriesData]);
         setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
       })
       .catch(console.error);
-  }, [source]);
+  }, [selectedDate, source]);
 
   return {cognitiveLoadData, cognitiveLoadLayout, setCognitiveLoadData};
 };

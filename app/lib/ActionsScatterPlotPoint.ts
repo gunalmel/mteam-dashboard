@@ -7,6 +7,7 @@ import {ActionImage, ImageWithName} from '@/types';
 export default class ActionsScatterPlotPoint {
     static readonly ERROR_MARKER_COLOR = 'red';
     static readonly CORRECT_MARKER_COLOR = 'green';
+    static readonly DEFAULT_Y_POSITION = 0;
 
     readonly x: CsvDateTimeStamp;
     readonly y: number;
@@ -22,8 +23,11 @@ export default class ActionsScatterPlotPoint {
 
     constructor(parsedCsvRow: ActionsCsvRow){
         this.x = parsedCsvRow.timeStamp;
-        this.y = actionsDictionary.get(parsedCsvRow.actionName).y;
         this.name = parsedCsvRow.actionName;
+        
+        const actionInfo = actionsDictionary.get(this.name);
+        this.y = actionInfo ? actionInfo.y : ActionsScatterPlotPoint.DEFAULT_Y_POSITION;
+        
         this.hovertext = parsedCsvRow.actionAnnotation;
         this.dataText = this.#extractImageText(this.name);
         this.icon = getIcon(this.name);

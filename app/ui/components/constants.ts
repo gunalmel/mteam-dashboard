@@ -99,9 +99,10 @@ class ActionsDictionary{
     }, this);
   }
   getActionNamesByGroups(groupNames: string[]): string[] {
-    return groupNames.flatMap(group => ACTION_GROUP_MAP[group].names || []);
+    if (!groupNames.length) return [];
+    return groupNames.flatMap(group => ACTION_GROUP_MAP[group]?.names || []);
   }
-  get(action: string){
+  get(action: string): ActionImage | undefined {
     return this.#dictionary[action];
   }
   get yMax(): number {
@@ -121,8 +122,13 @@ export function getIcon(action: string): ActionImage {
     const icon = actionsDictionary.get(action);
 
     if (!icon) {
-        // console.error(`Icon not found for action: ${action} in explanationItems`);
-        return { url: '/icons/not-found.png', name: 'not found', group:'', y:0 };
+        console.warn(`Action not found in dictionary: ${action}`);
+        return { 
+            url: '/icons/not-found.png', 
+            name: action, 
+            group: 'Unknown', 
+            y: 0 
+        };
     }
 
     return icon;
