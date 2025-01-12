@@ -1,9 +1,8 @@
-import { ImageWithName } from '@/types';
 import ActionStageError from '@/app/lib/ActionStageError';
-import { Today } from '@/app/utils/TodayDateTimeConverter';
+import {Today} from '@/app/utils/TodayDateTimeConverter';
 import ActionStages from '@/app/lib/ActionStages';
 import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
-import {PlotData} from 'plotly.js';
+import {Image, PlotData} from 'plotly.js';
 
 function calculateLineCounts(errorCount: number): [number, number] {
   const firstLineCount = Math.ceil(errorCount / 2);
@@ -21,8 +20,8 @@ function calculateLinePosition(index: number, firstLineCount: number): { lineInd
 }
 
 export default function createStageErrors(stages: ActionStages, stageErrors: Record<string, ActionStageError[]>):
-    { data:Partial<PlotData>, images: ImageWithName[] } {
-  const errorImages: ImageWithName[] = [];
+    { data:Partial<PlotData>, images: Image[] } {
+  const errorImages: Image[] = [];
   const errorScatterData = new PlotlyScatterData([], [], [], [], [], [], { bgcolor: '#003366', font: { color: '#FFFF99' }});
   const yCoords = [-1.5, -2.5]; // Y positions for lines
 

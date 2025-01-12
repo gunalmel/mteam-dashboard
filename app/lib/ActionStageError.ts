@@ -1,14 +1,15 @@
 import ActionsCsvRow from '@/app/lib/csv/ActionsCsvRow';
-import {ActionImage, ImageWithName} from '@/types';
-import { PlotlyScatterImage } from '@/app/utils/plotly/PlotlyScatterImage';
-import { getIcon } from '@/app/ui/components/constants';
+import {ActionImage} from '@/types';
+import {PlotlyScatterImage} from '@/app/utils/plotly/PlotlyScatterImage';
+import {getIcon} from '@/app/ui/components/constants';
+import {Image} from 'plotly.js';
 
 export default class ActionStageError {
   readonly #name: string;
   readonly #explanation: string;
   readonly #annotation: string;
   readonly #icon: ActionImage;
-  readonly image: ImageWithName;
+  readonly image: Image;
 
   constructor(row: ActionsCsvRow) {
     this.#name = row.actionOrVitalName;
@@ -36,7 +37,6 @@ export default class ActionStageError {
       this.#icon.url,
       '',
       0,
-      this.#annotation,
     ).toPlotlyFormat();
   }
 }

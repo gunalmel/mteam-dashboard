@@ -1,5 +1,4 @@
-import {Annotations, LayoutAxis, Shape} from 'plotly.js';
-import {ImageWithName, LayoutWithNamedImage} from '@/types';
+import {Annotations, Image, Layout, LayoutAxis, Shape} from 'plotly.js';
 import {actionsDictionary} from '@/app/ui/components/constants';
 
 export default class PlotlyScatterLayout {
@@ -7,7 +6,7 @@ export default class PlotlyScatterLayout {
   readonly #shapes: Partial<Shape>[];
   readonly #annotations: Partial<Annotations>[];
   readonly #xAxisRange: [string | number, string | number];
-  readonly #images: Partial<ImageWithName>[];
+  readonly #images: Partial<Image>[];
   #yaxis: Partial<LayoutAxis>;
   #showLegend: boolean;
 
@@ -16,7 +15,7 @@ export default class PlotlyScatterLayout {
     shapes: Partial<Shape>[],
     annotations: Partial<Annotations>[],
     xAxisRange: [string | number, string | number],
-    images: Partial<ImageWithName>[]
+    images: Partial<Image>[]
   ) {
     this.#title = title;
     this.#shapes = shapes;
@@ -35,7 +34,7 @@ export default class PlotlyScatterLayout {
     this.#showLegend = value;
   }
 
-  toPlotlyFormat(): LayoutWithNamedImage {
+  toPlotlyFormat(): Partial<Layout> {
     return {
       title: {text: this.#title, y: 0.98},
       margin: {

@@ -1,12 +1,4 @@
-import {Image, Layout, PlotMouseEvent} from 'plotly.js';
-
-export type ImageWithName = Image & {
-  name: string;
-};
-
-export type LayoutWithNamedImage = Omit<Partial<Layout>, 'images'> & {
-  images: Partial<ImageWithName>[];
-};
+import {PlotMouseEvent} from 'plotly.js';
 
 export interface ImageToggleItem {
   source: string;

@@ -1,13 +1,12 @@
 import ActionsScatterPlotPoint from '@/app/lib/ActionsScatterPlotPoint';
 import {PlotlyScatterData} from '@/app/utils/plotly/PlotlyScatterData';
-import {PlotData} from 'plotly.js';
-import {ImageWithName} from '@/types';
+import {Image, PlotData} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 
 export default class ActionScatterPlotData {
   readonly points: ActionsScatterPlotPoint[] = [];
   readonly plotlyData = new PlotlyScatterData();
-  readonly plotlyImages = new Array<ImageWithName>();
+  readonly plotlyImages = new Array<Image>();
   lastDateTimeString = '';
 
   markPreviousError(explanation: string) {

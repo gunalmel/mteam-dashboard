@@ -34,7 +34,7 @@ const VideoPlayer = ({
 
   return (
     <div className="flex flex-col items-center p-4">
-      <div className="w-full max-w-2xl bg-gray-800 rounded-md overflow-hidden mb-4">
+      <div className="w-full max-w-sm bg-gray-800 rounded-md overflow-hidden mb-4">
         <video id={videoElementId}
           ref={videoRef}
           src={videoUrl}

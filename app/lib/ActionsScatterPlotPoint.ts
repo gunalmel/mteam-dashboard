@@ -1,8 +1,9 @@
 import ActionsCsvRow from '@/app/lib/csv/ActionsCsvRow';
-import {getIcon, actionsDictionary} from '@/app/ui/components/constants';
+import {actionsDictionary, getIcon} from '@/app/ui/components/constants';
 import CsvDateTimeStamp from '@/app/lib/csv/CsvDateTimeStamp';
 import {PlotlyScatterImage} from '@/app/utils/plotly/PlotlyScatterImage';
-import {ActionImage, ImageWithName} from '@/types';
+import {ActionImage} from '@/types';
+import {Image} from 'plotly.js';
 
 export default class ActionsScatterPlotPoint {
     static readonly ERROR_MARKER_COLOR = 'red';
@@ -14,7 +15,7 @@ export default class ActionsScatterPlotPoint {
     readonly name: string;
     hovertext: string;
     readonly icon: ActionImage;
-    readonly plotlyImage: ImageWithName;
+    readonly plotlyImage: Image;
     /**
      * will be displayed somewhere around the data on the plot
      */
@@ -24,10 +25,10 @@ export default class ActionsScatterPlotPoint {
     constructor(parsedCsvRow: ActionsCsvRow){
         this.x = parsedCsvRow.timeStamp;
         this.name = parsedCsvRow.actionName;
-        
+
         const actionInfo = actionsDictionary.get(this.name);
         this.y = actionInfo ? actionInfo.y : ActionsScatterPlotPoint.DEFAULT_Y_POSITION;
-        
+
         this.hovertext = parsedCsvRow.actionAnnotation;
         this.dataText = this.#extractImageText(this.name);
         this.icon = getIcon(this.name);
@@ -49,6 +50,6 @@ export default class ActionsScatterPlotPoint {
     }
 
     #createImage(){
-        return new PlotlyScatterImage(this.icon.url, this.x.dateTimeString, this.y, this.icon.name).toPlotlyFormat();
+        return new PlotlyScatterImage(this.icon.url, this.x.dateTimeString, this.y).toPlotlyFormat();
     }
 }

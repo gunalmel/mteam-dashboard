@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import {Data, ScatterData} from 'plotly.js';
+import {Data, Layout, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
-import {ImageToggleItem, LayoutWithNamedImage} from '@/types';
+import {ImageToggleItem} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 
@@ -10,7 +10,7 @@ type AvailableDate = keyof typeof PlotsFileSource;
 export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFileSource)[0] as AvailableDate) => {
   const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
   const [actionsData, setActionsData] = useState<Data[]>([]);
-  const [actionsLayout, setActionsLayout] = useState<LayoutWithNamedImage>({images: []});
+  const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({images: []});
 
   useEffect(() => {
     const url = PlotsFileSource[selectedDate].actions.url;
@@ -37,9 +37,9 @@ export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFi
 
   const filterActionsData = (
     plotData: Data[],
-    layoutConfig: LayoutWithNamedImage,
+    layoutConfig: Partial<Layout>,
     selectedActionGroups: string[]
-  ): {plotData: Data[]; layoutConfig: LayoutWithNamedImage} => {
+  ): {plotData: Data[]; layoutConfig: Partial<Layout>} => {
     if (!plotData[0]) {
       return {plotData: [], layoutConfig: {images: []}};
     }
@@ -87,7 +87,7 @@ export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFi
       ],
       layoutConfig: {
         ...layoutConfig,
-        images: layoutConfig.images.map((image, idx) => {
+        images: layoutConfig.images?.map((image, idx) => {
           return (image.y as number) > 0 ? {...image, opacity: filtered.opacity[idx]} : image;
         }),
       }

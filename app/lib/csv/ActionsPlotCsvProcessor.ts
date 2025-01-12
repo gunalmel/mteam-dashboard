@@ -5,9 +5,8 @@ import Papa from 'papaparse';
 import {processRow} from '@/app/lib/csv/actionCsvRowProcessor';
 import ActionScatterPlotData from '@/app/lib/ActionScatterPlotData';
 import ActionStageError from '@/app/lib/ActionStageError';
-import {ImageWithName, LayoutWithNamedImage} from '@/types';
 import createStageErrors from '@/app/lib/stageErrorPositionCalculator';
-import {PlotData} from 'plotly.js';
+import {Image, Layout, PlotData} from 'plotly.js';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 
 export default class ActionsPlotCsvProcessor {
@@ -32,7 +31,7 @@ export default class ActionsPlotCsvProcessor {
     );
   }
 
-  layout(): LayoutWithNamedImage {
+  layout(): Partial<Layout> {
     return new PlotlyScatterLayout(
       'Clinical Review Timeline',
       this.stages.plotlyShapes,
@@ -46,7 +45,7 @@ export default class ActionsPlotCsvProcessor {
     return this.data.createPlotScatterData();
   }
 
-  collectStageErrors(): { data: Partial<PlotData>; images: ImageWithName[] } {
+  collectStageErrors(): { data: Partial<PlotData>; images: Image[] } {
     return createStageErrors(this.stages, this.stageErrors);
   }
 
