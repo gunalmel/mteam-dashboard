@@ -60,10 +60,10 @@ const Page = () => {
           selectedDate={selectedDate}
           onDateChange={handleDateChange}
         />
-        <StickyDiv videoElementId="video">
-          <VideoPlayer 
-            videoElementId="video" 
-            onTimeUpdate={handleTimeUpdate} 
+        <StickyDiv>
+          <VideoPlayer
+            videoElementId="video"
+            onTimeUpdate={handleTimeUpdate}
             seekTo={seekTo.current}
             videoUrl={PlotsFileSource[selectedDate].video.url ?? ''}
           />
@@ -83,13 +83,13 @@ const Page = () => {
             }}
           />
         </div>
-        <CognitiveLoadPlot 
-          currentTime={currentTime} 
+        <CognitiveLoadPlot
+          currentTime={currentTime}
           selectedSource={selectedSource}
           selectedDate={selectedDate}
         />
-        <VisualAttentionPlot 
-          currentTime={currentTime} 
+        <VisualAttentionPlot
+          currentTime={currentTime}
           selectedSource={selectedSource}
           selectedDate={selectedDate}
         />

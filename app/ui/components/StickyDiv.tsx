@@ -1,8 +1,7 @@
 import {HTMLAttributes, ReactNode} from 'react';
 import styles from './StickyDiv.module.css';
 
-export default function StickyDiv({videoElementId, stickyClassName = styles.sticky, children, ...rest}: {
-  videoElementId: string,
+export default function StickyDiv({stickyClassName = styles.sticky, children, ...rest}: {
   stickyClassName?: string,
   children: ReactNode,
   rest?: HTMLAttributes<HTMLDivElement>
