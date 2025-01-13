@@ -2,19 +2,19 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Data, Layout, Shape} from 'plotly.js';
 import dynamic from 'next/dynamic';
-import {useGazeData} from '@/app/hooks/useGazeData';
-import PlotsFileSource from '@/app/utils/plotSourceProvider';
+import {useVisualAttentionData} from '@/app/hooks/useVisualAttentionData';
 import PlotContext from '@/app/ui/components/PlotContext';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
 import PulseLoader from '@/app/ui/components/PulseLoader';
 import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
+import {DataSources, VisualAttentionDataSource} from '@/types';
 
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
 const SLIDING_WINDOW_SIZE_SECONDS = 10; // 10-second window
 
-type SourceName = keyof typeof PlotsFileSource[string]['visualAttention'];
-type SimulationDate = keyof typeof PlotsFileSource;
+type SourceName = keyof VisualAttentionDataSource;
+type SimulationDate = keyof DataSources;
 
 const VisualAttentionPlot = ({
   currentTime,
@@ -27,8 +27,8 @@ const VisualAttentionPlot = ({
 }) => {
   const {dataSources, actionsData} = useContext(PlotContext);
   const actionsLayout =  actionsData.actionsLayout;
-  const [gazeData] = useGazeData(dataSources, SLIDING_WINDOW_SIZE_SECONDS, selectedDate, selectedSource as SourceName);
-  const plotData: Data[] = addTimeTracer(currentTime, gazeData.plotlyData??[], {color:'#610C04'} );
+  const [visualAttentionData] = useVisualAttentionData(dataSources, SLIDING_WINDOW_SIZE_SECONDS, selectedDate, selectedSource as SourceName);
+  const plotData: Data[] = addTimeTracer(currentTime, visualAttentionData.plotlyData??[], {color:'#610C04'} );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const VisualAttentionPlot = ({
   }, [selectedSource, selectedDate]);
 
   useEffect(() => {
-    if (gazeData && gazeData.plotlyData && gazeData.plotlyData[0]) {
+    if (visualAttentionData && visualAttentionData.plotlyData && visualAttentionData.plotlyData[0]) {
       setIsLoading(false); // Data is ready, disable loading
     }
-  }, [gazeData]);
+  }, [visualAttentionData]);
 
   // Generate vertical line shapes based on actionsLayout.shapes
   const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);

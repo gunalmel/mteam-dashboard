@@ -2,8 +2,7 @@ import {useEffect, useState} from 'react';
 import {Data, Layout} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
-import {DataSource, DataSources} from '@/types';
-import PlotsFileSource from '@/app/utils/plotSourceProvider';
+import {CognitiveLoadDataSource, DataSource, DataSources} from '@/types';
 
 const fetchAndProcessData = async (url: string, name: string, color: string) => {
   const response = await fetch(url);
@@ -34,8 +33,8 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
   };
 };
 
-type SourceNames = keyof typeof PlotsFileSource[string]['cognitiveLoad'];
-type SimulationDate = keyof typeof PlotsFileSource;
+type SourceNames = keyof CognitiveLoadDataSource;
+type SimulationDate = keyof DataSources;
 
 export const loadData = async (simulationDataSources: DataSource, selectedDate: SimulationDate, source: SourceNames) => {
   const sourceUrl = simulationDataSources.cognitiveLoad[source].url;

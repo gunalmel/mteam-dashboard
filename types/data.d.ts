@@ -5,14 +5,14 @@ export interface ActionImage {
   y: number;
 }
 
-export interface GazeData {
+interface VisualAttentionData {
   time: number; // Unix timestamp in seconds
   category?: string|null;
   object?: string|null;
 }
 
-export interface GazeDataStack {
+interface VisualAttentionDataStack {
   time: string;
-  counts: Record<GazeData.category, number>;
+  counts: Record<VisualAttentionData.category, number>;
   totalCount: number;
 }

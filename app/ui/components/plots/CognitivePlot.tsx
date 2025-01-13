@@ -2,16 +2,16 @@ import React, {useContext, useEffect, useState} from 'react';
 import dynamic from 'next/dynamic';
 import {useCognitiveLoadData} from '@/app/hooks/useCognitiveLoadData';
 import PlotContext from '@/app/ui/components/PlotContext';
-import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import PulseLoader from '@/app/ui/components/PulseLoader';
 import {Data} from 'plotly.js';
 import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
+import {CognitiveLoadDataSource, DataSources} from '@/types';
 
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-type SourceName = keyof (typeof PlotsFileSource)[string]['cognitiveLoad'];
-type SimulationDate = keyof typeof PlotsFileSource;
+type SourceName = keyof CognitiveLoadDataSource;
+type SimulationDate = keyof DataSources;
 
 const CognitiveLoadPlot = ({
   currentTime,

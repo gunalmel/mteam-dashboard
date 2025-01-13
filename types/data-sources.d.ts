@@ -1,23 +1,23 @@
-export interface Resource {
+interface Resource {
   name: string;
   url: string | undefined;
 }
 
-export interface VisualAttentionDataSource {
+interface VisualAttentionDataSource {
   teamLead: Resource;
   defib: Resource;
   compressor: Resource;
   airway: Resource;
 }
 
-export interface CognitiveLoadData extends VisualAttentionDataSource{
+interface CognitiveLoadDataSource extends VisualAttentionDataSource{
   average: Resource;
 }
 
-export interface DataSource {
+interface DataSource {
   video: Resource;
   actions: Resource;
-  cognitiveLoad: CognitiveLoadData;
+  cognitiveLoad: CognitiveLoadDataSource;
   visualAttention: VisualAttentionDataSource;
 }
 

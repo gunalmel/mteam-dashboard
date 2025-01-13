@@ -1,15 +1,15 @@
-import PlotsFileSource from '@/app/utils/plotSourceProvider';
+import {DataSources} from '@/types';
 
-export const checkDataAvailability = (date: string) => {
-  const simulationData = PlotsFileSource[date];
-  if (!simulationData) return { hasActions: false, hasCognitiveLoad: false, hasVisualAttention: false, hasAllData: false };
+export const checkDataAvailability = (dataSources: DataSources, date: string) => {
+  const simulationData = dataSources[date];
+  if (!dataSources || !dataSources[date]) return { hasActions: false, hasCognitiveLoad: false, hasVisualAttention: false, hasAllData: false };
 
   const hasActions = simulationData.actions.url !== undefined;
   const hasCognitiveLoad = Object.values(simulationData.cognitiveLoad).every(
-    source => source.url !== undefined
+    source => !!source.url
   );
   const hasVisualAttention = Object.values(simulationData.visualAttention).every(
-    source => source.url !== undefined
+    source => !! source.url
   );
 
   return {
@@ -18,4 +18,4 @@ export const checkDataAvailability = (date: string) => {
     hasVisualAttention,
     hasAllData: hasActions && hasCognitiveLoad && hasVisualAttention
   };
-}; 
+};

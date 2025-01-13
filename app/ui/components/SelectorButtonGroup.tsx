@@ -1,18 +1,6 @@
 import clsx from 'clsx';
-import {ButtonHTMLAttributes, FC, MouseEvent, useCallback} from 'react';
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  value: string;
-  label: string;
-  position: 'first' | 'middle' | 'last';
-  selected: boolean;
-}
-
-interface SelectorButtonGroupProps {
-  selections: [string, string][];
-  selectedValue: string;
-  onSelect: (selectedValue: string) => void;
-}
+import {FC, MouseEvent, useCallback} from 'react';
+import {ButtonProps, SelectorButtonGroupProps} from '@/types';
 
 const selectionPositionSpecificClasses = (type: 'first' | 'middle' | 'last', selected: boolean) =>
   clsx({
@@ -47,7 +35,8 @@ const SelectorButtonGroup: FC<SelectorButtonGroupProps> = ({selections, selected
       {selections.map(([value, label], index) => {
         const position = index === 0 ? 'first' : index === selections.length - 1 ? 'last' : 'middle';
         return (
-          <Button key={value}
+          <Button
+            key={value}
             value={value}
             label={label}
             position={position}
