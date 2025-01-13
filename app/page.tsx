@@ -13,6 +13,7 @@ import StickyDiv from '@/app/ui/components/StickyDiv';
 import DateSelector from '@/app/ui/components/DateSelector';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import {checkDataAvailability} from '@/app/utils/dataAvailability';
+import {useDataSources} from '@/app/hooks/useDataSources';
 
 type AvailableDate = keyof typeof PlotsFileSource;
 
@@ -37,7 +38,8 @@ const Page = () => {
     setSelectedDate(date as AvailableDate);
   };
 
-  const actionsData = useActionsData(selectedDate);
+  const [dataSources] = useDataSources();
+  const actionsData = useActionsData(dataSources, selectedDate);
 
   if (!dataAvailability.hasAllData) {
     return (
@@ -52,9 +54,8 @@ const Page = () => {
       </div>
     );
   }
-
   return (
-    <PlotContext.Provider value={actionsData}>
+    <PlotContext.Provider value={{dataSources, actionsData}}>
       <div className='flex flex-col justify-evenly'>
         <DateSelector
           selectedDate={selectedDate}

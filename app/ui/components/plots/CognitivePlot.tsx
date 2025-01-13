@@ -10,11 +10,11 @@ import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
 // Dynamically import Plotly with no SSR
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-type SourceName = keyof typeof PlotsFileSource[string]['cognitiveLoad'];
+type SourceName = keyof (typeof PlotsFileSource)[string]['cognitiveLoad'];
 type SimulationDate = keyof typeof PlotsFileSource;
 
 const CognitiveLoadPlot = ({
-  currentTime, 
+  currentTime,
   selectedSource,
   selectedDate
 }: {
@@ -22,8 +22,13 @@ const CognitiveLoadPlot = ({
   selectedSource: string;
   selectedDate: SimulationDate;
 }) => {
-  const {actionsLayout} = useContext(PlotContext);
-  const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(selectedDate, selectedSource as SourceName);
+  const {dataSources, actionsData} = useContext(PlotContext);
+  const actionsLayout = actionsData.actionsLayout;
+  const {cognitiveLoadData, cognitiveLoadLayout} = useCognitiveLoadData(
+    dataSources,
+    selectedDate,
+    selectedSource as SourceName
+  );
   const plotData: Data[] = addTimeTracer(currentTime, cognitiveLoadData, {});
   const [isLoading, setIsLoading] = useState(true);
 

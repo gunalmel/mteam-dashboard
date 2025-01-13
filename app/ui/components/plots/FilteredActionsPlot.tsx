@@ -11,7 +11,7 @@ import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
 const FilteredActionsPlot: FC<FilteredActionsProps> = ({onClick, currentTime}) => {
-  const {actionsData, actionsLayout, actionGroupIcons, updateActionsData} = useContext(PlotContext);
+  const {actionsData, actionsLayout, actionGroupIcons, updateActionsData} = useContext(PlotContext).actionsData;
   const plotData: Data[] = addTimeTracer(currentTime, actionsData, {yMin:0, yMax:(actionsDictionary.yMax + 1)});
   const [isLoading, setIsLoading] = useState(true);
 

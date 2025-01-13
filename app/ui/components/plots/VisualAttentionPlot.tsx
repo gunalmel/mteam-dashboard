@@ -11,7 +11,7 @@ import addTimeTracer from '@/app/utils/addVideoTimeTracerToPlot';
 
 const Plot = dynamic(() => import('react-plotly.js'), {ssr: false});
 
-const windowSize = 10; // 10-second window
+const SLIDING_WINDOW_SIZE_SECONDS = 10; // 10-second window
 
 type SourceName = keyof typeof PlotsFileSource[string]['visualAttention'];
 type SimulationDate = keyof typeof PlotsFileSource;
@@ -25,8 +25,9 @@ const VisualAttentionPlot = ({
   selectedSource: string;
   selectedDate: SimulationDate;
 }) => {
-  const {actionsLayout} = useContext(PlotContext);
-  const [gazeData] = useGazeData(windowSize, selectedDate, selectedSource as SourceName);
+  const {dataSources, actionsData} = useContext(PlotContext);
+  const actionsLayout =  actionsData.actionsLayout;
+  const [gazeData] = useGazeData(dataSources, SLIDING_WINDOW_SIZE_SECONDS, selectedDate, selectedSource as SourceName);
   const plotData: Data[] = addTimeTracer(currentTime, gazeData.plotlyData??[], {color:'#610C04'} );
   const [isLoading, setIsLoading] = useState(true);
 

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 import { processGazeData, transformGazeDataForPlotly } from '@/app/lib/processGazeData';
+import {DataSources} from '@/types';
 
 type SourceNames = keyof typeof PlotsFileSource[string]['visualAttention'];
 type SimulationDate = keyof typeof PlotsFileSource;
 
-export function useGazeData(windowSize: number, selectedDate: SimulationDate, selectedSource: SourceNames) {
+export function useGazeData(dataSources: DataSources, windowSize: number, selectedDate: SimulationDate, selectedSource: SourceNames) {
     const [plotData, setPlotData] = useState({} as ReturnType<typeof transformGazeDataForPlotly>);
 
     useEffect(() => {
         const fetchAndProcessData = async () => {
-            const url = PlotsFileSource[selectedDate].visualAttention[selectedSource].url;
+            const url = dataSources[selectedDate]?.visualAttention[selectedSource].url;
             if (!url) {
                 setPlotData({} as ReturnType<typeof transformGazeDataForPlotly>);
                 return;
@@ -25,7 +26,7 @@ export function useGazeData(windowSize: number, selectedDate: SimulationDate, se
         };
 
         fetchAndProcessData().catch(console.error);
-    }, [selectedDate, selectedSource, windowSize]);
+    }, [dataSources, selectedDate, selectedSource, windowSize]);
 
     return [plotData, setPlotData] as const;
 }

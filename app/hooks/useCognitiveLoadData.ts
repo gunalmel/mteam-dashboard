@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Data, Layout} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
+import {DataSource, DataSources} from '@/types';
 import PlotsFileSource from '@/app/utils/plotSourceProvider';
 
 const fetchAndProcessData = async (url: string, name: string, color: string) => {
@@ -36,10 +37,9 @@ const fetchAndProcessData = async (url: string, name: string, color: string) => 
 type SourceNames = keyof typeof PlotsFileSource[string]['cognitiveLoad'];
 type SimulationDate = keyof typeof PlotsFileSource;
 
-export const loadData = async (selectedDate: SimulationDate, source: SourceNames) => {
-  const simulationData = PlotsFileSource[selectedDate];
-  const sourceUrl = simulationData.cognitiveLoad[source].url;
-  const averageUrl = simulationData.cognitiveLoad.average.url;
+export const loadData = async (simulationDataSources: DataSource, selectedDate: SimulationDate, source: SourceNames) => {
+  const sourceUrl = simulationDataSources.cognitiveLoad[source].url;
+  const averageUrl = simulationDataSources.cognitiveLoad.average.url;
 
   if (!sourceUrl || !averageUrl) {
     return [
@@ -51,7 +51,7 @@ export const loadData = async (selectedDate: SimulationDate, source: SourceNames
 
   const individualPromise = fetchAndProcessData(
     sourceUrl,
-    simulationData.cognitiveLoad[source].name,
+    simulationDataSources.cognitiveLoad[source].name,
     'blue'
   );
 
@@ -65,7 +65,7 @@ export const loadData = async (selectedDate: SimulationDate, source: SourceNames
       individualPromise,
       fetchAndProcessData(
         averageUrl,
-        simulationData.cognitiveLoad.average.name,
+        simulationDataSources.cognitiveLoad.average.name,
         'red'
       )
     ]);
@@ -85,22 +85,25 @@ export const loadData = async (selectedDate: SimulationDate, source: SourceNames
   return [individualResult, averageResult, layoutConfig];
 };
 
-export const useCognitiveLoadData = (selectedDate: SimulationDate, source: SourceNames) => {
+export const useCognitiveLoadData = (dataSources: DataSources, selectedDate: SimulationDate, source: SourceNames) => {
   const [cognitiveLoadData, setCognitiveLoadData] = useState<Data[]>([]);
   const [cognitiveLoadLayout, setCognitiveLoadLayout] = useState<Partial<Layout>>({});
+  const simulationDataSources = dataSources[selectedDate];
 
   useEffect(() => {
     localStorage.removeItem(`averageCognitiveLoadSeries_${selectedDate}`);
   }, [selectedDate]);
 
   useEffect(() => {
-    loadData(selectedDate, source)
-      .then(([data, averageData, layoutConfig]) => {
-        setCognitiveLoadData([data.seriesData, averageData.seriesData]);
-        setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
-      })
-      .catch(console.error);
-  }, [selectedDate, source]);
+    if (simulationDataSources && selectedDate) {
+      loadData(simulationDataSources, selectedDate, source)
+        .then(([data, averageData, layoutConfig]) => {
+          setCognitiveLoadData([data.seriesData, averageData.seriesData]);
+          setCognitiveLoadLayout(layoutConfig.toPlotlyFormat());
+        })
+        .catch(console.error);
+    }
+  }, [simulationDataSources, selectedDate, source]);
 
   return {cognitiveLoadData, cognitiveLoadLayout, setCognitiveLoadData};
 };

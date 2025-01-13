@@ -1,20 +1,17 @@
 import {useEffect, useState} from 'react';
 import {Data, Layout, ScatterData} from 'plotly.js';
 import {parseCsvData} from '@/app/lib/csv/actionCsvParser';
-import {ImageToggleItem} from '@/types';
+import {ImageToggleItem, DataSources} from '@/types';
 import {actionsDictionary} from '@/app/ui/components/constants';
-import PlotsFileSource from '@/app/utils/plotSourceProvider';
 
-type AvailableDate = keyof typeof PlotsFileSource;
-
-export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFileSource)[0] as AvailableDate) => {
+export const useActionsData = (dataSources: DataSources, selectedDate = '') => {
   const [actionGroupIcons, setActionGroupIcons] = useState<ImageToggleItem[]>([]);
   const [actionsData, setActionsData] = useState<Data[]>([]);
   const [actionsLayout, setActionsLayout] = useState<Partial<Layout>>({images: []});
 
   useEffect(() => {
-    const url = PlotsFileSource[selectedDate].actions.url;
-    if (!url) {
+    const url = dataSources[selectedDate]?.actions.url;
+    if (!url||!selectedDate) {
       setActionsData([]);
       setActionsLayout({images: []});
       setActionGroupIcons([]);
@@ -26,7 +23,7 @@ export const useActionsData = (selectedDate: AvailableDate = Object.keys(PlotsFi
       setActionsData(plotData);
       setActionsLayout(layoutConfig);
     });
-  }, [selectedDate]);
+  }, [selectedDate, dataSources]);
 
   const updateActionsData = (selectedMarkers: string[]) => {
     const filteredData = filterActionsData(actionsData, actionsLayout, selectedMarkers);
