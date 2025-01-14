@@ -1,12 +1,12 @@
-import { GazeData } from '@/types';
-import {processGazeData} from '@/app/lib/processGazeData';
+import { VisualAttentionData } from '@/types';
+import {processVisualAttentionData} from '@/app/lib/processVisualAttentionData';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import {data as visualAttentionData} from '../test-visual-attention-data.json';
 import {data as expectedVisualAttentionData} from '../../build/test-data/expected-visual-attention.json';
 
-describe('processGazeData', () => {
+describe('processVisualAttentionData', () => {
   it('should calculate category counts in sliding windows', () => {
-    const data: GazeData[] = [
+    const data: VisualAttentionData[] = [
       { time: 1, category: 'A', object: 'alpha' },
       { time: 2, category: 'B', object: 'omega' },
       { time: 2.5, category: 'B', object: 'omega' },
@@ -26,9 +26,9 @@ describe('processGazeData', () => {
       { time: Today.parseSeconds(6).dateTimeString, counts: { C: 1 }, totalCount: 1 }
     ];
 
-    const result = processGazeData(data, windowSize);
+    const result = processVisualAttentionData(data, windowSize);
 
     expect(result).toEqual(expected);
-    expect(processGazeData(visualAttentionData, 10)).toStrictEqual(expectedVisualAttentionData);
+    expect(processVisualAttentionData(visualAttentionData, 10)).toStrictEqual(expectedVisualAttentionData);
   });
 });

@@ -1,15 +1,15 @@
-import {GazeData, GazeDataStack} from '@/types';
+import {VisualAttentionData, VisualAttentionDataStack} from '@/types';
 import {PlotData} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import {VisualAttentionCategoryColors} from '@/app/ui/components/constants';
 
-function convertCountToFraction(window: GazeDataStack): void {
+function convertCountToFraction(window: VisualAttentionDataStack): void {
   Object.entries(window.counts).forEach(([key])=>{
     window.counts[key] /= window.totalCount;
   });
 }
 
-function countSlidingWindowCategory(data: GazeData[],startIdx:number,windowEndValue:number,windowSize:number,out:GazeDataStack[]):GazeDataStack[]{
+function countSlidingWindowCategory(data: VisualAttentionData[], startIdx:number, windowEndValue:number, windowSize:number, out:VisualAttentionDataStack[]):VisualAttentionDataStack[]{
   if(!data || data.length===0){
     return [];
   }
@@ -36,15 +36,15 @@ function countSlidingWindowCategory(data: GazeData[],startIdx:number,windowEndVa
   return countSlidingWindowCategory(data,++startIdx,windowEndValue,windowSize,out);
 }
 
-export function processGazeData(data: GazeData[], windowSize: number): GazeDataStack[] {
+export function processVisualAttentionData(data: VisualAttentionData[], windowSize: number): VisualAttentionDataStack[] {
   if(!data || data.length===0){
     return [];
   }
-  const result: GazeDataStack[] = [{time: Today.parseSeconds(windowSize).dateTimeString, counts:{[data[0].category??'']: 0}, totalCount:0}];
+  const result: VisualAttentionDataStack[] = [{time: Today.parseSeconds(windowSize).dateTimeString, counts:{[data[0].category??'']: 0}, totalCount:0}];
   return countSlidingWindowCategory(data,0,windowSize,windowSize,result);
 }
 
-export function transformGazeDataForPlotly(categoryCounts: GazeDataStack[]): {tickVals: string[], plotlyData: Partial<PlotData>[]} {
+export function transformVisualAttentionDataForPlotly(categoryCounts: VisualAttentionDataStack[]): {tickVals: string[], plotlyData: Partial<PlotData>[]} {
   const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others']; // Desired order
 
   const result = categoryCounts.reduce((acc, item) => {
