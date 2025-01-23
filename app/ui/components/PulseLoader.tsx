@@ -4,7 +4,7 @@ export default function PulseLoader({isLoading, text}: {isLoading: boolean, text
   return (
     <div
       className={clsx(
-        'absolute inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-10',
+        'absolute inset-0 bg-gray-700/50 flex items-center justify-center z-10',
         !isLoading && 'collapse'
       )}>
       <div className="flex flex-col items-center space-y-2">

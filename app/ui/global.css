@@ -2,32 +2,20 @@
 /*JavaScript config files are still supported for backward compatibility, but they are no longer detected automatically in v4*/
 @config '../../tailwind.config.mjs';
 
-@theme {
-  --animate-*: initial;
-  --animate-animloader27: animloader27 2s ease-in-out infinite;
-
-  --grid-template-columns-13: repeat(13, minmax(0, 1fr));
-
-  --color-blue-400: #2589fe;
-  --color-blue-500: #0070f3;
-  --color-blue-600: #2f6feb;
-
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
-    }
+@keyframes animloader27 {
+  0%,
+  100% {
+    transform: scale(0);
+    opacity: 1;
   }
-  @keyframes animloader27 {
-    0%,
-    100% {
-      transform: scale(0);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 0;
-    }
+  50% {
+    transform: scale(1);
+    opacity: 0;
   }
+}
+
+.animate-animloader27 {
+  animation: animloader27 2s ease-in-out infinite;
 }
 
 /*
