@@ -25,3 +25,38 @@ ActionsCsvRow and actionCsvRowProcessor are the backbone of the application. Row
 npx npm-check-updates -u
 npm i
 ```
+## Docker Containerization
+
+In compose file
+volumes:
+- .:/app:cached
+makes the source code changes synced in container allowing reload to work when run with target:dev.
+
+## Docker exe
+
+You need to comment out dev/prod realted parts in Dockerfile if you are going to use docker exe to build and run the container.
+With composer below, you can use target to selectively build the container for dev or prod.
+
+```bash
+docker build -t mteam-dashboard-nextjs .
+
+docker run -p 3000:3000 mteam-dashboard-nextjs
+
+docker ps
+docker ls
+
+docker stop mteam-dashboard-nextjs
+#if you like to remove the image and the container
+docker rm mteam-dashboard-nextjs
+docker rmi mteam-dashboard-nextjs
+```
+
+### Docker compose
+
+```bash
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+
+docker-compose up
+
+docker-compose down
+```

@@ -1,0 +1,12 @@
+services:
+  app:
+    image: mteam-dashboard-nextjs
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:cached
+      - /app/node_modules
+    ports:
+      - "3000:3000"
