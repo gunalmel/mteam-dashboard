@@ -31,7 +31,7 @@ const SelectorButtonGroup: FC<SelectorButtonGroupProps> = ({selections, selected
   );
 
   return (
-    <div className='inline-flex rounded-md shadow-sm' role='group'>
+    <div className='inline-flex rounded-md shadow-xs' role='group'>
       {selections.map(([value, label], index) => {
         const position = index === 0 ? 'first' : index === selections.length - 1 ? 'last' : 'middle';
         return (

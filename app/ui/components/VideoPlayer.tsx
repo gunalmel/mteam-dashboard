@@ -1,5 +1,4 @@
-import React, {useEffect, useRef} from 'react';
-import 'tailwindcss/tailwind.css';
+import {useEffect, useRef} from 'react';
 
 interface VideoPlayerProps {
   videoElementId: string;

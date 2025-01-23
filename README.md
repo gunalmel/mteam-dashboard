@@ -18,3 +18,10 @@ There are 3 types of data that can be plotted on Actions Scatter Plot:
 
 CSV file is parsed using a js library. The timestamp column of the csv file has H:MI:S format. That gets appended to the beginning of the day. That results in problems with running the integration test for parsing csv by reying on expected data stored statically in josn files. package.json test script depends on replaceDate.js code written by chat gpt to update those files with correct expected dates before running the test. Without running the script the tests can only pass for one day since the next day the current day of the date will change.
 ActionsCsvRow and actionCsvRowProcessor are the backbone of the application. Row processor builds up the data structures that will be used by plotly js.
+
+## To upgrade dependencies
+
+```bash
+npx npm-check-updates -u
+npm i
+```
