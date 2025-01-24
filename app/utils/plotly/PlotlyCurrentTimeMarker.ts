@@ -6,6 +6,7 @@ export class PlotlyCurrentTimeMarker {
   readonly #x:string[];// = [currentTimeFormatted, currentTimeFormatted];
   readonly #y:number[];// Adjust y range as needed - must be equal or greater than y1 value in createTransition boundary
   readonly #line:{color:string, width:number};
+  readonly #name:string;
 
   constructor(x: string[], y: number[], color = 'red', width = 2) {
     this.#type = 'scatter';
@@ -13,6 +14,7 @@ export class PlotlyCurrentTimeMarker {
     this.#line = {color, width};
     this.#x = x;
     this.#y = y;
+    this.#name = 'Video Tracer';
   }
 
   toPlotlyFormat(): Data{
@@ -21,7 +23,9 @@ export class PlotlyCurrentTimeMarker {
       mode: this.#mode,
       x: this.#x,
       y: this.#y,
-      line: this.#line
+      line: this.#line,
+      name: this.#name,
+      showlegend: false
     };
   }
 }
