@@ -3,73 +3,85 @@ import {PlotData} from 'plotly.js';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import {VisualAttentionCategoryColors} from '@/app/ui/components/constants';
 
-function convertCountToFraction(window: VisualAttentionDataStack): void {
-  Object.entries(window.counts).forEach(([key])=>{
-    window.counts[key] /= window.totalCount;
-  });
-}
+export function transformVisualAttentionDataStreamForPlotly(categoryCounts: Generator<VisualAttentionDataStack>): Partial<PlotData>[] {
+  const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others'];
+  const result: Record<string, Partial<PlotData>> = {};
 
-function countSlidingWindowCategory(data: VisualAttentionData[], startIdx:number, windowEndValue:number, windowSize:number, out:VisualAttentionDataStack[]):VisualAttentionDataStack[]{
-  if(!data || data.length===0){
-    return [];
-  }
-
-  if(startIdx>=data.length){
-    convertCountToFraction(out[out.length-1]);
-    return out;
-  }
-
-  const current = data[startIdx];
-  const elapsedSeconds = current.time - data[0].time;
-  if(current && elapsedSeconds<=windowEndValue){
-    const windowCount = out[out.length-1];
-    if(current.category) {
-      windowCount.counts[current.category] = (windowCount.counts[current.category] || 0) + 1;
-      windowCount.totalCount++;
-    }
-  }else if(current){
-    convertCountToFraction(out[out.length-1]);
-    windowEndValue+=windowSize;
-    out.push({time: Today.parseSeconds(windowEndValue).dateTimeString, counts:current.category?{[current.category]: 1}:{}, totalCount:current.category?1:0});
-  }
-
-  return countSlidingWindowCategory(data,++startIdx,windowEndValue,windowSize,out);
-}
-
-export function processVisualAttentionData(data: VisualAttentionData[], windowSize: number): VisualAttentionDataStack[] {
-  if(!data || data.length===0){
-    return [];
-  }
-  const result: VisualAttentionDataStack[] = [{time: Today.parseSeconds(windowSize).dateTimeString, counts:{[data[0].category??'']: 0}, totalCount:0}];
-  return countSlidingWindowCategory(data,0,windowSize,windowSize,result);
-}
-
-export function transformVisualAttentionDataForPlotly(categoryCounts: VisualAttentionDataStack[]): Partial<PlotData>[] {
-  const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others']; // Desired order
-
-  const result = categoryCounts.reduce((acc, item) => {
-
-    // Initialize each category to ensure consistent order
-    visualAttentionCategoryOrder.forEach((category) => {
-      if (!acc[category]) {
-        acc[category] = {
+  for (const windowCount of categoryCounts) {
+    for (const category of visualAttentionCategoryOrder) {
+      if (!result[category]) {
+        result[category] = {
           x: [],
           y: [],
           name: category,
-          type: 'bar' as const,
-          marker: { color: VisualAttentionCategoryColors[category] || 'black' }, // Assign color to category
+          type: 'bar',
+          marker: {color: VisualAttentionCategoryColors[category] || 'black'}
         };
       }
-      // Add data for the current time window (y = 0 if category is missing)
-      acc[category].x.push(item.time);
-      acc[category].y.push(item.counts[category]);
-    });
-
-    return acc;
-  }, {} as Record<string, {x: string[]; y: number[]; name: string; type: 'bar', marker: { color: string } }>);
+      (result[category].x as string[]).push(windowCount.time);
+      (result[category].y as number[]).push(windowCount.counts[category] || 0);
+    }
+  }
 
   return Object.values(result);
 }
 
+export function* processVisualAttentionDataStream(data: VisualAttentionData[], windowSize: number): Generator<VisualAttentionDataStack> {
+  if (isDataEmpty(data)) {
+    return;
+  }
 
+  let windowEndValue = windowSize;
+  let windowCount = initializeWindowCount(windowSize, data[0]);
 
+  for (const current of data) {
+    if (isWithinWindow(current, data[0], windowEndValue)) {
+      accumulateWindowCounts(windowCount, current);
+    } else {
+      yield convertCountToFraction(windowCount); // Explicitly yield here
+      windowEndValue += windowSize;
+      windowCount = createNewWindow(windowEndValue, current);
+    }
+  }
+
+  yield convertCountToFraction(windowCount); // Yield the final window
+}
+
+function isDataEmpty(data: VisualAttentionData[]): boolean {
+  return !data || data.length === 0;
+}
+
+function initializeWindowCount(windowSize: number, firstData: VisualAttentionData): VisualAttentionDataStack {
+  return {
+    time: Today.parseSeconds(windowSize).dateTimeString,
+    counts: {[firstData.category ?? '']: 0},
+    totalCount: 0
+  };
+}
+
+function isWithinWindow(current: VisualAttentionData, firstData: VisualAttentionData, windowEndValue: number): boolean {
+  const elapsedSeconds = current.time - firstData.time;
+  return current && elapsedSeconds <= windowEndValue;
+}
+
+function accumulateWindowCounts(windowCount: VisualAttentionDataStack, current: VisualAttentionData): void {
+  if (!current.category) return;
+
+  windowCount.counts[current.category] = (windowCount.counts[current.category] || 0) + 1;
+  windowCount.totalCount++;
+}
+
+function convertCountToFraction(window: VisualAttentionDataStack): VisualAttentionDataStack {
+  Object.entries(window.counts).forEach(([key]) => {
+    window.counts[key] /= window.totalCount;
+  });
+  return window;
+}
+
+function createNewWindow(windowEndValue: number, current: VisualAttentionData): VisualAttentionDataStack {
+  return {
+    time: Today.parseSeconds(windowEndValue).dateTimeString,
+    counts: current.category ? {[current.category]: 1} : {},
+    totalCount: current.category ? 1 : 0
+  };
+}

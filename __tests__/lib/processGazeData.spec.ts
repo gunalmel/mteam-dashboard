@@ -1,5 +1,5 @@
 import { VisualAttentionData } from '@/types';
-import {processVisualAttentionData} from '@/app/lib/processVisualAttentionData';
+import {processVisualAttentionDataStream} from '@/app/lib/processVisualAttentionData';
 import {Today} from '@/app/utils/TodayDateTimeConverter';
 import {data as visualAttentionData} from '../test-visual-attention-data.json';
 import {data as expectedVisualAttentionData} from '../../build/test-data/expected-visual-attention.json';
@@ -26,9 +26,18 @@ describe('processVisualAttentionData', () => {
       { time: Today.parseSeconds(6).dateTimeString, counts: { C: 1 }, totalCount: 1 }
     ];
 
-    const result = processVisualAttentionData(data, windowSize);
+    const smallDataSet = processVisualAttentionDataStream(data, windowSize);
+    let index = 0;
+    for (const actual of smallDataSet) {
+      expect(actual).toStrictEqual(expected[index]);
+      index++;
+    }
 
-    expect(result).toEqual(expected);
-    expect(processVisualAttentionData(visualAttentionData, 10)).toStrictEqual(expectedVisualAttentionData);
+    const largeResultSet = processVisualAttentionDataStream(visualAttentionData, 10);
+    index = 0;
+    for (const actual of largeResultSet) {
+      expect(actual).toStrictEqual(expectedVisualAttentionData[index]);
+      index++;
+    }
   });
 });
