@@ -27,8 +27,8 @@ const VisualAttentionPlot = ({
 }) => {
   const {dataSources, actionsData} = useContext(PlotContext);
   const actionsLayout =  actionsData.actionsLayout;
-  const [visualAttentionData] = useVisualAttentionData(dataSources, SLIDING_WINDOW_SIZE_SECONDS, selectedDate, selectedSource as SourceName);
-  const plotData: Data[] = addTimeTracer(currentTime, visualAttentionData.plotlyData??[], {color:'#610C04'} );
+  const [plotlyVisualAttentionData] = useVisualAttentionData(dataSources, SLIDING_WINDOW_SIZE_SECONDS, selectedDate, selectedSource as SourceName);
+  const plotData: Data[] = addTimeTracer(currentTime, plotlyVisualAttentionData, {color:'#610C04'} );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const VisualAttentionPlot = ({
   }, [selectedSource, selectedDate]);
 
   useEffect(() => {
-    if (visualAttentionData && visualAttentionData.plotlyData && visualAttentionData.plotlyData[0]) {
+    if (plotlyVisualAttentionData && plotlyVisualAttentionData[0]) {
       setIsLoading(false); // Data is ready, disable loading
     }
-  }, [visualAttentionData]);
+  }, [plotlyVisualAttentionData]);
 
   // Generate vertical line shapes based on actionsLayout.shapes
   const verticalLineShapes = generateVerticalLineShapes(actionsLayout.shapes || []);

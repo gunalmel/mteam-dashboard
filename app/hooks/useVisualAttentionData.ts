@@ -6,7 +6,7 @@ type SourceNames = keyof VisualAttentionDataSource;
 type SimulationDate = keyof DataSources;
 
 export function useVisualAttentionData(dataSources: DataSources, windowSize: number, selectedDate: SimulationDate, selectedSource: SourceNames) {
-    const [plotData, setPlotData] = useState({} as ReturnType<typeof transformVisualAttentionDataForPlotly>);
+    const [plotData, setPlotData] = useState([] as ReturnType<typeof transformVisualAttentionDataForPlotly>);
 
     useEffect(() => {
         const fetchAndProcessData = async () => {

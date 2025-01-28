@@ -44,16 +44,15 @@ export function processVisualAttentionData(data: VisualAttentionData[], windowSi
   return countSlidingWindowCategory(data,0,windowSize,windowSize,result);
 }
 
-export function transformVisualAttentionDataForPlotly(categoryCounts: VisualAttentionDataStack[]): {tickVals: string[], plotlyData: Partial<PlotData>[]} {
+export function transformVisualAttentionDataForPlotly(categoryCounts: VisualAttentionDataStack[]): Partial<PlotData>[] {
   const visualAttentionCategoryOrder = ['Tablet', 'Patient', 'Team', 'Equipment', 'Monitors', 'Others']; // Desired order
 
   const result = categoryCounts.reduce((acc, item) => {
-    acc.tickVals.push(item.time); // Needed for x-axis tick values
 
     // Initialize each category to ensure consistent order
     visualAttentionCategoryOrder.forEach((category) => {
-      if (!acc.dataSeries[category]) {
-        acc.dataSeries[category] = {
+      if (!acc[category]) {
+        acc[category] = {
           x: [],
           y: [],
           name: category,
@@ -62,14 +61,14 @@ export function transformVisualAttentionDataForPlotly(categoryCounts: VisualAtte
         };
       }
       // Add data for the current time window (y = 0 if category is missing)
-      acc.dataSeries[category].x.push(item.time);
-      acc.dataSeries[category].y.push(item.counts[category]);
+      acc[category].x.push(item.time);
+      acc[category].y.push(item.counts[category]);
     });
 
     return acc;
-  }, {tickVals: [], dataSeries: {}} as {tickVals: string[], dataSeries: Record<string, {x: string[]; y: number[]; name: string; type: 'bar', marker: { color: string } }>});
+  }, {} as Record<string, {x: string[]; y: number[]; name: string; type: 'bar', marker: { color: string } }>);
 
-  return {tickVals: result.tickVals, plotlyData: Object.values(result.dataSeries)};
+  return Object.values(result);
 }
 
 
