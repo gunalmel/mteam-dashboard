@@ -22,7 +22,7 @@ export default class PlotlyScatterLayout {
     this.#annotations = annotations;
     this.#xAxisRange = xAxisRange;
     this.#images = images;
-    this.#yaxis = {visible: false, range: [-3, actionsDictionary.yMax + 2]};
+    this.#yaxis = {visible: false, range: [-5, actionsDictionary.yMax + 2]};
     this.#showLegend = false;
   }
 

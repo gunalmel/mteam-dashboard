@@ -23,7 +23,7 @@ export default function createStageErrors(stages: ActionStages, stageErrors: Rec
     { data:Partial<PlotData>, images: Image[] } {
   const errorImages: Image[] = [];
   const errorScatterData = new PlotlyScatterData([], [], [], [], [], [], { bgcolor: '#003366', font: { color: '#FFFF99' }});
-  const yCoords = [-1.5, -2.5]; // Y positions for lines
+  const yCoords = [-2.5, -3.5]; // Y positions for lines
 
   Object.entries(stageErrors).forEach(([stage, errors]) => {
     const stagePeriod = stages.get(stage);
