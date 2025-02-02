@@ -32,19 +32,17 @@ const VideoPlayer = ({
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
-      <div className="w-full max-w-sm bg-gray-800 rounded-md overflow-hidden mb-4">
+    <div className="flex flex-col items-center">
         <video id={videoElementId}
           ref={videoRef}
           src={videoUrl}
           controls
-          className="w-full"
           onTimeUpdate={handleTimeUpdate}
-        >
+          className="w-full max-w-sm rounded-md overflow-hidden"
+          width={'500px'}>
           <track kind="captions" />
         </video>
       </div>
-    </div>
   );
 };
 
