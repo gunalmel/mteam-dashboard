@@ -38,8 +38,8 @@ const VideoPlayer = ({
           src={videoUrl}
           controls
           onTimeUpdate={handleTimeUpdate}
-          className="w-full max-w-sm rounded-md overflow-hidden"
-          width={'500px'}>
+          className="w-full max-w-lg rounded-md overflow-hidden"
+          >
           <track kind="captions" />
         </video>
       </div>
