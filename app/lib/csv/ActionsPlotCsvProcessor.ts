@@ -8,6 +8,8 @@ import ActionStageError from '@/app/lib/ActionStageError';
 import createStageErrors from '@/app/lib/stageErrorPositionCalculator';
 import {Image, Layout, PlotData} from 'plotly.js';
 import PlotlyScatterLayout from '@/app/utils/plotly/PlotlyScatterLayout';
+import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStageAnnotation';
+import {Today} from '@/app/utils/TodayDateTimeConverter';
 
 export default class ActionsPlotCsvProcessor {
   readonly data = new ActionScatterPlotData();
@@ -32,6 +34,10 @@ export default class ActionsPlotCsvProcessor {
   }
 
   layout(): Partial<Layout> {
+    const missedActionsAnnotation = this.createActionPlotAreaAnnotations('Missed Actions', 0.187);
+    const performedActionsAnnotation = this.createActionPlotAreaAnnotations('Performed Actions', 0.965);
+    this.stages.plotlyStageAnnotations.push(performedActionsAnnotation);
+    this.stages.plotlyStageAnnotations.push(missedActionsAnnotation);
     return new PlotlyScatterLayout(
       'Clinical Review Timeline',
       this.stages.plotlyShapes,
@@ -39,6 +45,17 @@ export default class ActionsPlotCsvProcessor {
       this.data.xAxisRange(),
       this.data.plotlyImages,
     ).toPlotlyFormat();
+  }
+
+  createActionPlotAreaAnnotations(text:string, y: number) {
+    const x = Today.parseSeconds(0);
+    const annotation = new PlotlyScatterStageAnnotation(text, x.dateTimeString, 'black').toPlotlyFormat();
+    annotation.y=y;
+    annotation.font= {size:14.5, weight: 550};
+    delete annotation.bordercolor;
+    delete annotation.borderwidth;
+    delete annotation.borderpad;
+    return annotation;
   }
 
   createScatterPlotData() {

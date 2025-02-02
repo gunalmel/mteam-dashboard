@@ -13,7 +13,7 @@ import {PlotlyScatterStageAnnotation} from '@/app/utils/plotly/PlotlyScatterStag
  */
 export default class ActionStages {
   static readonly #Y_VALS: {error:[number, number], stage:[number, number]} = {
-    error: [-1.5, -5.5],
+    error: [-1.25, -4.25],
     stage: [0, actionsDictionary.yMax+1]
   };
   readonly #defaultTimeStamp: CsvDateTimeStamp = new CsvDateTimeStamp();
