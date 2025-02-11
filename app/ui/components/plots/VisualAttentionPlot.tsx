@@ -64,7 +64,7 @@ const VisualAttentionPlot = ({
           ...layoutConfig.toPlotlyFormat(),
           ...({
             margin: {
-              t: 50,
+              t: 60,
               l: 50,
               r: 50,
               b: 50
